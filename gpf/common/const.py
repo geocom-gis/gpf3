@@ -14,11 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gpf.tools.lookup import coord_key
+"""
+Module with global constants that are used throughout the :py:mod:`gpf` package.
+"""
 
+import locale as _locale
+import sys as _sys
 
-def test_coord_key():
-    coord = (4.2452, 23.24541)
-    assert coord_key(*coord) == (42451, 232454)
-    assert coord_key(53546343.334242254, 23542233.354352246) == (535463433342, 235422333543)
-    assert coord_key(1, 2, 3) == (10000, 20000, 30000)
+POSIX = 'win' not in _sys.platform
+DEFAULT_ENCODING = _locale.getpreferredencoding()
+UTF8_ENCODING = 'UTF-8'
+
+EMPTY_STR = ''
+EMPTY_OBJ = object()
+
+ARCPY = 'arcpy'

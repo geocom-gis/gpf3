@@ -14,11 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gpf.tools.lookup import coord_key
+"""
+The *common* subpackage contains several helpful multi-purpose modules, classes and functions,
+that are not necessarily GIS-related (for GIS tools, see the :py:mod:`gpf.tools` subpackage).
+Think evaluation, text formatting, file path handling and so on.
 
-
-def test_coord_key():
-    coord = (4.2452, 23.24541)
-    assert coord_key(*coord) == (42451, 232454)
-    assert coord_key(53546343.334242254, 23542233.354352246) == (535463433342, 235422333543)
-    assert coord_key(1, 2, 3) == (10000, 20000, 30000)
+The functions in this subpackage are used by other :py:mod:`gpf` subpackages, but can also be called in user scripts.
+"""
