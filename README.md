@@ -4,9 +4,7 @@ The *Geocom Python Framework* or `gpf` provides a set of Python modules that con
 GIS users who need to write geoprocessing scripts with `arcpy` might benefit from importing the `gpf` module into their script as well.
 
 The `gpf` module in this repository has been developed for **Python 3.6+ (ArcGIS Pro, Server)**.
-However, it is [also available for 2.7.14+](../../../gpf) (ArcGIS Desktop/Server).  
-
-GIS users who need to write GEONIS menu or form scripts should also check out the [`gntools`](../../../gntools) module.
+However, it is [also available for 2.7.14+](../../../gpf) (ArcGIS Desktop/Server). Note that GIS users who need to write GEONIS menu or form scripts and want to use the [`gntools`](../../../gntools) module, should use the latter version.
 
 ## Requirements
 
