@@ -14,25 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
         name='gpf3',
-        packages=['gpf'],
+        packages=find_packages(exclude=('tests',)),
         version='0.1',
         license='Apache License 2.0',
         description='Scripting framework for ArcPy (ArcGIS Pro 2.2+).',
         author='Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland',
         author_email='github@geocom.ch',
         url='https://github.com/geocom-gis/gpf3',
-        download_url='https://github.com/geocom-gis/gpf3/archive/gpf3_v010.tar.gz',
-        requires=['pytest'],
+        # download_url='https://github.com/geocom-gis/gpf3/archive/gpf3_v010.tar.gz',
         keywords=[
             'Geocom', 'GIS', 'GEONIS', 'tools', 'scripting', 'framework', 'spatial',
             'geospatial', 'geoprocessing', 'Esri', 'ArcGIS', 'ArcPy', 'VertiGIS'
         ],
         classifiers=[
-            'Development Status :: 4 - Beta',  # "3 - Alpha", "4 - Beta" or "5 - Production/Stable"
+            'Development Status :: 3 - Alpha',  # "3 - Alpha", "4 - Beta" or "5 - Production/Stable"
             'Intended Audience :: Developers',
             'Environment :: Other Environment',
             'Operating System :: Microsoft :: Windows',
