@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file does only contain a selection of the most common options. For a
@@ -29,20 +29,21 @@
 #
 import os
 import sys
+from pkg_resources import get_distribution
 sys.path.insert(0, os.path.abspath('..\\..'))
-
 
 # -- Project information -----------------------------------------------------
 
-project = u'gpf'
-copyright = u'2019, Geocom Informatik AG, Burgdorf, Switzerland'
-author = u'Geocom Informatik AG (SCSA)'
+project = 'gpf3'
+title = 'Geocom Python Framework (Python 3)'
+description = 'Scripting framework for ArcPy'
+author = 'Geocom Informatik AG / VertiGIS'
+copyright = f'2019, {author}, Burgdorf, Switzerland'
 
-# The short X.Y version
-version = u'0.1'
 # The full version, including alpha/beta/rc tags
-release = u'0.1 Beta'
-
+release = get_distribution(project).version
+# The short X.Y version
+version = '.'.join(release.split('.')[:2])
 
 # -- General configuration ---------------------------------------------------
 
@@ -108,7 +109,7 @@ html_theme = 'sphinx_rtd_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# html_static_path = ['_static']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -124,7 +125,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'gpfdoc'
+htmlhelp_basename = '{}doc'.format(project)
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -151,8 +152,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'gpf.tex', u'Geocom Python Framework Documentation',
-     u'Author', 'manual'),
+    (master_doc, f'{project}.tex', f'{title} Documentation',
+     author, 'manual'),
 ]
 
 
@@ -161,7 +162,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'gpf', u'Geocom Python Framework Documentation',
+    (master_doc, project, f'{title} Documentation',
      [author], 1)
 ]
 
@@ -172,9 +173,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'gpf', u'Geocom Python Framework Documentation',
-     author, 'gpf', 'One line description of project.',
-     'Miscellaneous'),
+    (master_doc, project, f'{title} Documentation',
+     author, project, description, 'Miscellaneous'),
 ]
 
 
@@ -201,4 +201,4 @@ epub_exclude_files = ['search.html']
 # -- Options for todo extension ----------------------------------------------
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = True
+todo_include_todos = False
