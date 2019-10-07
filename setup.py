@@ -20,7 +20,7 @@ from setuptools import setup, find_packages
 
 
 def read(fname):
-    return io.open(os.path.join(os.path.dirname(__file__), fname), encoding="utf-8").read()
+    return io.open(os.path.join(os.path.dirname(__file__), fname), encoding="utf-8-sig").read()
 
 
 tests_require = ['pytest', 'pytest-cov', 'mock', 'pytest-mock']
