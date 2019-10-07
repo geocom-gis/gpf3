@@ -1,17 +1,7 @@
 Welcome to the Geocom Python Framework (GPF)
 ============================================
 
-|python| |status| |pypi| |build| |issues| |docs|
-
-.. |python| image:: https://img.shields.io/pypi/pyversions/gpf3?logo=python
-    :alt: Python version(s)
-
-.. |status| image:: https://img.shields.io/pypi/status/gpf3
-    :alt: PyPI status
-
-.. |pypi| image:: https://img.shields.io/pypi/v/gpf3?logo=pypi
-    :alt: PyPI homepage
-    :target: https://pypi.org/project/gpf3
+|build| |issues| |docs|
 
 .. |build| image:: https://img.shields.io/appveyor/ci/geocom/gpf3?logo=appveyor
     :alt: AppVeyor
@@ -73,6 +63,6 @@ The complete ``gpf`` documentation can be found at `Read the Docs`_.
 License
 -------
 
-`Apache License 2.0`_ © 2019 Geocom Informatik AG / VertiGIS & contributors
+`Apache License 2.0`_ Â© 2019 Geocom Informatik AG / VertiGIS & contributors
 
 .. _Apache License 2.0: https://github.com/geocom-gis/gpf3/blob/master/LICENSE
