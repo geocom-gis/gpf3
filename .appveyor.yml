@@ -1,0 +1,105 @@
+# Starting from "Visual Studio 2015" VM, AppVeyor supports Python 3.6.8
+image: Visual Studio 2019
+
+# Maximum number of concurrent jobs for the project (play nice)
+max_jobs: 1
+
+# Environment settings
+environment:
+
+  global:
+    PUBLISH: false
+    BUILD_OK: false
+    TWINE_USERNAME: geocom
+    # TWINE_PASSWORD is stored on AppVeyor
+
+  matrix:
+
+    # Test with 64-bit interpreter first
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "3.6.8"
+      PYTHON_ARCH: "64"
+
+    # Finally, test with 32-bit interpreter and publish build (when required/successful)
+    - PYTHON: "C:\\Python36"
+      PYTHON_VERSION: "3.6.8"
+      PYTHON_ARCH: "32"
+
+matrix:
+  # Cancel other jobs for the same build if this one fails
+  fast_finish: true
+
+# The build setting is for .NET only: Python does not compile anything
+build: false
+
+init:
+  # Determine if a distribution should be built and published (override PUBLISH variable).
+  # Publish when a repo tag has been pushed on the master branch and ONLY when the Python architecture is 32-BITS.
+  - IF "%APPVEYOR_REPO_TAG%" == "true" IF "%APPVEYOR_REPO_BRANCH%" == "master" IF "%PYTHON_ARCH%" == "32" SET PUBLISH=true
+
+  # Echo variables for verification purposes
+  - ECHO python_path=%PYTHON%, version=%PYTHON_VERSION%, architecture=%PYTHON_ARCH%-bit
+  - ECHO publish=%PUBLISH%, tagged=%APPVEYOR_REPO_TAG%, tag=%APPVEYOR_REPO_TAG_NAME%, branch=%APPVEYOR_REPO_BRANCH%
+
+install:
+  # Prepend newly installed Python to the PATH of this build
+  - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+
+  # Check that Python can be found and that we really have the expected version and architecture
+  - python -c "import sys;print(sys.version)"
+
+  # Make sure that wheel and twine are installed so we can build wheels and publish to PyPI
+  # Upgrading pip itself might (sometimes?) fail due to permissions
+  - pip install --upgrade --disable-pip-version-check setuptools wheel twine
+
+  # Install the project and its dependencies
+  - pip install --disable-pip-version-check -e .[test]
+
+cache:
+  - '%LOCALAPPDATA%\pip\Cache'
+
+test_script:
+  # Run pytest with coverage and mock arcpy module.
+  # Note that the import package name 'gpf' differs from the PyPI package name and is hard-coded here!
+  # This is ugly, but there is no easy way to extract this info with a single command (e.g. using setup.py).
+  # There might be a way to define this in setup.cfg or .coveragerc but haven't figured it out yet.
+  - py.test tests --cov=gpf --mock_arcpy
+
+after_test:
+  # Build standard distribution and wheel
+  - python setup.py sdist bdist_wheel
+
+  # Check distribution for PyPI using Twine and output message(s)
+  - cmd: FOR /F "tokens=1 delims=" %%a in ('twine check dist\*') do SET CHECKRESULT=%%a
+  - ECHO %CHECKRESULT%
+
+  # Twine exits with code 0 if the dist is okay. However, there might be warnings that can cause an upload to fail.
+  # If the CHECKRESULT output from Twine does not contain the word PASSED, it means that there a warnings.
+  # Only if there are NO warnings, we will set BUILD_OK to true and deploy and publish a release.
+  - IF NOT "x%CHECKRESULT:passed=%"=="x%CHECKRESULT%" SET BUILD_OK=true
+
+artifacts:
+  # Python distributions can be found in the dist directory
+  - path: 'dist\*'
+    name: pypi_releases
+
+before_deploy:
+  # If BUILD_OK is false, exit with code 1 (force AppVeyor to fail the build)
+  - IF "%BUILD_OK%" == "false" exit 1
+
+deploy:
+  # Add release draft to GitHub only when PUBLISH is true
+  - provider: GitHub
+    auth_token:
+      secure: lXMk68xShK4caI5U+BjFHnFXSgcXIubv3WlyzbQ50YbyKzcqnhgyFj4FN723j4sK
+    artifact: pypi_releases
+    draft: true
+    prerelease: false
+    force_update: true
+    on:
+      PUBLISH: true
+      BUILD_OK: true
+
+on_success:
+  # Publish to PyPI using Twine if PUBLISH is true
+  - IF "%PUBLISH%" == "true" IF "%BUILD_OK%" == "true" twine upload dist\\*
