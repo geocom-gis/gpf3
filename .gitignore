@@ -1,0 +1,14 @@
+# Ignored file extensions
+*.py[cod]
+*.log
+.coverage
+
+# IDE and test cache folders
+.idea/
+.pytest_cache/
+
+# Setuptools/metadata/Sphinx folders
+/dist/
+/build/
+/*.egg-info
+/.eggs/
