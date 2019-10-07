@@ -30,11 +30,10 @@ def test_hasvalue():
     assert validate.has_value(0) is True
     assert validate.has_value(1) is True
     assert validate.has_value(3.14) is True
-    assert validate.has_value(u'Test') is True
     assert validate.has_value('  ', True) is False
     assert validate.has_value(0, True) is True
     assert validate.has_value(None, True) is False
-    assert validate.has_value(u'Panaché') is True
+    assert validate.has_value('Panaché') is True
 
 
 def test_isnumber():
