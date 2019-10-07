@@ -15,12 +15,11 @@
 # limitations under the License.
 
 import os
-import io
 from setuptools import setup, find_packages
 
 
 def read(fname):
-    return io.open(os.path.join(os.path.dirname(__file__), fname)).read()
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
 tests_require = ['pytest', 'pytest-cov', 'mock', 'pytest-mock']
