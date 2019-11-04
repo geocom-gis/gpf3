@@ -15,13 +15,16 @@
 # limitations under the License.
 
 """
-The *geometry* module contains functions that help construct Esri geometries.
+The *geometry* module contains functions that help working with Esri geometries.
 """
+
+import typing as _tp
+
 import more_itertools as _iter
 
 import gpf.common.textutils as _tu
 import gpf.common.validate as _vld
-from gpf.tools import arcpy as _arcpy
+from gpf import arcpy as _arcpy
 
 
 class GeometryError(ValueError):
@@ -29,39 +32,39 @@ class GeometryError(ValueError):
     pass
 
 
-class ShapeBuilder(object):
+class ShapeBuilder:
     """
-    Helper class to construct Esri geometry objects from arcpy ``Point`` or ``Array`` objects or coordinate values.
+    Helper class to create Esri geometry objects from arcpy ``Point`` or ``Array`` objects or coordinate values.
 
-        Examples:
+    Examples:
 
-            >>> # instantiate a 2D PointGeometry
-            >>> ShapeBuilder(6.5, 2.8).as_point()
-            <PointGeometry object at 0x19fcbdf0[0x19fcbd80]>
+        >>> # instantiate a 2D PointGeometry
+        >>> ShapeBuilder(6.5, 2.8).as_point()
+        <PointGeometry object at 0x19fcbdf0[0x19fcbd80]>
 
-            >>> # instantiate a 3D PointGeometry
-            >>> ShapeBuilder(6.5, 2.8, 5.3).as_point(has_z=True)
-            <PointGeometry object at 0x6b96210[0x19fcbbe0]>
+        >>> # instantiate a 3D PointGeometry
+        >>> ShapeBuilder(6.5, 2.8, 5.3).as_point(has_z=True)
+        <PointGeometry object at 0x6b96210[0x19fcbbe0]>
 
-            >>> # construct a 2D line (append technique)
-            >>> shp = ShapeBuilder()
-            >>> shp.append(1.0, 2.0)
-            >>> shp.append(1.5, 3.0)
-            >>> shp.as_polyline()
-            <Polyline object at 0x6a9bb70[0x6fe2540]>
+        >>> # make_path a 2D line (append technique)
+        >>> shp = ShapeBuilder()
+        >>> shp.append(1.0, 2.0)
+        >>> shp.append(1.5, 3.0)
+        >>> shp.as_polyline()
+        <Polyline object at 0x6a9bb70[0x6fe2540]>
 
-            >>> # construct a 3D polygon from 2D coordinates
-            >>> shp = ShapeBuilder([(1.0, 2.0), (1.5, 3.0), (2.0, 2.0)])
-            >>> polygon = shp.as_polygon(has_z=True)
-            >>> # Z values are added and set to 0
-            >>> polygon.firstPoint
-            <Point (1.00012207031, 2.00012207031, 0.0, #)>
-            >>> # note that the "open" polygons will be closed automatically
-            >>> polygon.firstPoint == polygon.lastPoint
-            True
-            >>> # calling as_point() on a ShapeBuilder with multiple coordinates will return a centroid
-            >>> shp.as_point()
-            <Point (1.50012207031, 2.33345540365, #, #)>
+        >>> # make_path a 3D polygon from 2D coordinates
+        >>> shp = ShapeBuilder([(1.0, 2.0), (1.5, 3.0), (2.0, 2.0)])
+        >>> polygon = shp.as_polygon(has_z=True)
+        >>> # Z values are added and set to 0
+        >>> polygon.firstPoint
+        <Point (1.00012207031, 2.00012207031, 0.0, #)>
+        >>> # note that the "open" polygons will be closed automatically
+        >>> polygon.firstPoint == polygon.lastPoint
+        True
+        >>> # calling as_point() on a ShapeBuilder with multiple coordinates will return a centroid
+        >>> shp.as_point()
+        <Point (1.50012207031, 2.33345540365, #, #)>
     """
 
     __slots__ = '_arr', '_num_coords'
@@ -115,7 +118,7 @@ class ShapeBuilder(object):
             # User tried to add something invalid
             raise ValueError(e)
 
-    def extend(self, values):
+    def extend(self, values: _tp.Iterable):
         """
         Adds multiple coordinates to the geometry.
 
@@ -128,7 +131,7 @@ class ShapeBuilder(object):
             self.append(v)
 
     @staticmethod
-    def _output(shape_type, coords, spatial_reference, has_z, has_m):
+    def _output(shape_type, coords, spatial_reference, has_z: bool, has_m: bool):
         """ Outputs the stored geometry array as the specified type. """
         try:
             return shape_type(coords, spatial_reference, has_z, has_m)
@@ -144,7 +147,8 @@ class ShapeBuilder(object):
         """
         return self._num_coords
 
-    def as_point(self, spatial_reference=None, has_z: bool = False, has_m: bool = False) -> _arcpy.PointGeometry:
+    def as_point(self, spatial_reference: _tp.Union[str, int, _arcpy.SpatialReference, None] = None,
+                 has_z: bool = False, has_m: bool = False) -> _arcpy.PointGeometry:
         """
         Returns the constructed geometry as an Esri ``PointGeometry``.
         Note that if the ShapeBuilder holds more than 1 coordinate, a centroid point is returned.
@@ -161,7 +165,8 @@ class ShapeBuilder(object):
         else:
             return self._output(_arcpy.Multipoint, self._arr, spatial_reference, has_z, has_m).centroid
 
-    def as_multipoint(self, spatial_reference=None, has_z: bool = False, has_m: bool = False) -> _arcpy.Multipoint:
+    def as_multipoint(self, spatial_reference: _tp.Union[str, int, _arcpy.SpatialReference, None] = None,
+                      has_z: bool = False, has_m: bool = False) -> _arcpy.Multipoint:
         """
         Returns the constructed geometry as an Esri ``Multipoint``.
 
@@ -174,7 +179,8 @@ class ShapeBuilder(object):
         _vld.pass_if(self.num_coords >= 2, GeometryError, 'Multipoint must have at least 2 coordinates')
         return self._output(_arcpy.Multipoint, self._arr, spatial_reference, has_z, has_m)
 
-    def as_polyline(self, spatial_reference=None, has_z: bool = False, has_m: bool = False) -> _arcpy.Polyline:
+    def as_polyline(self, spatial_reference: _tp.Union[str, int, _arcpy.SpatialReference, None] = None,
+                    has_z: bool = False, has_m: bool = False) -> _arcpy.Polyline:
         """
         Returns the constructed geometry as an Esri ``Polyline``.
 
@@ -187,7 +193,8 @@ class ShapeBuilder(object):
         _vld.pass_if(self.num_coords >= 2, GeometryError, 'Polyline must have at least 2 coordinates')
         return self._output(_arcpy.Polyline, self._arr, spatial_reference, has_z, has_m)
 
-    def as_polygon(self, spatial_reference=None, has_z: bool = False, has_m: bool = False) -> _arcpy.Polygon:
+    def as_polygon(self, spatial_reference: _tp.Union[str, int, _arcpy.SpatialReference, None] = None,
+                   has_z: bool = False, has_m: bool = False) -> _arcpy.Polygon:
         """
         Returns the constructed geometry as an Esri ``Polygon``.
         If the polygon is not closed, the first coordinate will be added as the last coordinate automatically
@@ -196,7 +203,6 @@ class ShapeBuilder(object):
         :param spatial_reference:   An optional spatial reference. Defaults to 'Unknown'.
         :param has_z:               If ``True``, the geometry is Z aware. Defaults to ``False``.
         :param has_m:               If ``True``, the geometry is M aware. Defaults to ``False``.
-        :type spatial_reference:    str, int, arcpy.SpatialReference
         :raises ValueError:         If there are less than 3 coordinates.
         """
         _vld.pass_if(self.num_coords >= 3, GeometryError, 'Polygon must have at least 3 coordinates')
@@ -206,3 +212,73 @@ class ShapeBuilder(object):
             coords = _arcpy.Array(c for c in self._arr)
             coords.append(self._arr[0])
         return self._output(_arcpy.Polygon, coords, spatial_reference, has_z, has_m)
+
+
+def _fix_coord(*args, **kwargs) -> _tp.Generator:
+    """
+    Returns a generator of *dim* numbers (default = 2), where *dim* is the number of dimensions.
+    For every value in *args* that is missing, a value of ``None`` will be yielded.
+
+    For example, if a coordinate tuple with 2 arguments was passed in, but the expected number of dimensions is 3,
+    the generator will return 3 values, of which the last one is ``None``.
+    """
+    dim = kwargs.get('dim', 2)
+    for i in range(dim):
+        try:
+            yield args[i]
+        except IndexError:
+            yield None
+
+
+def get_xyz(*args) -> _tp.Tuple[float]:
+    """
+    Returns a floating point coordinate XYZ tuple for a given coordinate.
+    Valid input includes EsriJSON, ArcPy Point or PointGeometry instances or a minimum of 2 floating point values.
+    If the geometry is not Z aware, the Z value in the output tuple will be set to ``None``.
+
+    :param args:    A tuple of floating point values, an EsriJSON dictionary, an ArcPy Point or PointGeometry instance.
+
+    .. note::       For Point geometries, M and ID values are ignored.
+    """
+    p_args = args
+
+    if len(args) == 1:
+        a = _iter.first(args)
+
+        # Unfortunately, we can't really rely on isinstance() to check if it's a PointGeometry or Point.
+        # However, if it's a PointGeometry, it must have a pointCount attribute with a value of 1.
+        if getattr(a, 'pointCount', 0) == 1:
+            # Get first Point from PointGeometry...
+            a = a.firstPoint
+
+        if hasattr(a, 'X') and hasattr(a, 'Y'):
+            # Get X, Y and Z properties from Point
+            p_args = a.X, a.Y, a.Z
+        elif isinstance(a, dict):
+            # Assume argument is JSON(-like) input: read x, y and z keys
+            p_args = tuple(v for k, v in sorted(a.items()) if k.lower() in ('x', 'y', 'z'))
+            # Validate values
+            for a in p_args:
+                _vld.pass_if(_vld.is_number(a), ValueError, 'Failed to parse coordinate from JSON'.format(args))
+        else:
+            raise ValueError('Input is not a Point, PointGeometry, JSON dictionary or iterable of float')
+
+    return tuple(_fix_coord(*p_args, dim=3))
+
+
+def get_vertices(geometry) -> _tp.Generator:
+    """
+    Returns a generator of coordinate tuples (x, y[, z] floats) for all vertices in an Esri Geometry.
+    If the geometry is not Z aware, the coordinate tuples will only hold 2 values (X and Y).
+
+    :param geometry:    The Esri Geometry (e.g. Polygon, Polyline etc.) for which to extract all vertices.
+    """
+
+    if _vld.is_iterable(geometry):
+        _vld.pass_if(isinstance(geometry, (_arcpy.Geometry, _arcpy.Array)),
+                     ValueError, 'get_vertices() requires an Esri Geometry or Array')
+        for g in geometry:
+            for v in get_vertices(g):
+                yield v
+    else:
+        yield tuple(v for v in get_xyz(geometry) if v)

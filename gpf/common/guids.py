@@ -28,10 +28,17 @@ class Guid(_uuid.UUID):
     Takes a UUID-like string or object as input and validates it. Can also be used to generate a new GUID.
     The `Guid` class inherits from the Python built-in UUID.
 
-    :param value:               The value to parse as a GUID. Must be set if *allow_new* is ``True``.
-    :param allow_new:           If set to ``True`` and *value* is ``None``, a new GUID will be generated.
-                                The default is ``False``, which means that an exception will be raised if
-                                *value* is not set.
+    **Params:**
+
+    -   **value** (object):
+
+        The value to parse as a GUID. Must be set if *allow_new* is ``True``.
+
+    -   **allow_new** (bool):
+
+        If set to ``True`` and *value* is ``None``, a new GUID will be generated.
+        The default is ``False``, which means that an exception will be raised if *value* is not set.
+
     :raise gpf.tools.Guid.MissingGuidError:
                                 This exception is raised when *allow_new* is ``False`` and *value* is ``None``.
     :raise gpf.tools.Guid.BadGuidError:

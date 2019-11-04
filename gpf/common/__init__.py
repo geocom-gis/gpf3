@@ -19,5 +19,5 @@ The *common* subpackage contains several helpful multi-purpose modules, classes 
 that are not necessarily GIS-related (for GIS tools, see the :py:mod:`gpf.tools` subpackage).
 Think evaluation, text formatting, file path handling and so on.
 
-The functions in this subpackage are used by other :py:mod:`gpf` subpackages, but can also be called in user scripts.
+The functions in this subpackage are used by other *gpf* subpackages, but can also be called in user scripts.
 """

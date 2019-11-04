@@ -17,14 +17,16 @@
 """
 Module that facilitates working with basic SQL expressions and where clauses in ArcGIS.
 """
+
 import typing as _tp
 
 import more_itertools as _iter
 
+import gpf.common.const as _const
 import gpf.common.guids as _guids
 import gpf.common.textutils as _tu
 import gpf.common.validate as _vld
-from gpf.tools import arcpy as _arcpy
+from gpf import arcpy as _arcpy
 
 WHERE_KWARG = 'where_clause'
 _CHECK_ARG = 'check_only'
@@ -47,7 +49,7 @@ class Where(object):
 
     Basic query helper class to build basic SQL expressions for ArcPy tools where clauses.
     Using the ``&`` and ``|`` bitwise operators, a user can "daisy chain" multiple statements.
-    When used in combination with the :py:mod:`gpf.tools.cursors` module, the Where clause can be passed-in directly.
+    When used in combination with the :py:mod:`gpf.cursors` module, the Where clause can be passed-in directly.
     In other cases (e.g. *arcpy* tools), the resulting SQL expression is obtained using ``str()`` or ``repr()``.
 
     Example of a simple query:
@@ -73,19 +75,27 @@ class Where(object):
         >>> Where(Where('A', '=', 1) & Where('B', '=', 0)) | Where('C', 'is null')
         (A = 1 AND B = 0) OR C IS NULL
 
-    :param where_field: The initial field to start the where clause, or another `Where` instance.
-    :param operator:    Operator string (e.g. *between*, *in*, *<*, *=*, *is null*, etc.).
-    :arg values:        The conditional values that must be met for the specified field and operator.
-                        Multiple values and iterables will all be flattened (one level), sorted and de-duped.
-                        For the *is null* and *is not null* operators, values will be ignored.
-                        For all operators except *(not) between* and *(not) in*, only the first value will be used.
-    :type where_field:  str, gpf.tools.queries.Where
-    :type operator:     str
+    **Params:**
+
+    -   **where_field** (str, unicode, gpf.tools.queries.Where):
+
+        The initial field to start the where clause, or another `Where` instance.
+
+    -   **operator** (str, unicode):
+
+        Operator string (e.g. *between*, *in*, *<*, *=*, *is null*, etc.).
+
+    -   **values**:
+
+        The conditional values that must be met for the specified field and operator.
+        Multiple values and iterables will all be flattened (one level), sorted and de-duped.
+        For the *is null* and *is not null* operators, values will be ignored.
+        For all operators except *(not) between* and *(not) in*, only the first value will be used.
     """
 
     # Private class constants
-    __SQL_OR = 'or'
-    __SQL_AND = 'and'
+    __SQL_OR = _const.TEXT_OR
+    __SQL_AND = _const.TEXT_AND
     __SQL_IN = 'in'
     __SQL_NOT_IN = 'not in'
     __SQL_NULL = 'is null'
@@ -201,7 +211,7 @@ class Where(object):
 
         :return:    An SQL expression string for ArcGIS tools.
         """
-        return """{}""".format(_tu.SPACE.join(self._parts))
+        return """{}""".format(_const.CHAR_SPACE.join(self._parts))
 
     def _add_expression(self, operator: str, *values: _tp.Any):
         """
@@ -221,7 +231,7 @@ class Where(object):
         if operator not in (self.__SQL_NULL, self.__SQL_NOT_NULL):
             values = self._fix_values(*values, check_only=is_between)
             if operator.endswith(self.__SQL_IN):
-                self._parts.append('({})'.format(', '.join(values)))
+                self._parts.append('({})'.format(_const.TEXT_COMMASPACE.join(values)))
             elif is_between:
                 self._between(operator, *values)
             else:
@@ -260,7 +270,7 @@ class Where(object):
         """ Makes *operator* lowercase and checks if it's a valid operator. """
         operator = operator.strip().lower()
         _vld.pass_if(operator in allowed_operators, OperatorError,
-                     'The {!r} operator is not allowed or supported'.format(operator))
+                     f'The {operator!r} operator is not allowed or supported')
         return operator
 
     def _fix_values(self, *values, **kwargs) -> _tp.Generator:
@@ -275,7 +285,7 @@ class Where(object):
                                 When True, the values will only be flattened and checked for comparable types.
         :return:                A generator of checked (and formatted) values.
         """
-        _vld.pass_if(values, OperatorError, 'Specified {} operator requires at least one value'.format(Where.__name__))
+        _vld.pass_if(values, OperatorError, f'Specified {Where.__name__} operator requires at least one value')
 
         values = [v for v in _iter.collapse(values, levels=1)]
         unique_values = frozenset(values)
@@ -300,7 +310,7 @@ class Where(object):
         """ Adds a BETWEEN .. AND .. expression to the SQL query. """
         num_values = len(values)
         _vld.raise_if(num_values < 2, OperatorError,
-                      '{} requires at least 2 values (got {})'.format(operator.upper(), num_values))
+                      f'{operator.upper()} requires at least 2 values (got {num_values})')
         lower, upper = (self._format_value(v) for v in (min(values), max(values)))
         self._parts.extend([lower, self.__SQL_AND.upper(), upper])
 

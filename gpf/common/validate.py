@@ -36,7 +36,7 @@ and therefore serve as an alternative to the ``assert`` statement (which should 
 """
 
 import typing as _tp
-from numbers import Number as NumberType
+from numbers import Number as _Number
 
 import gpf.common.const as _const
 import gpf.common.guids as _guids
@@ -51,7 +51,7 @@ def is_text(value: _tp.Any, allow_empty: bool = True) -> bool:
                         If ``False``, empty strings will evaluate as "falsy".
     """
     if isinstance(value, str):
-        return allow_empty or value != _const.EMPTY_STR
+        return allow_empty or value != _const.CHAR_EMPTY
     return False
 
 
@@ -72,7 +72,7 @@ def is_number(value: _tp.Any, allow_bool: bool = False) -> bool:
     """
     if isinstance(value, bool):
         return allow_bool
-    return isinstance(value, NumberType)
+    return isinstance(value, _Number)
 
 
 def is_iterable(value: _tp.Any) -> bool:
@@ -147,11 +147,43 @@ def has_value(obj: _tp.Any, strip: bool = False) -> bool:
     if not obj:
         return obj == 0
     if is_text(obj):
-        return (obj.strip() if strip else obj) != _const.EMPTY_STR
+        return (obj.strip() if strip else obj) != _const.CHAR_EMPTY
     return True
 
 
-def pass_if(expression: _tp.Any, exc_type: type(Exception), exc_val: _tp.Any = '') -> None:
+def signature_matches(func, template_func):
+    """
+    Checks if the given *func* is of type `function` or `instancemethod`.
+    If it is, it also verifies if the argument count matches the one from the given *template_func*.
+    When the function is not callable or the signature does not match, ``False`` is returned.
+
+    :param func:            A callable function or instance method.
+    :param template_func:   A template function to which the callable function argument count should be compared.
+    :rtype:                 bool
+    """
+
+    def _get_argcount(f):
+        """ Returns the argument count for a function (offset by 1 if the function is an instance method). """
+        offset = 0
+        if hasattr(f, 'im_func'):
+            # Function is an instance method (with a 'self' argument): offset argument count by 1
+            f = f.im_func
+            offset = 1
+        if not hasattr(f, 'func_code'):
+            return None
+        return f.func_code.co_argcount - offset
+
+    f_args = _get_argcount(func)
+    t_args = _get_argcount(template_func)
+
+    if f_args is None or t_args is None:
+        # One or both functions are not of type `function` or `instancemethod`
+        return False
+
+    return f_args == t_args
+
+
+def pass_if(expression: _tp.Any, exc_type: type(Exception), exc_val: _tp.Any = _const.CHAR_EMPTY) -> bool:
     """
     Raises an error of type *err_type* when *expression* is **falsy** and silently passes otherwise.
     Opposite of :func:`raise_if`.
@@ -175,9 +207,10 @@ def pass_if(expression: _tp.Any, exc_type: type(Exception), exc_val: _tp.Any = '
     """
     if not expression:
         raise exc_type(exc_val)
+    return True
 
 
-def raise_if(expression: _tp.Any, exc_type: type(Exception), exc_val: _tp.Any = '') -> None:
+def raise_if(expression: _tp.Any, exc_type: type(Exception), exc_val: _tp.Any = _const.CHAR_EMPTY) -> bool:
     """
     Raises an error of type *err_type* when *expression* is **truthy** and silently passes otherwise.
     Opposite of :func:`pass_if`.
@@ -198,3 +231,4 @@ def raise_if(expression: _tp.Any, exc_type: type(Exception), exc_val: _tp.Any = 
     """
     if expression:
         raise exc_type(exc_val)
+    return True

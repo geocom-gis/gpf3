@@ -19,30 +19,12 @@ Module that contains helper functions to improve text handling and formatting.
 """
 
 import typing as _tp
+from numbers import Number as _Number
+
 from datetime import datetime as _dt
 
 import gpf.common.const as _const
 import gpf.common.validate as _vld
-
-# Characters
-DOT = '.'
-SPACE = ' '
-UNDERSCORE = '_'
-DUNDER = '__'
-TAB = '\t'
-LF = '\n'
-CR = '\r'
-CRLF = CR + LF
-ASTERISK = '*'
-HASH = '#'
-DASH = '-'
-AND = 'and'
-OR = 'or'
-EMPTY_STR = _const.EMPTY_STR
-
-# Encodings
-DEFAULT_ENCODING = _const.DEFAULT_ENCODING
-UTF8_ENCODING = _const.UTF8_ENCODING
 
 
 def get_alphachars(text: str) -> str:
@@ -57,7 +39,7 @@ def get_alphachars(text: str) -> str:
     :param text:    The string to search.
     """
     _vld.pass_if(_vld.is_text(text), TypeError, "'text' attribute must be a string (got {!r})".format(text))
-    return EMPTY_STR.join(s for s in text if s.isalpha())
+    return _const.CHAR_EMPTY.join(s for s in text if s.isalpha())
 
 
 def get_digits(text: str) -> str:
@@ -74,10 +56,10 @@ def get_digits(text: str) -> str:
     :param text:    The string to search.
     """
     _vld.pass_if(_vld.is_text(text), TypeError, "'text' attribute must be a string (got {!r})".format(text))
-    return EMPTY_STR.join(s for s in text if s.isdigit())
+    return _const.CHAR_EMPTY.join(s for s in text if s.isdigit())
 
 
-def to_str(value: _tp.Any, encoding: str = UTF8_ENCODING) -> str:
+def to_str(value: _tp.Any, encoding: str = _const.ENC_UTF8) -> str:
     """
     This function behaves similar to the built-in :func:`str` method: it converts any value into a string.
     However, if *value* is a ``bytes`` object, it will be decoded according to the specified *encoding*.
@@ -95,12 +77,12 @@ def to_str(value: _tp.Any, encoding: str = UTF8_ENCODING) -> str:
         try:
             return value.decode(encoding)
         except UnicodeError:
-            return value.decode(DEFAULT_ENCODING, errors='replace')
+            return value.decode(_const.ENC_DEFAULT, errors='replace')
     else:
         return str(value)
 
 
-def to_bytes(value: _tp.Any, encoding: str = UTF8_ENCODING) -> bytes:
+def to_bytes(value: _tp.Any, encoding: str = _const.ENC_UTF8) -> bytes:
     """
     This function behaves similar to the built-in :func:`bytes` method: it converts any value into a ``bytes`` object.
     However, if *value* is a ``str``, it will be decoded according to the specified *encoding*.
@@ -119,12 +101,12 @@ def to_bytes(value: _tp.Any, encoding: str = UTF8_ENCODING) -> bytes:
         try:
             return value.encode(encoding)
         except UnicodeError:
-            return value.encode(DEFAULT_ENCODING, errors='replace')
+            return value.encode(_const.ENC_DEFAULT, errors='replace')
     else:
         return bytes(value)
 
 
-def to_repr(value: _tp.Any, encoding: str = UTF8_ENCODING) -> str:
+def to_repr(value: _tp.Any, encoding: str = _const.ENC_UTF8) -> str:
     """
     This function behaves similar to the built-in :func:`repr` method: it converts any value into its representation.
     However, if *value* is a bytes-like object, it will be decoded using the specified *encoding* (defaults to UTF-8).
@@ -163,7 +145,7 @@ def unquote(text: str) -> str:
     return text.strip('\'"`')
 
 
-def format_plural(word: str, number: _vld.NumberType, plural_suffix: str = 's') -> str:
+def format_plural(word: str, number: _Number, plural_suffix: str = 's') -> str:
     """
     Function that prefixes `word` with `number` and appends `plural_suffix` to it if `number` <> 1.
     Note that this only works for words with simple conjugation (where the base word and suffix do not change).
@@ -193,11 +175,11 @@ def format_plural(word: str, number: _vld.NumberType, plural_suffix: str = 's') 
     _vld.pass_if(word[-1].isalpha(), ValueError, "'word' must end with an alphabetic character")
 
     if number == 1:
-        plural_suffix = EMPTY_STR
-    return EMPTY_STR.join((str(number), SPACE, word, plural_suffix))
+        plural_suffix = _const.CHAR_EMPTY
+    return _const.CHAR_EMPTY.join((str(number), _const.CHAR_SPACE, word, plural_suffix))
 
 
-def format_iterable(iterable: _tp.Union[list, tuple], conjunction: str = AND) -> str:
+def format_iterable(iterable: _tp.Union[list, tuple], conjunction: str = _const.TEXT_AND) -> str:
     """
     Function that pretty-prints an iterable, separated by commas and adding a conjunction before the last item.
 
