@@ -14,6 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-The *feedback* subpackage contains a couple of classes for easy logging in a standardized way.
-"""
+import sys
+
+import pytest
+from mock import Mock
+
+from gpf.tools.geometry import *
+
+
+@pytest.mark.skipif(isinstance(sys.modules['arcpy'], Mock), reason="arcpy is not available")
+def test_getxyz():
+    with pytest.raises(ValueError):
+        get_xyz(1, 2, 'test')
+        get_xyz('test', None, 3)
+        get_xyz(1)
+        get_xyz(None)
+    assert get_xyz(1, 2, 3.14) == (1, 2, 3.14)
+    assert get_xyz(1, 2.242) == (1, 2.242, None)
+    assert get_xyz(1.05, 2.1, 5.6, 3.24) == (1.05, 2.1, 5.6)
+    assert get_xyz({'x': 1, 'y': 2}) == (1, 2, None)
+    assert get_xyz({'X': 1, 'Y': 2, 'z': 3}) == (1, 2, 3)
