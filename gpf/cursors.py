@@ -34,9 +34,9 @@ import typing as _tp
 import gpf.common.const as _const
 import gpf.common.textutils as _tu
 import gpf.common.validate as _vld
+import gpf.paths as _paths
 import gpf.tools.queries as _q
-import gpf.tools.workspace as _ws
-from gpf.tools import arcpy as _arcpy
+from gpf import arcpy as _arcpy
 
 
 def _map_fields(fields: _tp.Iterable[str]) -> dict:
@@ -67,11 +67,12 @@ class _Row(object):
     :keyword default:   The iterable type (``list`` or ``tuple``) to use as a data container.
     """
 
-    __slots__ = '_fieldmap', '_data'
+    __slots__ = '_fieldmap', '_data', '_repr'
 
     def __init__(self, field_map: dict, **kwargs):
         self._fieldmap = field_map
         self._data = kwargs.get('default', _default_tuple(len(field_map)))
+        self._repr = '([])'
 
     def __iter__(self):
         return iter(self._data)
@@ -80,7 +81,7 @@ class _Row(object):
         return self._data[item]
 
     def __repr__(self):
-        return '{}({})'.format(self.__class__.__name__, ', '.join(_tu.to_repr(v) for v in self._data))
+        return self._repr.format(_const.TEXT_COMMASPACE.join(_tu.to_repr(v) for v in self._data))
 
     def __getslice__(self, i, j):
         return self._data[i:j]
@@ -89,7 +90,7 @@ class _Row(object):
         self._data = _default_tuple(len(self._fieldmap)) if row is None else row
         return self
 
-    def getValue(self, field: str, default: _tp.Any = _const.EMPTY_OBJ) -> _tp.Any:
+    def getValue(self, field: str, default: _tp.Any = _const.OBJ_EMPTY) -> _tp.Any:
         """
         Returns the value that matches the given *field* name for the current row.
 
@@ -103,8 +104,8 @@ class _Row(object):
         try:
             return self[self._fieldmap[field.upper()]]
         except (KeyError, IndexError):
-            _vld.raise_if(default is _const.EMPTY_OBJ, ValueError,
-                          'getValue() field {!r} does not exist and no default value was provided'.format(field))
+            _vld.raise_if(default is _const.OBJ_EMPTY, ValueError,
+                          f'getValue() field {field!r} does not exist and no default value was provided')
             return default
 
     def isNull(self, field: str) -> bool:
@@ -127,13 +128,14 @@ class _MutableRow(_Row):
     """
     _MutableRow(field_map, {default})
 
-    Wrapper class for backward compatibility to fetch values from a mutable row using legacy Esri cursor style.
+    Wrapper class for backwards compatibility to fetch values from a mutable row using legacy Esri cursor style.
 
     This class is only intended for use by an``InsertCursor`` or ``UpdateCursor``.
     """
 
     def __init__(self, field_map: dict):
         super().__init__(field_map, default=_default_list(len(field_map)))
+        self._repr = '[{}]'
 
     def __call__(self, row: _tp.Iterable = None):
         self._data = _default_list(len(self._fieldmap)) if row is None else row
@@ -182,7 +184,7 @@ class Editor(_arcpy.da.Editor):
     However, one can also instantiate the Editor and call :func:`start` and :func:`stop` respectively when done.
 
     :param path:        A path on which to open the edit session. This can be a table or feature class path,
-                        a workspace path or a class:`WorkspaceManager` instance.
+                        a workspace path or a class:`gpf.paths.Workspace` instance.
     :param with_undo:   If ``True`` (default = ``False``), an undo stack will be kept.
                         For versioned workspaces, this setting has no effect (always ``True``).
                         For all other workspaces, having this value set to ``False`` improves performance.
@@ -192,9 +194,9 @@ class Editor(_arcpy.da.Editor):
     .. seealso::        https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-data-access/editor.htm
     """
 
-    def __init__(self, path: _tp.Union[str, _ws.WorkspaceManager], with_undo: bool = False):
-        if not isinstance(path, _ws.WorkspaceManager):
-            path = _ws.get_workspace(path, True)
+    def __init__(self, path: _tp.Union[str, _paths.Workspace], with_undo: bool = False):
+        if not isinstance(path, _paths.Workspace):
+            path = _paths.get_workspace(path, True)
         super().__init__(str(path))
         self._versioned = (len(_arcpy.da.ListVersions(str(path))) > 1) if path.is_remote else False
         # If the database is versioned, always use the undo stack
@@ -300,12 +302,15 @@ class SearchCursor(_arcpy.da.SearchCursor):
     :keyword spatial_reference: An optional SpatialReference object or its string equivalent.
     :keyword explode_to_points: Optional. If ``True``, features are deconstructed into individual vertices.
     :keyword sql_clause:        An optional pair of SQL prefix and postfix clauses organized in a list or tuple.
-    :type spatial_reference:    int, str, SpatialReference
+    :type in_table:             str, unicode
+    :type field_names:          str, unicode, list, tuple
+    :type where_clause:         str, unicode, gpf.tools.queries.Where
+    :type spatial_reference:    int, str, unicode, SpatialReference
     :type explode_to_points:    bool
     :type sql_clause:           tuple, list
     """
 
-    def __init__(self, in_table: str, field_names: _tp.Union[str, _tp.Iterable[str], None] = '*',
+    def __init__(self, in_table: str, field_names: _tp.Union[str, _tp.Iterable[str], None] = _const.CHAR_ASTERISK,
                  where_clause: _tp.Union[str, _q.Where] = None, **kwargs):
         _q.add_where(kwargs, where_clause, in_table)
         super().__init__(in_table, field_names, **kwargs)
@@ -328,6 +333,12 @@ class SearchCursor(_arcpy.da.SearchCursor):
         """ Resets the cursor position to the first row so it can be iterated over again. """
         return super().reset()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        return
+
 
 # noinspection PyPep8Naming
 class InsertCursor(_arcpy.da.InsertCursor):
@@ -340,6 +351,8 @@ class InsertCursor(_arcpy.da.InsertCursor):
     :param in_table:        The feature class, layer, table, or table view.
     :param field_names:     Single field name or a list (or tuple) of field names.
     :keyword auto_edit:     If set to ``True`` (default), an edit session is started automatically, if required.
+    :type in_table:         str, unicode
+    :type field_names:      str, unicode, list, tuple
     :type auto_edit:        bool
     """
 
@@ -402,6 +415,9 @@ class InsertCursor(_arcpy.da.InsertCursor):
         if self._editor:
             self._editor.stop(save)
 
+    def __enter__(self):
+        return self
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._close(False if exc_type else True)
 
@@ -427,7 +443,10 @@ class UpdateCursor(_arcpy.da.UpdateCursor):
     :keyword explode_to_points: Optional. If ``True``, features are deconstructed into individual vertices.
     :keyword sql_clause:        An optional pair of SQL prefix and postfix clauses organized in a list or tuple.
     :keyword auto_edit:         If set to ``True`` (default), an edit session is started automatically, if required.
-    :type spatial_reference:    int, str, SpatialReference
+    :type in_table:             str, unicode
+    :type field_names:          str, unicode, list, tuple
+    :type where_clause:         str, unicode, gpf.tools.queries.Where
+    :type spatial_reference:    int, str, unicode, SpatialReference
     :type explode_to_points:    bool
     :type sql_clause:           tuple, list
     :type auto_edit:            bool
@@ -487,6 +506,9 @@ class UpdateCursor(_arcpy.da.UpdateCursor):
         if self._editor:
             self._editor.stop(save)
             self._editor = None
+
+    def __enter__(self):
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._close(False if exc_type else True)

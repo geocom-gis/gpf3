@@ -1,7 +1,7 @@
-gpf.tools.cursors module
-========================
+gpf.cursors module
+==================
 
-.. automodule:: gpf.tools.cursors
+.. automodule:: gpf.cursors
     :members:
     :undoc-members:
     :show-inheritance:

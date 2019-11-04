@@ -7,8 +7,17 @@ Subpackages
 .. toctree::
 
     gpf.common
-    gpf.feedback
     gpf.tools
+
+Submodules
+----------
+
+.. toctree::
+
+    gpf.paths
+    gpf.cursors
+    gpf.lookups
+    gpf.loggers
 
 Module contents
 ---------------

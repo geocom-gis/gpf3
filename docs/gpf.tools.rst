@@ -6,14 +6,11 @@ Submodules
 
 .. toctree::
 
-   gpf.tools.cursors
-   gpf.tools.fields
+   gpf.tools.fieldutils
    gpf.tools.geometry
-   gpf.tools.lookup
-   gpf.tools.maplayers
+   gpf.tools.maputils
    gpf.tools.metadata
    gpf.tools.queries
-   gpf.tools.workspace
 
 Module contents
 ---------------

@@ -19,11 +19,11 @@ Module that simplifies working with layers in ArcMap.
 """
 import typing as _tp
 
-import gpf.common.paths as _paths
 import gpf.common.textutils as _tu
 import gpf.common.validate as _vld
-from gpf.tools import arcpy as _arcpy
-from gpf.tools.workspace import split_gdbpath as _split
+import gpf.paths as _paths
+from gpf.paths import split_gdbpath as _split
+from gpf import arcpy as _arcpy
 
 
 def get_mxd(path: str = None) -> '_arcpy.mapping.MapDocument':
