@@ -18,6 +18,7 @@ from datetime import datetime as dt
 
 import pytest
 
+from gpf.common import const
 from gpf.common import textutils
 
 
@@ -25,7 +26,7 @@ from gpf.common import textutils
 def test_getalphachars():
     assert textutils.get_alphachars('--test--') == 'test'
     assert textutils.get_alphachars('test123') == 'test'
-    assert textutils.get_alphachars('123') == textutils.EMPTY_STR
+    assert textutils.get_alphachars('123') == const.CHAR_EMPTY
     with pytest.raises(TypeError):
         textutils.get_alphachars(None)
         textutils.get_alphachars(123)
@@ -33,7 +34,7 @@ def test_getalphachars():
 
 # noinspection PyTypeChecker
 def test_getdigits():
-    assert textutils.get_digits('--test--') == textutils.EMPTY_STR
+    assert textutils.get_digits('--test--') == const.CHAR_EMPTY
     assert textutils.get_digits('test123') == '123'
     assert textutils.get_digits('123') == '123'
     with pytest.raises(TypeError):
@@ -105,7 +106,7 @@ def test_formatplural():
 def test_formatiterable():
     assert textutils.format_iterable([1, 2, 3]) == '1, 2 and 3'
     assert textutils.format_iterable([1, 2]) == '1 and 2'
-    assert textutils.format_iterable(('trick', 'treat'), textutils.OR) == 'trick or treat'
+    assert textutils.format_iterable(('trick', 'treat'), const.TEXT_OR) == 'trick or treat'
     assert textutils.format_iterable([1]) == '1'
     assert textutils.format_iterable([]) == ''
     with pytest.raises(TypeError):
