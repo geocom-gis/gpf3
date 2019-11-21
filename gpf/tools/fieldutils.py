@@ -43,31 +43,25 @@ FIELDTYPE_MAPPING = {
 }
 
 
-def clone_field(field: _arcpy.Field) -> _arcpy.Field:
+def get_name(field: _arcpy.Field, uppercase: bool = False) -> str:
     """
-    Returns a deep copy (clone) of a Field object.
+    Retrieves the field name from a ``Field`` instance and optionally changes it to uppercase.
 
-    :param field:       The Field instance that should be cloned.
+    :param field:       An :class:`arcpy.Field` instance.
+    :param uppercase:   When ``True`` (default = ``False``), the returned name will be made uppercase.
     """
-    new_field = _arcpy.Field()
-    for attr in (f for f in dir(field) if not f.startswith(_const.CHAR_UNDERSCORE)):
-        value = getattr(field, attr)
-        setattr(new_field, attr, value)
-    return new_field
+    return field.name.upper() if uppercase else field.name
 
 
 def list_fields(obj: _tp.Union[str, _tp.Sequence], names_only: bool = True,
                 uppercase: bool = False) -> _tp.List[_tp.Union[str, _arcpy.Field]]:
     """
-    Returns a list of (modified) Field objects or field names for a given list of Field objects or a dataset.
+    Returns a list of Field objects or field names for a given list of Field objects or a dataset.
 
     :param obj:             Dataset path or list of original ``Field`` instances.
     :param names_only:      When ``True`` (default), a list of field names instead of ``Field`` instances is returned.
     :param uppercase:       When ``True`` (default=``False``), the returned field names will be uppercase.
-                            This also applies when *names_only* is set to return ``Field`` instances.
-    :type obj:              list, str
-    :type names_only:       bool
-    :type uppercase:        bool
+                            This does **not** apply when *names_only* is ``False`` and ``Field`` instances are returned.
     :return:                List of field names or ``Field`` instances.
     """
     # Get field list if input is not a list (or tuple)
@@ -75,17 +69,10 @@ def list_fields(obj: _tp.Union[str, _tp.Sequence], names_only: bool = True,
     if not _vld.is_iterable(obj):
         fields = _arcpy.ListFields(obj) or []
 
-    # Set field names to uppercase (on cloned fields, in case an existing field list was input)
-    if uppercase:
-        for i, field in enumerate(fields):
-            field_clone = clone_field(field)
-            field_clone.name = field.name.upper()
-            fields[i] = field_clone
-
-    return [field.name if names_only else field for field in fields]
+    return [get_name(field, uppercase) if names_only else field for field in fields]
 
 
-def missing_fields(table: str, expected_fields: _tp.Sequence[str]) -> _tp.Sequence[str]:
+def list_missing(table: str, expected_fields: _tp.Sequence[str]) -> _tp.Sequence[str]:
     """
     Returns a list of missing field **names** for a specified table or feature class.
     The expected field names are case-insensitive.
@@ -97,8 +84,6 @@ def missing_fields(table: str, expected_fields: _tp.Sequence[str]) -> _tp.Sequen
 
     :param table:           The table or feature class for which to check the fields.
     :param expected_fields: A list of fields that should be present in the table or feature class.
-    :type table:            str
-    :type expected_fields:  list, tuple
     """
     try:
         table_fields = list_fields(table, True, True)
@@ -140,10 +125,6 @@ def add_field(dataset: str, name: str, template_field: [_arcpy.Field, None] = No
     :param template_field:  An optional template ``Field`` on which the new field should be based.
                             If no template field is specified, a default field of type TEXT is created.
     :param alias:           An optional alias name for the field. Defaults to ``None``.
-    :type dataset:          str
-    :type name:             str
-    :type template_field:   Field
-    :type alias:            str
     :raises ValueError:     If a template field was provided, but it's not a ``Field`` instance,
                             or if the template field is of an unsupported type (i.e. GlobalID, OID or Geometry).
     """

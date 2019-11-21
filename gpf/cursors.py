@@ -183,11 +183,18 @@ class Editor(_arcpy.da.Editor):
     If no failures occurred, the edit session is closed normally and all edits are saved (committed).
     However, one can also instantiate the Editor and call :func:`start` and :func:`stop` respectively when done.
 
-    :param path:        A path on which to open the edit session. This can be a table or feature class path,
-                        a workspace path or a class:`gpf.paths.Workspace` instance.
-    :param with_undo:   If ``True`` (default = ``False``), an undo stack will be kept.
-                        For versioned workspaces, this setting has no effect (always ``True``).
-                        For all other workspaces, having this value set to ``False`` improves performance.
+    **Params:**
+
+    -   **path** (str, unicode, class:`gpf.paths.Workspace`):
+
+        A path on which to open the edit session. This can be a table or feature class path,
+        a workspace path or a class:`gpf.paths.Workspace` instance.
+
+    -   **with_undo** (bool):
+
+        If ``True`` (default = ``False``), an undo stack will be kept.
+        For versioned workspaces, this setting has no effect (always ``True``).
+        For all other workspaces, having this value set to ``False`` improves performance.
 
     .. note::           The :class:`InsertCursor` and :class:`UpdateCursor` in this module use the Editor on demand,
                         if these cursors are initialized with the *auto_edit* option set to ``True`` (default).
@@ -292,28 +299,47 @@ class SearchCursor(_arcpy.da.SearchCursor):
     Wrapper class to properly expose ArcPy's Data Access SearchCursor and its methods.
     Returns a read-only cursor to iterate over (a set of) records in a table.
 
-    If *where_clause* is used and it's a :class:`Where` instance, the field delimiters will
-    automatically be resolved (e.g. for Oracle, MS SQL, File Geodatabase etc.).
+    If *where_clause* is used and it's a :class:`Where` instance (recommended),
+    the field delimiters will automatically be resolved (e.g. for Oracle, MS SQL, File Geodatabase etc.).
 
-    :param in_table:            The feature class, layer, table, or table view.
-    :param field_names:         Single field name or iterable of field names.
-                                When not set, all fields are returned (not recommended).
-    :param where_clause:        An optional expression that limits the records returned.
-    :keyword spatial_reference: An optional SpatialReference object or its string equivalent.
-    :keyword explode_to_points: Optional. If ``True``, features are deconstructed into individual vertices.
-    :keyword sql_clause:        An optional pair of SQL prefix and postfix clauses organized in a list or tuple.
-    :type in_table:             str, unicode
-    :type field_names:          str, unicode, list, tuple
-    :type where_clause:         str, unicode, gpf.tools.queries.Where
-    :type spatial_reference:    int, str, unicode, SpatialReference
-    :type explode_to_points:    bool
-    :type sql_clause:           tuple, list
+    **Params:**
+
+    -   **datatable**:
+
+        The path to the feature class or table, or a Layer or table view.
+
+    -   **field_names**:
+
+        Single field name or a sequence of field names.
+        When not set, all fields are returned. This is not recommended, as it tends to be slow and consumes more memory.
+
+    -   **where_clause** (str, unicode, :class:`gpf.tools.queries.Where`):
+
+        An optional expression that filters the returned records.
+
+    **Keyword params:**
+
+    -   **spatial_reference** (str, int, arcpy.SpatialReference):
+
+        An optional SpatialReference object or its string representation or WKID equivalent.
+        The returned features will be reprojected to this coordinate system on the fly.
+
+    -   **explode_to_points** (bool):
+
+        Optional. If ``True``, features are deconstructed into individual vertices.
+        This means that e.g. for a feature with 5 vertices, 5 features will be returned for each vertex.
+
+    -   **sql_clause** (tuple, list):
+
+        An optional sequence of 2 elements, containing a SQL prefix and postfix query respectively.
+        These queries support clauses like GROUP BY, DISTINCT, ORDER BY and so on.
+        The clauses do not support the use of :class:`gpf.tools.queries.Where` instances.
     """
 
-    def __init__(self, in_table: str, field_names: _tp.Union[str, _tp.Iterable[str], None] = _const.CHAR_ASTERISK,
+    def __init__(self, datatable: str, field_names: _tp.Union[str, _tp.Iterable[str], None] = _const.CHAR_ASTERISK,
                  where_clause: _tp.Union[str, _q.Where] = None, **kwargs):
-        _q.add_where(kwargs, where_clause, in_table)
-        super().__init__(in_table, field_names, **kwargs)
+        _q.add_where(kwargs, where_clause, datatable)
+        super().__init__(datatable, field_names, **kwargs)
         self._row = _Row(_map_fields(field_names if _vld.is_iterable(field_names) else self.fields))
 
     def __iter__(self):
@@ -348,24 +374,34 @@ class InsertCursor(_arcpy.da.InsertCursor):
     Wrapper class to properly expose ArcPy's Data Access InsertCursor and its methods.
     Returns a cursor to insert new records into a table.
 
-    :param in_table:        The feature class, layer, table, or table view.
-    :param field_names:     Single field name or a list (or tuple) of field names.
-    :keyword auto_edit:     If set to ``True`` (default), an edit session is started automatically, if required.
-    :type in_table:         str, unicode
-    :type field_names:      str, unicode, list, tuple
-    :type auto_edit:        bool
+    **Params:**
+
+    -   **datatable**:
+
+        The path to the feature class or table, or a Layer or table view.
+
+    -   **field_names**:
+
+        Single field name or a sequence of field names.
+        When not set, all fields are returned. This is not recommended, as it tends to be slow and consumes more memory.
+
+    **Keyword params:**
+
+    -   **auto_edit** (bool):
+
+        If set to ``True`` (default), an edit session is started automatically, if required.
     """
 
-    def __init__(self, in_table: str, field_names: _tp.Union[str, _tp.Iterable[str]], **kwargs):
+    def __init__(self, datatable: str, field_names: _tp.Union[str, _tp.Iterable[str]], **kwargs):
         self._editor = None
         try:
-            super().__init__(in_table, field_names)
+            super().__init__(datatable, field_names)
             self._field_map = _map_fields(field_names)
         except RuntimeError as e:
             if 'edit session' in str(e).lower() and kwargs.get('auto_edit', True):
-                self._editor = Editor(in_table)
+                self._editor = Editor(datatable)
                 self._editor.start()
-                super().__init__(in_table, field_names)
+                super().__init__(datatable, field_names)
                 self._field_map = _map_fields(self.fields)
                 return
             raise
@@ -436,33 +472,55 @@ class UpdateCursor(_arcpy.da.UpdateCursor):
     If *where_clause* is used and it's a :class:`Where` instance, the field delimiters will
     automatically be resolved (e.g. for Oracle, MS SQL, File Geodatabase etc.).
 
-    :param in_table:            The feature class, layer, table, or table view.
-    :param field_names:         Single field name or a list (or tuple) of field names.
-    :param where_clause:        An optional expression that limits the records returned.
-    :keyword spatial_reference: An optional SpatialReference object or its string equivalent.
-    :keyword explode_to_points: Optional. If ``True``, features are deconstructed into individual vertices.
-    :keyword sql_clause:        An optional pair of SQL prefix and postfix clauses organized in a list or tuple.
-    :keyword auto_edit:         If set to ``True`` (default), an edit session is started automatically, if required.
-    :type in_table:             str, unicode
-    :type field_names:          str, unicode, list, tuple
-    :type where_clause:         str, unicode, gpf.tools.queries.Where
-    :type spatial_reference:    int, str, unicode, SpatialReference
-    :type explode_to_points:    bool
-    :type sql_clause:           tuple, list
-    :type auto_edit:            bool
+    **Params:**
+
+    -   **datatable**:
+
+        The path to the feature class or table, or a Layer or table view.
+
+    -   **field_names**:
+
+        Single field name or a sequence of field names.
+        When not set, all fields are returned. This is not recommended, as it tends to be slow and consumes more memory.
+
+    -   **where_clause** (str, unicode, :class:`gpf.tools.queries.Where`):
+
+        An optional expression that filters the returned records.
+
+    **Keyword params:**
+
+    -   **spatial_reference** (str, int, arcpy.SpatialReference):
+
+        An optional SpatialReference object or its string representation or WKID equivalent.
+        The returned features will be reprojected to this coordinate system on the fly.
+
+    -   **explode_to_points** (bool):
+
+        Optional. If ``True``, features are deconstructed into individual vertices.
+        This means that e.g. for a feature with 5 vertices, 5 features will be returned for each vertex.
+
+    -   **sql_clause** (tuple, list):
+
+        An optional sequence of 2 elements, containing a SQL prefix and postfix query respectively.
+        These queries support clauses like GROUP BY, DISTINCT, ORDER BY and so on.
+        The clauses do not support the use of :class:`gpf.tools.queries.Where` instances.
+
+    -   **auto_edit** (bool):
+
+        If set to ``True`` (default), an edit session is started automatically, if required.
     """
 
-    def __init__(self, in_table: str, field_names: _tp.Union[str, _tp.Iterable[str]],
+    def __init__(self, datatable: str, field_names: _tp.Union[str, _tp.Iterable[str]],
                  where_clause: _tp.Union[str, _q.Where] = None, **kwargs):
         self._editor = None
-        _q.add_where(kwargs, where_clause, in_table)
+        _q.add_where(kwargs, where_clause, datatable)
         try:
-            super().__init__(in_table, field_names, **kwargs)
+            super().__init__(datatable, field_names, **kwargs)
         except RuntimeError as e:
             if 'edit session' in str(e).lower() and kwargs.get('auto_edit', True):
-                self._editor = Editor(in_table)
+                self._editor = Editor(datatable)
                 self._editor.start()
-                super().__init__(in_table, field_names, **kwargs)                
+                super().__init__(datatable, field_names, **kwargs)
             else:
                 raise
         self._row = _MutableRow(_map_fields(field_names))
