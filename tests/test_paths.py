@@ -48,6 +48,12 @@ def test_join():
     assert paths.concat('a', 'b', 'c') == 'a\\b\\c'
 
 
+def test_unqualify():
+    assert paths.unqualify(r'C:/test/bla.gdb/ele/ele_kabel') == 'ele_kabel'
+    assert paths.unqualify(r'C:/test/bla.sde/user.ele/user.ele_kabel') == 'ele_kabel'
+    assert paths.unqualify(r'C:/test/bla.sde/schema.dbo.ele/schema.dbo.ele_kabel') == 'ele_kabel'
+
+
 # noinspection PyTypeChecker
 def test_getabs():
     with pytest.raises(TypeError):
