@@ -140,7 +140,7 @@ class Where(object):
     def _add_any(self, value: _tp.Any, is_field: bool = False, is_conjunction: bool = False):
         """ Generic method to add a new part (field name, operator, or value) to the current query. """
         if (is_field or is_conjunction) == self._isdirty:
-            raise SyntaxError('Adding {} would create an invalid query'.format(_tu.to_repr(value, self._enc)))
+            raise SyntaxError(f'Adding {value!r} would create an invalid query')
         self._parts.append((value, is_field))
 
     def _add_expression(self, *values):
@@ -163,9 +163,6 @@ class Where(object):
         # Copy all parts
         self._parts.extend(clause._parts)
 
-        # Copy the encoding
-        self._enc = clause._enc
-
         # Copy the _isdirty state of the input query
         self._isdirty = clause._isdirty
 
@@ -180,7 +177,7 @@ class Where(object):
             return self._add_field(field_or_clause)
 
         # At this point, the passed-in argument is invalid
-        raise ValueError("'field_or_clause' must be a field name or {} instance".format(self.__class__.__name__))
+        raise ValueError(f"'field_or_clause' must be a field name or {self.__class__.__name__} instance")
 
     def _combine(self, operator: str, field_or_clause: _tp.Union[str, 'Where']):
         """ Instructs Where instance to append a new query using the AND or OR conjunction. """
@@ -190,7 +187,7 @@ class Where(object):
     def _output(self, check: bool = False):
         """ Concatenates all query parts to form an actual SQL expression. Can check if the query is dirty. """
         _vld.raise_if(check and self._isdirty, ValueError, 'Cannot output invalid query')
-        return u"""{}""".format(_const.CHAR_SPACE.join(part for part, _ in self._parts))
+        return f"""{_const.CHAR_SPACE.join(part for part, _ in self._parts)}"""
 
     @staticmethod
     def _check_types(*args) -> bool:
