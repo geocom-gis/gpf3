@@ -326,11 +326,16 @@ class Logger(object):
 
     def _close_handlers(self):
         """ Closes all handlers and clears the log handler list. """
+        if not self._log:
+            # Prevent _close_handlers() method from being executed twice (e.g. by user and by atexit call)
+            return
         for h in self._log.handlers:
+            if hasattr(h, 'flush'):
+                # Flush any outstanding writes
+                h.flush()
             if hasattr(h, 'close'):
                 h.close()
-            elif hasattr(h, 'flush'):
-                h.flush()
+        # Remove handlers
         self._log.handlers = []
 
     def _process_msg(self, level, message, *args, **kwargs):
@@ -405,7 +410,7 @@ class Logger(object):
         self._process_msg(_logging.FATAL, message, *args, **kwargs)
         self._num_err += 1
 
-    def exception(self, message: str, *args, **kwargs):
+    def exception(self, message: _tp.Union[str, Exception], *args, **kwargs):
         """
         Writes a fatal error message and increments the error counter. Multi-line messages count as 1 error.
 
@@ -458,7 +463,7 @@ class Logger(object):
         """
         errors = _tu.format_plural('error', self._num_err)
         warnings = _tu.format_plural('warning', self._num_warn)
-        self.info('Logged {} and {}.', errors, warnings)
+        self.info(f'Logged {errors} and {warnings}.')
 
     def time_elapsed(self, func: _tp.Callable = None, *args, **kwargs):
         """
@@ -490,11 +495,15 @@ class Logger(object):
         self._num_warn = 0
         self._num_err = 0
 
-    def quit(self, error_msg: str = None):
+    def quit(self, error_msg: _tp.Union[str, Exception, None] = None):
         """
         Releases the current logger and shuts down the (main) logger.
 
-        :param error_msg:     Optional termination message (or code) for fatal errors.
+        :param error_msg:   Optional termination message (or Exception instance) for fatal errors.
+
+        ..note::            No more logging can take place after this call.
+                            Under normal circumstances, the user does not need to call this method, because it is
+                            automatically being called once the user application has exited.
         """
         if error_msg:
             self.exception(error_msg)
