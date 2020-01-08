@@ -30,6 +30,7 @@ with the ones in this module without too much hassle, since all old methods have
 The only thing you might need to replace and verify for compatibility is the call to the actual cursor itself.
 """
 import typing as _tp
+from functools import wraps as _wraps
 
 import gpf.common.const as _const
 import gpf.common.textutils as _tu
@@ -52,6 +53,18 @@ def _default_tuple(length: int) -> tuple:
 def _default_list(length: int) -> list:
     """ Returns a list filled with None values. """
     return list(None for _ in range(length))
+
+
+def _disable(func):
+    """ Decorator that raises a NotImplementedError for the 'disabled' wrapped function or method. """
+
+    # noinspection PyUnusedLocal
+    @_wraps(func)
+    def raise_ni(*args, **kwargs):
+        func_name = func.__qualname__ if hasattr(func, '__qualname__') else func.__name__
+        raise NotImplementedError(f'The {func_name} {func.__class__.__name__} has been disabled')
+
+    return raise_ni
 
 
 # noinspection PyPep8Naming
@@ -258,38 +271,20 @@ class Editor(_arcpy.da.Editor):
                 super().abortOperation()
         super().stopEditing(save)
 
-    @staticmethod
-    def _raise_ni(func_name):
-        raise NotImplementedError("This {} implementation does not support the {} method"
-                                  .format(Editor.__name__, func_name))
-
-    def startEditing(self, *args):
-        """ This method is not implemented. """
-        self._raise_ni(Editor.startEditing.__name__)
-
-    def stopEditing(self, *args):
-        """ This method is not implemented. """
-        self._raise_ni(Editor.stopEditing.__name__)
-
-    def startOperation(self, *args):
-        """ This method is not implemented. """
-        self._raise_ni(Editor.startOperation.__name__)
-
-    def stopOperation(self, *args):
-        """ This method is not implemented. """
-        self._raise_ni(Editor.stopOperation.__name__)
-
-    def abortOperation(self, *args):
-        """ This method is not implemented. """
-        self._raise_ni(Editor.abortOperation.__name__)
-
-    def undoOperation(self, *args):
-        """ This method is not implemented. """
-        self._raise_ni(Editor.undoOperation.__name__)
-
-    def redoOperation(self, *args):
-        """ This method is not implemented. """
-        self._raise_ni(Editor.redoOperation.__name__)
+    @_disable
+    def startEditing(self, *args): pass
+    @_disable
+    def stopEditing(self, *args): pass
+    @_disable
+    def startOperation(self, *args): pass
+    @_disable
+    def stopOperation(self, *args): pass
+    @_disable
+    def abortOperation(self, *args): pass
+    @_disable
+    def undoOperation(self, *args): pass
+    @_disable
+    def redoOperation(self, *args): pass
 
 
 class SearchCursor(_arcpy.da.SearchCursor):
