@@ -22,13 +22,22 @@ but there are some differences:
     - SearchCursors return :class:`_Row` wrappers and have a :func:`getValue` function, similar to Esri's legacy rows;
     - Insert- and UpdateCursors return :class:`_MutableRow` wrappers that also have a :func:`setValue` function,
       similar to their legacy predecessors;
-    - The :func:`getValue` function can return a *default* value when the field was not found;
+    - The ported :func:`getValue` function can return a *default* value when the field was not found
+      (in the legacy function, it would raise an exception);
     - The cursors *where_clause* argument also accepts a :class:`gpf.tools.queries.Where` instance.
 
-In theory, one should be able to simply replace the legacy Esri cursors (in some script, for example)
-with the ones in this module without too much hassle, since all old methods have been ported to this module.
-The only thing you might need to replace and verify for compatibility is the call to the actual cursor itself.
+In theory, one should be able to simply replace the legacy Esri cursors (in an old script, for example)
+with the ones in this module without too much hassle, since all legacy methods have been ported to the cursors
+in this module.
+The only thing you might need to replace and verify for compatibility is the initialization of the cursor itself.
+
+Please refer to Esri's documentation on the
+`legacy cursors <https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-classes/cursor.htm>`_
+for the ported functions and the `Data Access classes
+<https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-data-access/what-is-the-data-access-module-.htm>`_
+for cursor initialization and function overrides.
 """
+
 import typing as _tp
 from functools import wraps as _wraps
 
