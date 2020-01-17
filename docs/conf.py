@@ -30,7 +30,6 @@
 import os
 import sys
 
-from mock import MagicMock
 from pkg_resources import get_distribution
 
 pkg_path = os.path.abspath('../..')
@@ -38,8 +37,13 @@ sys.path.insert(0, pkg_path)
 
 print(u'Added package search path: {}'.format(pkg_path))
 
-sys.modules['arcpy'] = MagicMock()
-print('The arcpy module has been replaced by a mock object')
+try:
+    from gpf import arcpy
+except ImportError:
+    # noinspection PyUnresolvedReferences
+    from mock import MagicMock
+    sys.modules['arcpy'] = MagicMock()
+    print('The missing arcpy module has been replaced by a mock object')
 
 # -- Project information -----------------------------------------------------
 
