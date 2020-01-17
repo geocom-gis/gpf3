@@ -330,9 +330,6 @@ class Logger(object):
             # Prevent _close_handlers() method from being executed twice (e.g. by user and by atexit call)
             return
         for h in self._log.handlers:
-            if hasattr(h, 'flush'):
-                # Flush any outstanding writes
-                h.flush()
             if hasattr(h, 'close'):
                 h.close()
         # Remove handlers
@@ -420,20 +417,19 @@ class Logger(object):
         if self._log:
             self._log.exception(message, *args, **kwargs)
         else:
-            print(message)
+            # Write to stderr if no logger was initialized
+            print(message, file=sys.stderr)
         self._num_err += 1
 
     def section(self, message: str = _const.CHAR_EMPTY, max_length: int = 80, symbol: str = _const.CHAR_DASH):
         """
         Writes a centered message wrapped inside a section line to the log.
         When message exceeds *max_length*, it will be logged as-is.
-        The actual length of the line will be *max_length* - length of logger name.
 
         :param message:         The text to put in the middle of the line (optional).
         :param max_length:      The maximum length of the line.
         :param symbol:          The character to generate the line.
         """
-        max_length -= len(self._log.name)
         msg_length = len(message)
         if msg_length < max_length - 2:
             fill_char = _const.CHAR_SPACE   # default separator between line and message
