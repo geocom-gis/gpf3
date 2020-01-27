@@ -61,7 +61,7 @@ def _default_tuple(length: int) -> tuple:
 
 def _default_list(length: int) -> list:
     """ Returns a list filled with None values. """
-    return list(None for _ in range(length))
+    return [None for _ in range(length)]
 
 
 def _disable(func):
@@ -81,7 +81,7 @@ class _Row(object):
     """
     _Row(field_map, {default})
 
-    Wrapper class for backward compatibility to fetch values from an immutable row using legacy Esri cursor style.
+    "View Factory" class for backward compatibility to read values from an immutable row using legacy Esri cursor style.
 
     This class is only intended for use by a ``SearchCursor``.
 
@@ -109,6 +109,7 @@ class _Row(object):
         return self._data[i:j]
 
     def __call__(self, row: _tp.Iterable = None):
+        assert _vld.is_iterable(row)
         self._data = _default_tuple(len(self._fieldmap)) if row is None else row
         return self
 
@@ -150,9 +151,11 @@ class _MutableRow(_Row):
     """
     _MutableRow(field_map, {default})
 
-    Wrapper class for backwards compatibility to fetch values from a mutable row using legacy Esri cursor style.
+    "View Factory" class for backwards compatibility to fetch values from a mutable row using legacy Esri cursor style.
 
     This class is only intended for use by an``InsertCursor`` or ``UpdateCursor``.
+
+    :param field_map:   The field map (name, position) to use for the row value lookup.
     """
 
     def __init__(self, field_map: dict):
@@ -344,13 +347,13 @@ class SearchCursor(_arcpy.da.SearchCursor):
                  where_clause: _tp.Union[str, _q.Where] = None, **kwargs):
         _q.add_where(kwargs, where_clause, datatable)
         super().__init__(datatable, field_names, **kwargs)
-        self._row = _Row(_map_fields(field_names if _vld.is_iterable(field_names) else self.fields))
+        self._row = _Row(_map_fields(self.fields))
 
     def __iter__(self):
         return super().__iter__()
 
-    def next(self) -> _Row:
-        return self._row(super().next())
+    def __next__(self) -> _Row:
+        return self._row(super().__next__())
 
     @property
     def fields(self) -> _tp.List[str]:
@@ -400,7 +403,7 @@ class InsertCursor(_arcpy.da.InsertCursor):
         self._editor = None
         try:
             super().__init__(datatable, field_names)
-            self._field_map = _map_fields(field_names)
+            self._field_map = _map_fields(self.fields)
         except RuntimeError as e:
             if 'edit session' in str(e).lower() and kwargs.get('auto_edit', True):
                 self._editor = Editor(datatable)
@@ -527,13 +530,10 @@ class UpdateCursor(_arcpy.da.UpdateCursor):
                 super().__init__(datatable, field_names, **kwargs)
             else:
                 raise
-        self._row = _MutableRow(_map_fields(field_names))
+        self._row = _MutableRow(_map_fields(self.fields))
 
-    def __iter__(self):
-        return super().__iter__()
-
-    def next(self):
-        return self._row(super().next())
+    def __next__(self):
+        return self._row(super().__next__())
 
     @property
     def fields(self) -> _tp.List[str]:

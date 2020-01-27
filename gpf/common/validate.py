@@ -35,6 +35,7 @@ and therefore serve as an alternative to the ``assert`` statement (which should 
     TypeError: test() requires text input
 """
 
+import inspect as _inspect
 import typing as _tp
 from numbers import Number as _Number
 
@@ -162,25 +163,20 @@ def signature_matches(func, template_func):
     :rtype:                 bool
     """
 
-    def _get_argcount(f):
-        """ Returns the argument count for a function (offset by 1 if the function is an instance method). """
-        offset = 0
-        if hasattr(f, 'im_func'):
-            # Function is an instance method (with a 'self' argument): offset argument count by 1
-            f = f.im_func
-            offset = 1
-        if not hasattr(f, 'func_code'):
-            return None
-        return f.func_code.co_argcount - offset
+    def _get_params(f):
+        """ Returns the Parameter objects for a function (skipping 'self', if present). """
+        try:
+            sig = _inspect.signature(f)
+        except (ValueError, TypeError):
+            params = _inspect.OrderedDict()
+        else:
+            params = sig.parameters or _inspect.OrderedDict()
+        for i, (name, p) in enumerate(params.items()):
+            if i == 0 and name == 'self':
+                continue
+            yield p
 
-    f_args = _get_argcount(func)
-    t_args = _get_argcount(template_func)
-
-    if f_args is None or t_args is None:
-        # One or both functions are not of type `function` or `instancemethod`
-        return False
-
-    return f_args == t_args
+    return tuple(_get_params(func)) == tuple(_get_params(template_func))
 
 
 def pass_if(expression: _tp.Any, exc_type: type(Exception), exc_val: _tp.Any = _const.CHAR_EMPTY) -> bool:

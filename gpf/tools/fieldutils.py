@@ -85,10 +85,8 @@ def list_missing(table: str, expected_fields: _tp.Sequence[str]) -> _tp.Sequence
     :param table:           The table or feature class for which to check the fields.
     :param expected_fields: A list of fields that should be present in the table or feature class.
     """
-    try:
-        table_fields = list_fields(table, True, True)
-    except (RuntimeError, TypeError, ValueError):
-        return expected_fields
+
+    table_fields = list_fields(table, True, True)
 
     desc = None
     missing = []
@@ -112,6 +110,17 @@ def list_missing(table: str, expected_fields: _tp.Sequence[str]) -> _tp.Sequence
             missing.append(f)
 
     return missing
+
+
+def has_field(table: str, field_name: str) -> bool:
+    """
+    Simple wrapper for the :func:`list_missing` function to check if a single field exists.
+
+    :param table:
+    :param field_name:
+    :return:
+    """
+    return not list_missing(table, (field_name,))
 
 
 def add_field(dataset: str, name: str, template_field: [_arcpy.Field, None] = None,

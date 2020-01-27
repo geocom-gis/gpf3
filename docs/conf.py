@@ -37,6 +37,14 @@ sys.path.insert(0, pkg_path)
 
 print(u'Added package search path: {}'.format(pkg_path))
 
+try:
+    from gpf import arcpy
+except ImportError:
+    # noinspection PyUnresolvedReferences
+    from mock import MagicMock
+    sys.modules['arcpy'] = MagicMock()
+    print('The missing arcpy module has been replaced by a mock object')
+
 # -- Project information -----------------------------------------------------
 
 project = 'gpf3'
@@ -69,7 +77,6 @@ autodoc_member_order = 'bysource'
 autodoc_default_options = {
     'member-order': 'bysource'
 }
-autodoc_mock_imports = ['arcpy']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
