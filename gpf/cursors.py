@@ -399,15 +399,14 @@ class InsertCursor(_arcpy.da.InsertCursor):
         self._editor = None
         try:
             super().__init__(datatable, field_names)
-            self._field_map = _map_fields(self.fields)
         except RuntimeError as e:
             if 'edit session' in str(e).lower() and kwargs.get('auto_edit', True):
                 self._editor = Editor(datatable)
                 self._editor.start()
                 super().__init__(datatable, field_names)
-                self._field_map = _map_fields(self.fields)
                 return
             raise
+        self._field_map = _map_fields(self.fields)
 
     @property
     def fields(self) -> _tp.List[str]:
