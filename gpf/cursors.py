@@ -109,7 +109,6 @@ class _Row(object):
         return self._data[i:j]
 
     def __call__(self, row: _tp.Iterable = None):
-        assert _vld.is_iterable(row)
         self._data = _default_tuple(len(self._fieldmap)) if row is None else row
         return self
 
