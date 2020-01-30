@@ -348,9 +348,6 @@ class SearchCursor(_arcpy.da.SearchCursor):
         super().__init__(datatable, field_names, **kwargs)
         self._row = _Row(_map_fields(self.fields))
 
-    def __iter__(self):
-        return super().__iter__()
-
     def __next__(self) -> _Row:
         return self._row(super().__next__())
 
