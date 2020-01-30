@@ -152,14 +152,14 @@ def has_value(obj: _tp.Any, strip: bool = False) -> bool:
     return True
 
 
-def signature_matches(func, template_func):
+def signature_matches(func: _tp.Callable, template_func: _tp.Callable) -> bool:
     """
-    Checks if the given *func* is of type `function` or `instancemethod`.
-    If it is, it also verifies if the argument count matches the one from the given *template_func*.
-    When the function is not callable or the signature does not match, ``False`` is returned.
+    Checks if the given *func* (`function` or `instancemethod`) has a signature equal to *template_func*.
+    If the function is not callable or the signature does not match, ``False`` is returned.
 
-    :param func:            A callable function or instance method.
+    :param func:            A callable function or (instance) method.
     :param template_func:   A template function to which the callable function argument count should be compared.
+                            This should *not* be a an instance method.
     :rtype:                 bool
     """
 
@@ -173,9 +173,13 @@ def signature_matches(func, template_func):
             params = sig.parameters or _inspect.OrderedDict()
         for i, (name, p) in enumerate(params.items()):
             if i == 0 and name == 'self':
+                # For instance methods/functions, we'll remove the first parameter ("self" by convention)
                 continue
             yield p
 
+    if not callable(func) or not callable(template_func):
+        return False
+    # Compare the parameter count, names and types
     return tuple(_get_params(func)) == tuple(_get_params(template_func))
 
 
