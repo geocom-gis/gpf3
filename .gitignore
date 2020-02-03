@@ -9,10 +9,7 @@
 
 # Setuptools/metadata/Sphinx folders
 /dist/
-/build/
 /*.egg-info
 /.eggs/
-/docs/_sources/
-/docs/.doctrees/
 *.inv
 .buildinfo
