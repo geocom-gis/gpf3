@@ -13,7 +13,7 @@ Welcome to the Geocom Python Framework (GPF)
 
 .. |docs| image:: https://img.shields.io/readthedocs/gpf3?logo=read%20the%20docs
     :alt: Documentation
-    :target: https://gpf3.readthedocs.io/en/latest/
+    :target: https://geocom-gis.github.io/gpf3/
 
 Purpose
 -------
@@ -56,9 +56,9 @@ When ``pip`` is installed, the user can simply run:
 Documentation
 -------------
 
-The complete ``gpf`` documentation can be found at `Read the Docs`_.
+The complete ``gpf`` API reference can be found `here`_.
 
-.. _Read the Docs: https://gpf3.readthedocs.io/
+.. _here: https://geocom-gis.github.io/gpf3/
 
 License
 -------
