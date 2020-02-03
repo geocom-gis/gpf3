@@ -1,173 +1,50 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>gpf.loggers module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gpf.loggers module &#8212; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="gpf.lookups module" href="gpf.lookups.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.lookups.html" title="gpf.lookups module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" accesskey="U">gpf package</a> &#187;</li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> gpf3
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="gpf.paths.html">gpf.paths module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.cursors.html">gpf.cursors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.lookups.html">gpf.lookups module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">gpf.loggers module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">gpf3</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="gpf.html">gpf package</a> &raquo;</li>
-        
-      <li>gpf.loggers module</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/gpf.loggers.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="module-gpf.loggers">
 <span id="gpf-loggers-module"></span><h1>gpf.loggers module<a class="headerlink" href="#module-gpf.loggers" title="Permalink to this headline">¶</a></h1>
 <p>This module provides a standardized alternative to the built-in Python Logger (<code class="docutils literal notranslate"><span class="pre">logging</span></code> package).</p>
 <dl class="class">
 <dt id="gpf.loggers.Logger">
-<em class="property">class </em><code class="descclassname">gpf.loggers.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>identity</em>, <em>{log_file}</em>, <em>{level}</em>, <em>{encoding}</em>, <em>{time_tag}</em>, <em>{max_name}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.loggers.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>identity</em>, <em>{log_file}</em>, <em>{level}</em>, <em>{encoding}</em>, <em>{time_tag}</em>, <em>{max_name}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standard logger class that logs to stdout (e.g. console) and optionally a file.</p>
 <p><strong>Params:</strong></p>
 <ul>
@@ -212,7 +89,7 @@ If there’s already a log handler for this file, this handler will be used auto
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.info">
-<code class="descname">info</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">info</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes an info/standard message.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -230,7 +107,7 @@ If there’s already a log handler for this file, this handler will be used auto
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.warning">
-<code class="descname">warning</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.warning" title="Permalink to this definition">¶</a></dt>
+<code class="descname">warning</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.warning" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a warning message and increments the warning counter. Multi-line messages count as 1 warning.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -248,7 +125,7 @@ If there’s already a log handler for this file, this handler will be used auto
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.error">
-<code class="descname">error</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.error" title="Permalink to this definition">¶</a></dt>
+<code class="descname">error</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes an error message and increments the error counter. Multi-line messages count as 1 error.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -266,7 +143,7 @@ If there’s already a log handler for this file, this handler will be used auto
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.critical">
-<code class="descname">critical</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.critical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.critical" title="Permalink to this definition">¶</a></dt>
+<code class="descname">critical</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.critical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -284,7 +161,7 @@ If there’s already a log handler for this file, this handler will be used auto
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.exception">
-<code class="descname">exception</code><span class="sig-paren">(</span><em>message: Union[str, Exception], **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.exception" title="Permalink to this definition">¶</a></dt>
+<code class="descname">exception</code><span class="sig-paren">(</span><em>message: Union[str, Exception], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.exception" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -302,7 +179,7 @@ If there’s already a log handler for this file, this handler will be used auto
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.section">
-<code class="descname">section</code><span class="sig-paren">(</span><em>message: str = ''</em>, <em>max_length: int = 80</em>, <em>symbol: str = '-'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.section" title="Permalink to this definition">¶</a></dt>
+<code class="descname">section</code><span class="sig-paren">(</span><em>message: str = ''</em>, <em>max_length: int = 80</em>, <em>symbol: str = '-'</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.section" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a centered message wrapped inside a section line to the log.
 When message exceeds <em>max_length</em>, it will be logged as-is.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -322,7 +199,7 @@ When message exceeds <em>max_length</em>, it will be logged as-is.</p>
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.status">
-<code class="descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.status" title="Permalink to this definition">¶</a></dt>
+<code class="descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a (final) status message to the log, telling the user how
 many errors and warnings were logged by this instance.</p>
 <p>Example:</p>
@@ -342,7 +219,7 @@ many errors and warnings were logged by this instance.</p>
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.time_elapsed">
-<code class="descname">time_elapsed</code><span class="sig-paren">(</span><em>func: Callable = None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.time_elapsed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.time_elapsed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">time_elapsed</code><span class="sig-paren">(</span><em>func: Callable = None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.time_elapsed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logs a nicely printed message stating how much time has passed.
 If the callable <em>func</em> is specified, this function is executed and its execution time is logged.
 If no callable <em>func</em> has been given, the elapsed time (since init or last <code class="docutils literal notranslate"><span class="pre">reset_stats</span></code> call) is logged.</p>
@@ -363,7 +240,7 @@ If no callable <em>func</em> has been given, the elapsed time (since init or las
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.reset_stats">
-<code class="descname">reset_stats</code><span class="sig-paren">(</span><em>time: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.reset_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.reset_stats" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset_stats</code><span class="sig-paren">(</span><em>time: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.reset_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the error and warning counters. Optionally, the start time can also be reset.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -377,7 +254,7 @@ If no callable <em>func</em> has been given, the elapsed time (since init or las
 
 <dl class="method">
 <dt id="gpf.loggers.Logger.quit">
-<code class="descname">quit</code><span class="sig-paren">(</span><em>error_msg: Union[Exception</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.quit" title="Permalink to this definition">¶</a></dt>
+<code class="descname">quit</code><span class="sig-paren">(</span><em>error_msg: Union[Exception</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.Logger.quit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Releases the current logger and shuts down the (main) logger.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -398,7 +275,7 @@ automatically being called once the user application has exited.</dd>
 
 <dl class="class">
 <dt id="gpf.loggers.ArcLogger">
-<em class="property">class </em><code class="descclassname">gpf.loggers.</code><code class="descname">ArcLogger</code><span class="sig-paren">(</span><em>identity</em>, <em>{log_file}</em>, <em>{level}</em>, <em>{encoding}</em>, <em>{time_tag}</em>, <em>{max_name}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#ArcLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.ArcLogger" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.loggers.</code><code class="descname">ArcLogger</code><span class="sig-paren">(</span><em>identity</em>, <em>{log_file}</em>, <em>{level}</em>, <em>{encoding}</em>, <em>{time_tag}</em>, <em>{max_name}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logger that forwards all messages to ArcGIS and optionally logs to a file.
 Forwarding messages to ArcGIS is only useful when logging from an ArcToolbox or GEONIS Python script.</p>
 <p><strong>Params:</strong></p>
@@ -631,50 +508,56 @@ If no callable <em>func</em> has been given, the elapsed time (since init or las
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="gpf.lookups.html" class="btn btn-neutral float-left" title="gpf.lookups module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gpf.lookups.html"
+                        title="previous chapter">gpf.lookups module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gpf.loggers.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.lookups.html" title="gpf.lookups module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
 </html>

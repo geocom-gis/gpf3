@@ -1,174 +1,54 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>gpf.paths module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gpf.paths module &#8212; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="gpf.cursors module" href="gpf.cursors.html" />
     <link rel="prev" title="gpf.tools.queries module" href="gpf.tools.queries.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.cursors.html" title="gpf.cursors module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.queries.html" title="gpf.tools.queries module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" accesskey="U">gpf package</a> &#187;</li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> gpf3
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">gpf.paths module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.cursors.html">gpf.cursors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.lookups.html">gpf.lookups module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.loggers.html">gpf.loggers module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">gpf3</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="gpf.html">gpf package</a> &raquo;</li>
-        
-      <li>gpf.paths module</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/gpf.paths.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="module-gpf.paths">
 <span id="gpf-paths-module"></span><h1>gpf.paths module<a class="headerlink" href="#module-gpf.paths" title="Permalink to this headline">¶</a></h1>
 <p>Module that simplifies working with file or directory paths or Esri workspaces (i.e. Geodatabases).</p>
 <dl class="function">
 <dt id="gpf.paths.explode">
-<code class="descclassname">gpf.paths.</code><code class="descname">explode</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/gpf/paths.html#explode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.explode" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">explode</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#gpf.paths.explode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits <em>path</em> into a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of <em>(directory, name, extension)</em>.
 Depending on the input path, <em>extension</em> might be an empty string.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -190,7 +70,7 @@ Depending on the input path, <em>extension</em> might be an empty string.</p>
 
 <dl class="function">
 <dt id="gpf.paths.normalize">
-<code class="descclassname">gpf.paths.</code><code class="descname">normalize</code><span class="sig-paren">(</span><em>path: str</em>, <em>lowercase: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.normalize" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">normalize</code><span class="sig-paren">(</span><em>path: str</em>, <em>lowercase: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes a path and turns it into lowercase, unless <em>lowercase</em> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -209,7 +89,7 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 
 <dl class="function">
 <dt id="gpf.paths.concat">
-<code class="descclassname">gpf.paths.</code><code class="descname">concat</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#concat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.concat" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">concat</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.concat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Joins (concatenates) one or more paths together to create a complete path and normalizes it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -223,7 +103,7 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 
 <dl class="function">
 <dt id="gpf.paths.get_abs">
-<code class="descclassname">gpf.paths.</code><code class="descname">get_abs</code><span class="sig-paren">(</span><em>path: str</em>, <em>base: str = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#get_abs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.get_abs" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">get_abs</code><span class="sig-paren">(</span><em>path: str</em>, <em>base: str = None</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.get_abs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a normalized absolute path based on <em>path</em> relative to <em>base</em>. If <em>base</em> is not specified,
 the base will be the directory to the file path of the calling function, i.e. when a script ‘test.py’ calls
 make_absolute(), the directory which contains ‘test.py’ will be the base.</p>
@@ -246,7 +126,7 @@ make_absolute(), the directory which contains ‘test.py’ will be the base.</p
 
 <dl class="function">
 <dt id="gpf.paths.find_parent">
-<code class="descclassname">gpf.paths.</code><code class="descname">find_parent</code><span class="sig-paren">(</span><em>path: str</em>, <em>name: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#find_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.find_parent" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">find_parent</code><span class="sig-paren">(</span><em>path: str</em>, <em>name: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.find_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds within <em>path</em> the parent directory that contains a file or directory with the given <em>name</em>.
 Note that <em>path</em> and <em>name</em> values are matched case-insensitively, but the found path is returned
 in the original case (as a normalized path).</p>
@@ -281,7 +161,7 @@ Partial paths, pre- or suffixes or regular expressions are not allowed here and 
 
 <dl class="class">
 <dt id="gpf.paths.Path">
-<em class="property">class </em><code class="descclassname">gpf.paths.</code><code class="descname">Path</code><span class="sig-paren">(</span><em>path</em>, <em>{base}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/paths.html#Path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Path" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.paths.</code><code class="descname">Path</code><span class="sig-paren">(</span><em>path</em>, <em>{base}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.paths.Path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Path</span></code> class helps to extract the different parts of a file or directory path, or helps make_path new ones
 based upon a root path. This class can also be used as a context manager using the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement.</p>
@@ -322,7 +202,7 @@ Otherwise, it will leave <em>path</em> unchanged (whether absolute or relative).
 
 <dl class="method">
 <dt id="gpf.paths.Path.extension">
-<code class="descname">extension</code><span class="sig-paren">(</span><em>keep_dot: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#Path.extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Path.extension" title="Permalink to this definition">¶</a></dt>
+<code class="descname">extension</code><span class="sig-paren">(</span><em>keep_dot: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.Path.extension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the extension part of the initial path.
 For directories or files without extension, an empty string is returned.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -337,7 +217,7 @@ For directories or files without extension, an empty string is returned.</p>
 
 <dl class="method">
 <dt id="gpf.paths.Path.basename">
-<code class="descname">basename</code><span class="sig-paren">(</span><em>keep_ext: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#Path.basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Path.basename" title="Permalink to this definition">¶</a></dt>
+<code class="descname">basename</code><span class="sig-paren">(</span><em>keep_ext: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.Path.basename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a file name (if initial path is a file) or a directory name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -352,7 +232,7 @@ Note that for directories, this might not have any effect.</td>
 
 <dl class="method">
 <dt id="gpf.paths.Path.from_extension">
-<code class="descname">from_extension</code><span class="sig-paren">(</span><em>extension: str</em>, <em>force: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/paths.html#Path.from_extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Path.from_extension" title="Permalink to this definition">¶</a></dt>
+<code class="descname">from_extension</code><span class="sig-paren">(</span><em>extension: str</em>, <em>force: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.paths.Path.from_extension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the initial path with an alternative file <em>extension</em>.
 If the initial path did not have an extension (e.g. when it is a directory),
 this function will return the initial unmodified path instead (and have no effect), unless <em>force</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
@@ -384,7 +264,7 @@ even if the initial path is a directory. The default is <code class="docutils li
 
 <dl class="method">
 <dt id="gpf.paths.Path.from_basename">
-<code class="descname">from_basename</code><span class="sig-paren">(</span><em>basename: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#Path.from_basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Path.from_basename" title="Permalink to this definition">¶</a></dt>
+<code class="descname">from_basename</code><span class="sig-paren">(</span><em>basename: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.Path.from_basename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the initial path with an alternative basename. This will work for both directories and files.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -409,7 +289,7 @@ the directory name will simply be replaced by the basename.</td>
 
 <dl class="method">
 <dt id="gpf.paths.Path.make_path">
-<code class="descname">make_path</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/paths.html#Path.make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Path.make_path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_path</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.paths.Path.make_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a new path based on the initial path from one or more parts (directories, file names).
 If the initial part seems to be a file path (i.e. when an extension is present),
 the constructed path will be based on the containing directory of this file.</p>
@@ -438,7 +318,7 @@ the constructed path will be based on the containing directory of this file.</p>
 
 <dl class="function">
 <dt id="gpf.paths.is_gdbpath">
-<code class="descclassname">gpf.paths.</code><code class="descname">is_gdbpath</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/paths.html#is_gdbpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.is_gdbpath" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">is_gdbpath</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.paths.is_gdbpath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the given path could be an Esri Geodatabase path by searching for 1 (and only 1!) of its known extensions.
 Note however that this does not truly guarantee that the path actually refers to a geodatabase!</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -453,7 +333,7 @@ Note however that this does not truly guarantee that the path actually refers to
 
 <dl class="function">
 <dt id="gpf.paths.split_gdbpath">
-<code class="descclassname">gpf.paths.</code><code class="descname">split_gdbpath</code><span class="sig-paren">(</span><em>path: str</em>, <em>remove_qualifier: bool = True</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/gpf/paths.html#split_gdbpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.split_gdbpath" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">split_gdbpath</code><span class="sig-paren">(</span><em>path: str</em>, <em>remove_qualifier: bool = True</em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#gpf.paths.split_gdbpath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits the Esri Geodatabase <em>path</em> into a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of <em>(workspace, feature_dataset, feature_class/table)</em>.
 If any of the output tuple parts is not present, these will be set to an empty string.
 Note that if the path refers to a table or feature class that is not stored in a feature dataset,
@@ -490,7 +370,7 @@ there are more than 2 levels in the Geodatabase.</p>
 
 <dl class="function">
 <dt id="gpf.paths.exists">
-<code class="descclassname">gpf.paths.</code><code class="descname">exists</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/paths.html#exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.exists" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">exists</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.paths.exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True if <em>path</em> exists. Esri paths (e.g. feature classes) are also supported.</p>
 <p>This function can be slightly faster than Esri’s <code class="xref py py-func docutils literal notranslate"><span class="pre">Exists()</span></code>, because it checks first if the <em>workspace</em> path
 exists using Python’s built-in <code class="docutils literal notranslate"><span class="pre">os.path</span></code> module. If this is not the case, it immediately returns <code class="docutils literal notranslate"><span class="pre">False</span></code>.
@@ -507,13 +387,13 @@ Only if the workspace exists, it will use Esri’s <code class="xref py py-func 
 
 <dl class="function">
 <dt id="gpf.paths.unqualify">
-<code class="descclassname">gpf.paths.</code><code class="descname">unqualify</code><span class="sig-paren">(</span><em>element: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#unqualify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.unqualify" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">unqualify</code><span class="sig-paren">(</span><em>element: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.unqualify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes the qualifier (and anything before that) for a data element part.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="gpf.paths.Workspace">
-<em class="property">class </em><code class="descclassname">gpf.paths.</code><code class="descname">Workspace</code><span class="sig-paren">(</span><em>{path='in_memory'</em>, <em>{qualifier=''}</em>, <em>{base=None}</em>, <em>{separator='.'}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/paths.html#Workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Workspace" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.paths.</code><code class="descname">Workspace</code><span class="sig-paren">(</span><em>{path='in_memory'</em>, <em>{qualifier=''}</em>, <em>{base=None}</em>, <em>{separator='.'}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.paths.Workspace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#gpf.paths.Path" title="gpf.paths.Path"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.paths.Path</span></code></a></p>
 <p>Helper class to generate fully qualified paths for elements (tables, feature datasets etc.) in an Esri workspace.
 An Esri Workspace can be anything ranging from an SDE connection file to a File Geodatabase folder or a simple
@@ -558,7 +438,7 @@ for which the properties cannot be retrieved, initialization will fail.</td>
 </table>
 <dl class="classmethod">
 <dt id="gpf.paths.Workspace.get_parent">
-<em class="property">classmethod </em><code class="descname">get_parent</code><span class="sig-paren">(</span><em>path: str</em>, <em>outside_gdb: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#Workspace.get_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Workspace.get_parent" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get_parent</code><span class="sig-paren">(</span><em>path: str</em>, <em>outside_gdb: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.Workspace.get_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method that extracts the parent workspace path for a given Esri table/feature class path.
 Depending on the path, this might return a feature dataset workspace or the root workspace path.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -592,7 +472,7 @@ For non-Geodatabase paths, this will have no effect: the parent directory is ret
 
 <dl class="classmethod">
 <dt id="gpf.paths.Workspace.get_root">
-<em class="property">classmethod </em><code class="descname">get_root</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#Workspace.get_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Workspace.get_root" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get_root</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.Workspace.get_root" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method that extracts the root workspace for a given Esri table/feature class path.</p>
 <p>A root workspace is the Esri workspace of the “highest order”.
 For an SDE feature class, this is the SDE connection file.
@@ -664,7 +544,7 @@ The trailing separator will not be included in the output string.</p>
 
 <dl class="method">
 <dt id="gpf.paths.Workspace.qualify">
-<code class="descname">qualify</code><span class="sig-paren">(</span><em>name: str</em>, <em>qualifier: str = None</em>, <em>separator: str = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#Workspace.qualify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Workspace.qualify" title="Permalink to this definition">¶</a></dt>
+<code class="descname">qualify</code><span class="sig-paren">(</span><em>name: str</em>, <em>qualifier: str = None</em>, <em>separator: str = None</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.Workspace.qualify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Qualifies (prefixes) a data element name for SDE workspaces.
 If the workspace is not an SDE workspace or the name is qualified already, the input name is returned as-is.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -687,7 +567,7 @@ If the workspace is not an SDE workspace or the name is qualified already, the i
 
 <dl class="method">
 <dt id="gpf.paths.Workspace.find_path">
-<code class="descname">find_path</code><span class="sig-paren">(</span><em>table: str</em>, <em>refresh: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/paths.html#Workspace.find_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Workspace.find_path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">find_path</code><span class="sig-paren">(</span><em>table: str</em>, <em>refresh: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.paths.Workspace.find_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tries to resolve the full (qualified) path for the specified table or feature class and returns it,
 by looking up the matching feature dataset (or workspace root when not found).
 In contrast to the <a class="reference internal" href="#gpf.paths.Workspace.make_path" title="gpf.paths.Workspace.make_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_path()</span></code></a> function, the path is verified before it is returned.</p>
@@ -727,7 +607,7 @@ If the user wishes to force-update the lookup, set the <em>refresh</em> argument
 
 <dl class="method">
 <dt id="gpf.paths.Workspace.make_path">
-<code class="descname">make_path</code><span class="sig-paren">(</span><em>*parts</em>, <em>{qualifier}</em>, <em>{separator}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/paths.html#Workspace.make_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.Workspace.make_path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_path</code><span class="sig-paren">(</span><em>*parts</em>, <em>{qualifier}</em>, <em>{separator}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.paths.Workspace.make_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a (qualified) path for the given named parts (data elements) in the order they appear.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -865,7 +745,7 @@ even if the initial path is a directory. The default is <code class="docutils li
 
 <dl class="function">
 <dt id="gpf.paths.get_workspace">
-<code class="descclassname">gpf.paths.</code><code class="descname">get_workspace</code><span class="sig-paren">(</span><em>table_path: str</em>, <em>root: bool = False</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; gpf.paths.Workspace<a class="reference internal" href="_modules/gpf/paths.html#get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.paths.get_workspace" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.paths.</code><code class="descname">get_workspace</code><span class="sig-paren">(</span><em>table_path: str</em>, <em>root: bool = False</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; gpf.paths.Workspace<a class="headerlink" href="#gpf.paths.get_workspace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts the workspace from <em>table_path</em> and returns a <a class="reference internal" href="#gpf.paths.Workspace" title="gpf.paths.Workspace"><code class="xref py py-class docutils literal notranslate"><span class="pre">Workspace</span></code></a> instance for it.
 By default (<code class="docutils literal notranslate"><span class="pre">root=False</span></code>), this will return the first workspace it can find in an upwards direction:
 i.e. for a feature class inside a feature dataset, the feature dataset path will be returned.</p>
@@ -894,52 +774,62 @@ i.e. for a feature class inside a feature dataset, the feature dataset path will
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="gpf.cursors.html" class="btn btn-neutral float-right" title="gpf.cursors module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="gpf.tools.queries.html" class="btn btn-neutral float-left" title="gpf.tools.queries module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gpf.tools.queries.html"
+                        title="previous chapter">gpf.tools.queries module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gpf.cursors.html"
+                        title="next chapter">gpf.cursors module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gpf.paths.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.cursors.html" title="gpf.cursors module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.queries.html" title="gpf.tools.queries module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
 </html>

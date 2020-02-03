@@ -1,178 +1,55 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>gpf.tools.queries module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gpf.tools.queries module &#8212; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="gpf.paths module" href="gpf.paths.html" />
     <link rel="prev" title="gpf.tools.metadata module" href="gpf.tools.metadata.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.paths.html" title="gpf.paths module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.metadata.html" title="gpf.tools.metadata module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.tools.html" accesskey="U">gpf.tools package</a> &#187;</li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> gpf3
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="gpf.tools.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gpf.tools.html#module-gpf.tools">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">gpf3</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="gpf.html">gpf package</a> &raquo;</li>
-        
-          <li><a href="gpf.tools.html">gpf.tools package</a> &raquo;</li>
-        
-      <li>gpf.tools.queries module</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/gpf.tools.queries.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="module-gpf.tools.queries">
 <span id="gpf-tools-queries-module"></span><h1>gpf.tools.queries module<a class="headerlink" href="#module-gpf.tools.queries" title="Permalink to this headline">¶</a></h1>
 <p>Module that facilitates working with basic SQL expressions and where clauses in ArcGIS.</p>
 <dl class="class">
 <dt id="gpf.tools.queries.Where">
-<em class="property">class </em><code class="descclassname">gpf.tools.queries.</code><code class="descname">Where</code><span class="sig-paren">(</span><em>field_or_clause</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.tools.queries.</code><code class="descname">Where</code><span class="sig-paren">(</span><em>field_or_clause</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Basic query helper class to build basic SQL expressions for ArcPy tools where clauses.
 Because all methods return a new instance, the user can “daisy chain” multiple statements.</p>
@@ -211,7 +88,7 @@ as shown in the following composite query example:</p>
 </ul>
 <dl class="method">
 <dt id="gpf.tools.queries.Where.And">
-<code class="descname">And</code><span class="sig-paren">(</span><em>field_or_clause: Union[str, Where]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.And"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.And" title="Permalink to this definition">¶</a></dt>
+<code class="descname">And</code><span class="sig-paren">(</span><em>field_or_clause: Union[str, Where]</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.And" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a new field or another SQL query to a new instance of the current SQL query,
 separated by an “AND” statement and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -228,7 +105,7 @@ separated by an “AND” statement and returns it.</p>
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.Or">
-<code class="descname">Or</code><span class="sig-paren">(</span><em>field_or_clause: Union[str, Where]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.Or"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.Or" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Or</code><span class="sig-paren">(</span><em>field_or_clause: Union[str, Where]</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.Or" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a new field or another SQL query to a new instance of the current SQL query,
 separated by an “OR” statement and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -245,7 +122,7 @@ separated by an “OR” statement and returns it.</p>
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.In">
-<code class="descname">In</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.In"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.In" title="Permalink to this definition">¶</a></dt>
+<code class="descname">In</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.In" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds an IN expression to a copy of the current instance to complete the SQL query and returns it.
 The given input values must have similar data types. The values will be ordered and duplicates are removed.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -260,7 +137,7 @@ The given input values must have similar data types. The values will be ordered 
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.NotIn">
-<code class="descname">NotIn</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.NotIn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.NotIn" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NotIn</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.NotIn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a NOT IN expression to a copy of the current instance to complete the SQL query and returns it.
 The given input values must have similar data types. The values will be ordered and duplicates are removed.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -275,7 +152,7 @@ The given input values must have similar data types. The values will be ordered 
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.Between">
-<code class="descname">Between</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.Between"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.Between" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Between</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.Between" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a BETWEEN expression to a copy of the current instance to complete the SQL query and returns it.
 The given input values must have similar data types. Only the lower and upper values are used.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -290,7 +167,7 @@ The given input values must have similar data types. Only the lower and upper va
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.NotBetween">
-<code class="descname">NotBetween</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.NotBetween"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.NotBetween" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NotBetween</code><span class="sig-paren">(</span><em>*values</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.NotBetween" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a NOT BETWEEN expression to a copy of the current instance to complete the SQL query and returns it.
 The given input values must have similar data types. Only the lower and upper values are used.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -305,7 +182,7 @@ The given input values must have similar data types. Only the lower and upper va
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.Like">
-<code class="descname">Like</code><span class="sig-paren">(</span><em>value: Any</em>, <em>escape_char: Union[None</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.Like"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.Like" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Like</code><span class="sig-paren">(</span><em>value: Any</em>, <em>escape_char: Union[None</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.Like" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a LIKE expression to a copy of the current instance to complete the SQL query and returns it.
 Optionally, an escape character can be specified e.g. when a % symbol must be taken literally.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -320,7 +197,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.NotLike">
-<code class="descname">NotLike</code><span class="sig-paren">(</span><em>value: Any</em>, <em>escape_char: Union[None</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.NotLike"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.NotLike" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NotLike</code><span class="sig-paren">(</span><em>value: Any</em>, <em>escape_char: Union[None</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.NotLike" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a NOT LIKE expression to a copy of the current instance to complete the SQL query and returns it.
 Optionally, an escape character can be specified e.g. when a % symbol must be taken literally.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -335,7 +212,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.Equals">
-<code class="descname">Equals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.Equals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.Equals" title="Permalink to this definition">¶</a></dt>
+<code class="descname">Equals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.Equals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a “=” expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -349,7 +226,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.NotEquals">
-<code class="descname">NotEquals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.NotEquals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.NotEquals" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NotEquals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.NotEquals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a “&lt;&gt;” expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -363,7 +240,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.GreaterThan">
-<code class="descname">GreaterThan</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.GreaterThan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.GreaterThan" title="Permalink to this definition">¶</a></dt>
+<code class="descname">GreaterThan</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.GreaterThan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a “&gt;” expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -377,7 +254,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.LessThan">
-<code class="descname">LessThan</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.LessThan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.LessThan" title="Permalink to this definition">¶</a></dt>
+<code class="descname">LessThan</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.LessThan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a “&lt;” expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -391,7 +268,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.GreaterThanOrEquals">
-<code class="descname">GreaterThanOrEquals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.GreaterThanOrEquals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.GreaterThanOrEquals" title="Permalink to this definition">¶</a></dt>
+<code class="descname">GreaterThanOrEquals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.GreaterThanOrEquals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a “&gt;=” expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -405,7 +282,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.LessThanOrEquals">
-<code class="descname">LessThanOrEquals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.LessThanOrEquals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.LessThanOrEquals" title="Permalink to this definition">¶</a></dt>
+<code class="descname">LessThanOrEquals</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.LessThanOrEquals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a “&lt;=” expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -419,7 +296,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.IsNull">
-<code class="descname">IsNull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.IsNull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.IsNull" title="Permalink to this definition">¶</a></dt>
+<code class="descname">IsNull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.IsNull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a IS NULL expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -433,7 +310,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.IsNotNull">
-<code class="descname">IsNotNull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.IsNotNull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.IsNotNull" title="Permalink to this definition">¶</a></dt>
+<code class="descname">IsNotNull</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.IsNotNull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a IS NOT NULL expression to a copy of the current instance to complete the SQL query and returns it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -447,7 +324,7 @@ Optionally, an escape character can be specified e.g. when a % symbol must be ta
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.get_kwargs">
-<code class="descname">get_kwargs</code><span class="sig-paren">(</span><em>keyword='where_clause'</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/gpf/tools/queries.html#Where.get_kwargs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.get_kwargs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_kwargs</code><span class="sig-paren">(</span><em>keyword='where_clause'</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#gpf.tools.queries.Where.get_kwargs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the where clause SQL string representation as a <em>keyword=value</em> <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p>
 <p>This can be used in combination with the double-asterisk syntax (<code class="docutils literal notranslate"><span class="pre">**</span></code>) in an <em>arcpy</em> tool call, for example.
 If this function is called with existing keyword arguments, the SQL where clause will be appended/updated.</p>
@@ -470,7 +347,7 @@ If this function is called with existing keyword arguments, the SQL where clause
 
 <dl class="method">
 <dt id="gpf.tools.queries.Where.delimit_fields">
-<code class="descname">delimit_fields</code><span class="sig-paren">(</span><em>datasource: Union[str, gpf.paths.Workspace]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/queries.html#Where.delimit_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.Where.delimit_fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delimit_fields</code><span class="sig-paren">(</span><em>datasource: Union[str, gpf.paths.Workspace]</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.queries.Where.delimit_fields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the fields in the query by wrapping them in the appropriate delimiters for the current data source.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -503,7 +380,7 @@ or a <a class="reference internal" href="gpf.paths.html#gpf.paths.Workspace" tit
 
 <dl class="function">
 <dt id="gpf.tools.queries.combine">
-<code class="descclassname">gpf.tools.queries.</code><code class="descname">combine</code><span class="sig-paren">(</span><em>where_clause: gpf.tools.queries.Where</em><span class="sig-paren">)</span> &#x2192; gpf.tools.queries.Where<a class="reference internal" href="_modules/gpf/tools/queries.html#combine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.combine" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.tools.queries.</code><code class="descname">combine</code><span class="sig-paren">(</span><em>where_clause: gpf.tools.queries.Where</em><span class="sig-paren">)</span> &#x2192; gpf.tools.queries.Where<a class="headerlink" href="#gpf.tools.queries.combine" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <cite>combine</cite> function wraps a <a class="reference internal" href="#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><code class="xref py py-class docutils literal notranslate"><span class="pre">Where</span></code></a> instance in parenthesis “()”.
 This is typically used to combine 2 or more SQL clauses (delimited by AND or OR) into one.</p>
 <p>Example:</p>
@@ -521,7 +398,7 @@ This is typically used to combine 2 or more SQL clauses (delimited by AND or OR)
 
 <dl class="function">
 <dt id="gpf.tools.queries.add_where">
-<code class="descclassname">gpf.tools.queries.</code><code class="descname">add_where</code><span class="sig-paren">(</span><em>keyword_args: dict, where_clause: Union[str, gpf.tools.queries.Where], datasource: Union[None, str, gpf.paths.Workspace] = None</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/gpf/tools/queries.html#add_where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.queries.add_where" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.tools.queries.</code><code class="descname">add_where</code><span class="sig-paren">(</span><em>keyword_args: dict, where_clause: Union[str, gpf.tools.queries.Where], datasource: Union[None, str, gpf.paths.Workspace] = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#gpf.tools.queries.add_where" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the keyword arguments dictionary with a where clause (string or <code class="docutils literal notranslate"><span class="pre">Where</span></code> instance).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -546,52 +423,63 @@ or if <em>keyword_args</em> is not a <code class="docutils literal notranslate">
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="gpf.paths.html" class="btn btn-neutral float-right" title="gpf.paths module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="gpf.tools.metadata.html" class="btn btn-neutral float-left" title="gpf.tools.metadata module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gpf.tools.metadata.html"
+                        title="previous chapter">gpf.tools.metadata module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gpf.paths.html"
+                        title="next chapter">gpf.paths module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gpf.tools.queries.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.paths.html" title="gpf.paths module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.metadata.html" title="gpf.tools.metadata module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.tools.html" >gpf.tools package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
 </html>

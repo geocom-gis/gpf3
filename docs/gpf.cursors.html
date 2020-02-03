@@ -1,167 +1,47 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>gpf.cursors module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gpf.cursors module &#8212; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="gpf.lookups module" href="gpf.lookups.html" />
     <link rel="prev" title="gpf.paths module" href="gpf.paths.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.lookups.html" title="gpf.lookups module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gpf.paths.html" title="gpf.paths module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" accesskey="U">gpf package</a> &#187;</li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> gpf3
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#submodules">Submodules</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="gpf.paths.html">gpf.paths module</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">gpf.cursors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.lookups.html">gpf.lookups module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.loggers.html">gpf.loggers module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">gpf3</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="gpf.html">gpf package</a> &raquo;</li>
-        
-      <li>gpf.cursors module</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/gpf.cursors.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="module-gpf.cursors">
 <span id="gpf-cursors-module"></span><h1>gpf.cursors module<a class="headerlink" href="#module-gpf.cursors" title="Permalink to this headline">¶</a></h1>
@@ -188,7 +68,7 @@ for the ported functions and the <a class="reference external" href="https://des
 for cursor initialization and function overrides.</p>
 <dl class="class">
 <dt id="gpf.cursors.Editor">
-<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">Editor</code><span class="sig-paren">(</span><em>path: Union[str, gpf.paths.Workspace], with_undo: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#Editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.Editor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">Editor</code><span class="sig-paren">(</span><em>path: Union[str, gpf.paths.Workspace], with_undo: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.cursors.Editor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager wrapper for Esri’s Data Access Editor class that opens an edit session on a workspace.
 This class does not do more than Esri’s Editor class, but it tends to be more user-friendly.</p>
 <p>This Editor only has a <a class="reference internal" href="#gpf.cursors.Editor.start" title="gpf.cursors.Editor.start"><code class="xref py py-func docutils literal notranslate"><span class="pre">start()</span></code></a> and <a class="reference internal" href="#gpf.cursors.Editor.stop" title="gpf.cursors.Editor.stop"><code class="xref py py-func docutils literal notranslate"><span class="pre">stop()</span></code></a> method. The other available methods (<code class="xref py py-func docutils literal notranslate"><span class="pre">startOperation()</span></code>,
@@ -220,7 +100,7 @@ if these cursors are initialized with the <em>auto_edit</em> option set to <code
 </div>
 <dl class="method">
 <dt id="gpf.cursors.Editor.start">
-<code class="descname">start</code><span class="sig-paren">(</span><em>with_undo: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/gpf/cursors.html#Editor.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.Editor.start" title="Permalink to this definition">¶</a></dt>
+<code class="descname">start</code><span class="sig-paren">(</span><em>with_undo: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#gpf.cursors.Editor.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the edit operation.
 If the Editor already is in an editing state, this method will do nothing.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -236,7 +116,7 @@ Note that this stack will always be enabled if the workspace is a versioned SDE 
 
 <dl class="method">
 <dt id="gpf.cursors.Editor.stop">
-<code class="descname">stop</code><span class="sig-paren">(</span><em>save: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/gpf/cursors.html#Editor.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.Editor.stop" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stop</code><span class="sig-paren">(</span><em>save: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#gpf.cursors.Editor.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops the edit operation.
 If the Editor is not in an editing state, this method will do nothing.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -269,7 +149,7 @@ If the undo stack was disabled (default) and <em>save</em> is <code class="docut
 
 <dl class="class">
 <dt id="gpf.cursors.SearchCursor">
-<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">SearchCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>{field_names}</em>, <em>{where_clause}</em>, <em>{spatial_reference}</em>, <em>{explode_to_points}</em>, <em>{sql_clause}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#SearchCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.SearchCursor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">SearchCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>{field_names}</em>, <em>{where_clause}</em>, <em>{spatial_reference}</em>, <em>{explode_to_points}</em>, <em>{sql_clause}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.cursors.SearchCursor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper class to properly expose ArcPy’s Data Access SearchCursor and its methods.
 Returns a read-only cursor to iterate over (a set of) records in a table.</p>
 <p>If <em>where_clause</em> is used and it’s a <code class="xref py py-class docutils literal notranslate"><span class="pre">Where</span></code> instance (recommended),
@@ -311,7 +191,7 @@ The clauses do not support the use of <a class="reference internal" href="gpf.to
 
 <dl class="method">
 <dt id="gpf.cursors.SearchCursor.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#SearchCursor.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.SearchCursor.reset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpf.cursors.SearchCursor.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the cursor position to the first row so it can be iterated over again.</p>
 </dd></dl>
 
@@ -319,7 +199,7 @@ The clauses do not support the use of <a class="reference internal" href="gpf.to
 
 <dl class="class">
 <dt id="gpf.cursors.InsertCursor">
-<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">InsertCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>field_names</em>, <em>{auto_edit}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#InsertCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.InsertCursor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">InsertCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>field_names</em>, <em>{auto_edit}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.cursors.InsertCursor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper class to properly expose ArcPy’s Data Access InsertCursor and its methods.
 Returns a cursor to insert new records into a table.</p>
 <p><strong>Params:</strong></p>
@@ -346,7 +226,7 @@ When not set, all fields are returned. This is not recommended, as it tends to b
 
 <dl class="method">
 <dt id="gpf.cursors.InsertCursor.newRow">
-<code class="descname">newRow</code><span class="sig-paren">(</span><em>values: Iterable = None</em><span class="sig-paren">)</span> &#x2192; gpf.cursors._MutableRow<a class="reference internal" href="_modules/gpf/cursors.html#InsertCursor.newRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.InsertCursor.newRow" title="Permalink to this definition">¶</a></dt>
+<code class="descname">newRow</code><span class="sig-paren">(</span><em>values: Iterable = None</em><span class="sig-paren">)</span> &#x2192; gpf.cursors._MutableRow<a class="headerlink" href="#gpf.cursors.InsertCursor.newRow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a new MutableRow instance (optionally populated with data).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -365,7 +245,7 @@ cursor field names.</td>
 
 <dl class="method">
 <dt id="gpf.cursors.InsertCursor.insertRow">
-<code class="descname">insertRow</code><span class="sig-paren">(</span><em>row: Iterable</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gpf/cursors.html#InsertCursor.insertRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.InsertCursor.insertRow" title="Permalink to this definition">¶</a></dt>
+<code class="descname">insertRow</code><span class="sig-paren">(</span><em>row: Iterable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#gpf.cursors.InsertCursor.insertRow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inserts a new row.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -383,7 +263,7 @@ cursor field names.</td>
 
 <dl class="class">
 <dt id="gpf.cursors.UpdateCursor">
-<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">UpdateCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>{field_names}</em>, <em>{where_clause}</em>, <em>{spatial_reference}</em>, <em>{explode_to_points}</em>, <em>{sql_clause}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">UpdateCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>{field_names}</em>, <em>{where_clause}</em>, <em>{spatial_reference}</em>, <em>{explode_to_points}</em>, <em>{sql_clause}</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.cursors.UpdateCursor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper class to properly expose ArcPy’s Data Access UpdateCursor and its methods.
 Returns a cursor to iterate over and update (a set of) records in a table.</p>
 <p>If <em>where_clause</em> is used and it’s a <code class="xref py py-class docutils literal notranslate"><span class="pre">Where</span></code> instance, the field delimiters will
@@ -428,13 +308,13 @@ The clauses do not support the use of <a class="reference internal" href="gpf.to
 
 <dl class="method">
 <dt id="gpf.cursors.UpdateCursor.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor.reset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpf.cursors.UpdateCursor.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the cursor position to the first row so it can be iterated over again.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="gpf.cursors.UpdateCursor.deleteRow">
-<code class="descname">deleteRow</code><span class="sig-paren">(</span><em>dummy=None</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor.deleteRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor.deleteRow" title="Permalink to this definition">¶</a></dt>
+<code class="descname">deleteRow</code><span class="sig-paren">(</span><em>dummy=None</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#gpf.cursors.UpdateCursor.deleteRow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the current row. The <em>dummy</em> argument only serves backwards compatibility and is not used.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -448,7 +328,7 @@ The clauses do not support the use of <a class="reference internal" href="gpf.to
 
 <dl class="method">
 <dt id="gpf.cursors.UpdateCursor.updateRow">
-<code class="descname">updateRow</code><span class="sig-paren">(</span><em>row: Iterable</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor.updateRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor.updateRow" title="Permalink to this definition">¶</a></dt>
+<code class="descname">updateRow</code><span class="sig-paren">(</span><em>row: Iterable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#gpf.cursors.UpdateCursor.updateRow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the current row.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -467,52 +347,62 @@ The clauses do not support the use of <a class="reference internal" href="gpf.to
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="gpf.lookups.html" class="btn btn-neutral float-right" title="gpf.lookups module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="gpf.paths.html" class="btn btn-neutral float-left" title="gpf.paths module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gpf.paths.html"
+                        title="previous chapter">gpf.paths module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gpf.lookups.html"
+                        title="next chapter">gpf.lookups module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gpf.cursors.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.lookups.html" title="gpf.lookups module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gpf.paths.html" title="gpf.paths module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
 </html>

@@ -1,171 +1,48 @@
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>gpf.common.validate module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
-  
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gpf.common.validate module &#8212; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="gpf.tools package" href="gpf.tools.html" />
     <link rel="prev" title="gpf.common.textutils module" href="gpf.common.textutils.html" /> 
-</head>
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.html" title="gpf.tools package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gpf.common.textutils.html" title="gpf.common.textutils module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.common.html" accesskey="U">gpf.common package</a> &#187;</li> 
+      </ul>
+    </div>  
 
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> gpf3
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="gpf.common.html">gpf.common package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="gpf.common.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gpf.common.html#module-gpf.common">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">gpf3</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="gpf.html">gpf package</a> &raquo;</li>
-        
-          <li><a href="gpf.common.html">gpf.common package</a> &raquo;</li>
-        
-      <li>gpf.common.validate module</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/gpf.common.validate.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <div class="section" id="module-gpf.common.validate">
 <span id="gpf-common-validate-module"></span><h1>gpf.common.validate module<a class="headerlink" href="#module-gpf.common.validate" title="Permalink to this headline">¶</a></h1>
@@ -188,7 +65,7 @@ and therefore serve as an alternative to the <code class="docutils literal notra
 </div>
 <dl class="function">
 <dt id="gpf.common.validate.is_text">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">is_text</code><span class="sig-paren">(</span><em>value: Any</em>, <em>allow_empty: bool = True</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#is_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.is_text" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">is_text</code><span class="sig-paren">(</span><em>value: Any</em>, <em>allow_empty: bool = True</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.is_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <strong>value</strong> is a <code class="docutils literal notranslate"><span class="pre">str</span></code> instance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -207,7 +84,7 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 
 <dl class="function">
 <dt id="gpf.common.validate.is_number">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">is_number</code><span class="sig-paren">(</span><em>value: Any</em>, <em>allow_bool: bool = False</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#is_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.is_number" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">is_number</code><span class="sig-paren">(</span><em>value: Any</em>, <em>allow_bool: bool = False</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.is_number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>value</em> is a built-in numeric object (e.g. <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">long</span></code>, <code class="docutils literal notranslate"><span class="pre">Decimal</span></code>, etc.).</p>
 <p>Note that <a class="reference internal" href="#gpf.common.validate.is_number" title="gpf.common.validate.is_number"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_number()</span></code></a> will return <code class="docutils literal notranslate"><span class="pre">False</span></code> for booleans by default, which is non-standard behaviour,
 because <code class="docutils literal notranslate"><span class="pre">bool</span></code> is a subclass of <code class="docutils literal notranslate"><span class="pre">int</span></code>:</p>
@@ -233,7 +110,7 @@ because <code class="docutils literal notranslate"><span class="pre">bool</span>
 
 <dl class="function">
 <dt id="gpf.common.validate.is_iterable">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">is_iterable</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#is_iterable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.is_iterable" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">is_iterable</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.is_iterable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <em>value</em> is an iterable container (e.g. <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">tuple</span></code> but not a <strong>generator</strong>).</p>
 <p>Note that <a class="reference internal" href="#gpf.common.validate.is_iterable" title="gpf.common.validate.is_iterable"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_iterable()</span></code></a> will return <code class="docutils literal notranslate"><span class="pre">False</span></code> for string-like objects as well, even though they are iterable.
 The same applies to <strong>generators</strong> and <strong>sets</strong>:</p>
@@ -260,7 +137,7 @@ The same applies to <strong>generators</strong> and <strong>sets</strong>:</p>
 
 <dl class="function">
 <dt id="gpf.common.validate.is_guid">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">is_guid</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#is_guid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.is_guid" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">is_guid</code><span class="sig-paren">(</span><em>value: Any</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.is_guid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> when the given <em>value</em> is a GUID-like object and <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.
 The function effectively tries to parse the value as a <code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.guids.Guid</span></code> object.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -275,7 +152,7 @@ The function effectively tries to parse the value as a <code class="xref py py-c
 
 <dl class="function">
 <dt id="gpf.common.validate.has_value">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">has_value</code><span class="sig-paren">(</span><em>obj: Any</em>, <em>strip: bool = False</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#has_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.has_value" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">has_value</code><span class="sig-paren">(</span><em>obj: Any</em>, <em>strip: bool = False</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.has_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> when <em>obj</em> is “truthy”.</p>
 <p>Note that <a class="reference internal" href="#gpf.common.validate.has_value" title="gpf.common.validate.has_value"><code class="xref py py-func docutils literal notranslate"><span class="pre">has_value()</span></code></a> will return <code class="docutils literal notranslate"><span class="pre">True</span></code> for the <code class="docutils literal notranslate"><span class="pre">False</span></code> boolean and <code class="docutils literal notranslate"><span class="pre">0</span></code> integer values.
 Python normally evaluates these values as “falsy”, but for databases for example, these values are perfectly valid.
@@ -318,7 +195,7 @@ This is why <a class="reference internal" href="#gpf.common.validate.has_value" 
 
 <dl class="function">
 <dt id="gpf.common.validate.signature_matches">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">signature_matches</code><span class="sig-paren">(</span><em>func: Callable</em>, <em>template_func: Callable</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#signature_matches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.signature_matches" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">signature_matches</code><span class="sig-paren">(</span><em>func: Callable</em>, <em>template_func: Callable</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.signature_matches" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the given <em>func</em> (<cite>function</cite> or <cite>instancemethod</cite>) has a signature equal to <em>template_func</em>.
 If the function is not callable or the signature does not match, <code class="docutils literal notranslate"><span class="pre">False</span></code> is returned.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -341,7 +218,7 @@ This should <em>not</em> be a an instance method.</li>
 
 <dl class="function">
 <dt id="gpf.common.validate.pass_if">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">pass_if</code><span class="sig-paren">(</span><em>expression: Any</em>, <em>exc_type: type</em>, <em>exc_val: Any = ''</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#pass_if"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.pass_if" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">pass_if</code><span class="sig-paren">(</span><em>expression: Any</em>, <em>exc_type: type</em>, <em>exc_val: Any = ''</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.pass_if" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises an error of type <em>err_type</em> when <em>expression</em> is <strong>falsy</strong> and silently passes otherwise.
 Opposite of <a class="reference internal" href="#gpf.common.validate.raise_if" title="gpf.common.validate.raise_if"><code class="xref py py-func docutils literal notranslate"><span class="pre">raise_if()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -375,7 +252,7 @@ Opposite of <a class="reference internal" href="#gpf.common.validate.raise_if" t
 
 <dl class="function">
 <dt id="gpf.common.validate.raise_if">
-<code class="descclassname">gpf.common.validate.</code><code class="descname">raise_if</code><span class="sig-paren">(</span><em>expression: Any</em>, <em>exc_type: type</em>, <em>exc_val: Any = ''</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/common/validate.html#raise_if"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.validate.raise_if" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gpf.common.validate.</code><code class="descname">raise_if</code><span class="sig-paren">(</span><em>expression: Any</em>, <em>exc_type: type</em>, <em>exc_val: Any = ''</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#gpf.common.validate.raise_if" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises an error of type <em>err_type</em> when <em>expression</em> is <strong>truthy</strong> and silently passes otherwise.
 Opposite of <a class="reference internal" href="#gpf.common.validate.pass_if" title="gpf.common.validate.pass_if"><code class="xref py py-func docutils literal notranslate"><span class="pre">pass_if()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -407,52 +284,63 @@ Opposite of <a class="reference internal" href="#gpf.common.validate.pass_if" ti
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="gpf.tools.html" class="btn btn-neutral float-right" title="gpf.tools package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="gpf.common.textutils.html" class="btn btn-neutral float-left" title="gpf.common.textutils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gpf.common.textutils.html"
+                        title="previous chapter">gpf.common.textutils module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gpf.tools.html"
+                        title="next chapter">gpf.tools package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gpf.common.validate.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.html" title="gpf.tools package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gpf.common.textutils.html" title="gpf.common.textutils module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.common.html" >gpf.common package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
 </html>
