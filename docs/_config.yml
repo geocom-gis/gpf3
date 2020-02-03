@@ -1,1 +1,3 @@
 remote_theme: readthedocs/sphinx_rtd_theme
+include:
+  - _static/
