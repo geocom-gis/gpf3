@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.maputils &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gpf.html">gpf package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gpf.tools.maputils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gpf.tools.maputils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright 2019 Geocom Informatik AG / VertiGIS</span>
+
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module that simplifies working with layers in ArcMap.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">_tp</span>
+
+<span class="kn">import</span> <span class="nn">gpf.common.textutils</span> <span class="k">as</span> <span class="nn">_tu</span>
+<span class="kn">import</span> <span class="nn">gpf.common.validate</span> <span class="k">as</span> <span class="nn">_vld</span>
+<span class="kn">import</span> <span class="nn">gpf.paths</span> <span class="k">as</span> <span class="nn">_paths</span>
+<span class="kn">from</span> <span class="nn">gpf.paths</span> <span class="k">import</span> <span class="n">split_gdbpath</span> <span class="k">as</span> <span class="n">_split</span>
+<span class="kn">from</span> <span class="nn">gpf</span> <span class="k">import</span> <span class="n">arcpy</span> <span class="k">as</span> <span class="n">_arcpy</span>
+
+
+<div class="viewcode-block" id="get_mxd"><a class="viewcode-back" href="../../../gpf.tools.maputils.html#gpf.tools.maputils.get_mxd">[docs]</a><span class="k">def</span> <span class="nf">get_mxd</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_arcpy.mapping.MapDocument&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets a MapDocument instance for the given MXD path.</span>
+<span class="sd">    If *path* is ``None``, the current map document is retrieved. This will only work when this function is called</span>
+<span class="sd">    by a script running within the context of ArcMap.</span>
+
+<span class="sd">    :param path:        Path to the MXD or ``None``.</span>
+<span class="sd">    :raises ValueError: If the MXD was not found or could not be read.</span>
+
+<span class="sd">    .. seealso::        https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/mapdocument-class.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mxd_ref</span> <span class="o">=</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">MapDocument</span><span class="p">(</span><span class="s1">&#39;CURRENT&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span> <span class="k">else</span> <span class="n">path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">AssertionError</span><span class="p">,</span> <span class="ne">OSError</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Map document at </span><span class="si">{}</span><span class="s1"> does not exist&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">path</span>
+                         <span class="k">else</span> <span class="s1">&#39;There is no current map document&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mxd_ref</span></div>
+
+
+<div class="viewcode-block" id="find_dataframe"><a class="viewcode-back" href="../../../gpf.tools.maputils.html#gpf.tools.maputils.find_dataframe">[docs]</a><span class="k">def</span> <span class="nf">find_dataframe</span><span class="p">(</span><span class="n">mxd</span><span class="p">:</span> <span class="s1">&#39;_arcpy.mapping.MapDocument&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds a data frame by its (case-insensitive) name in the given ArcMap document (MXD) and returns it.</span>
+<span class="sd">    If no *name* is specified, the active data frame in the given Map Document is returned.</span>
+<span class="sd">    If no data frame was found at all, ``None`` is returned. This can only happen, when looking for a specific *name*.</span>
+
+<span class="sd">    :param mxd:                 A :class:`arcpy.mapping.MapDocument` instance.</span>
+<span class="sd">    :param name:                The name of the data frame to search for.</span>
+<span class="sd">    :param case_sensitive:      If ``True``, the data frame name needs to match exactly.</span>
+<span class="sd">                                If ``False`` (default), the data frame character case is ignored.</span>
+<span class="sd">    :rtype:                     arcpy._mapping.DataFrame</span>
+
+<span class="sd">    .. seealso::                https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/dataframe-class.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df_ref</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">to_str</span><span class="p">(</span><span class="n">name</span> <span class="k">if</span> <span class="n">case_sensitive</span> <span class="k">else</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">ListDataFrames</span><span class="p">(</span><span class="n">mxd</span><span class="p">):</span>
+            <span class="n">df_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">case_sensitive</span> <span class="k">else</span> <span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">df_name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">df_ref</span> <span class="o">=</span> <span class="n">df</span>
+                <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_ref</span> <span class="o">=</span> <span class="n">mxd</span><span class="o">.</span><span class="n">activeDataFrame</span>
+    <span class="k">return</span> <span class="n">df_ref</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_mxd_df</span><span class="p">(</span><span class="n">mxd</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;_arcpy.mapping.MapDocument&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Private method to quickly retrieve references to an MXD and a (active) data frame. &quot;&quot;&quot;</span>
+    <span class="n">mxd_ref</span> <span class="o">=</span> <span class="n">get_mxd</span><span class="p">(</span><span class="n">mxd</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mxd</span><span class="p">,</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">MapDocument</span><span class="p">)</span> <span class="k">else</span> <span class="n">mxd</span>
+    <span class="n">df_ref</span> <span class="o">=</span> <span class="n">find_dataframe</span><span class="p">(</span><span class="n">mxd_ref</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mxd_ref</span><span class="p">,</span> <span class="n">df_ref</span>
+
+
+<div class="viewcode-block" id="find_layer"><a class="viewcode-back" href="../../../gpf.tools.maputils.html#gpf.tools.maputils.find_layer">[docs]</a><span class="k">def</span> <span class="nf">find_layer</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mxd</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;_arcpy.mapping.MapDocument&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+               <span class="n">dataframe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;_arcpy.mapping.Layer&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds a **single** layer by its (case-insensitive) name in the specified ArcMap document (or current one).</span>
+<span class="sd">    If the layer was not found, ``None`` is returned.</span>
+
+<span class="sd">    :param name:            Name of the layer to find.</span>
+<span class="sd">                            If the layer name exists multiple times in different group layers,</span>
+<span class="sd">                            you can prefix the layer with the group layer name followed by a forward slash (/).</span>
+<span class="sd">    :param mxd:             The path to the ArcMap Document (MXD) or a MapDocument instance in which to find the layer.</span>
+<span class="sd">                            If no MXD is specified, the search will take place in the current MXD (if any).</span>
+<span class="sd">    :param dataframe:       The name of the data frame in which to find the layer.</span>
+<span class="sd">                            If no data frame is specified and/or there is only 1 data frame,</span>
+<span class="sd">                            the search will take place in the active data frame.</span>
+<span class="sd">    :param case_sensitive:  If ``True``, the layer name needs to match exactly.</span>
+<span class="sd">                            If ``False`` (default), the layer character case is ignored.</span>
+<span class="sd">                            Note that this setting also affects the *dataframe* argument, when specified.</span>
+<span class="sd">    :raises ValueError:     If no layer name was specified, or if no map document was found.</span>
+
+<span class="sd">    .. seealso::            https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Validation</span>
+    <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">_vld</span><span class="o">.</span><span class="n">has_value</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Layer name has not been specified&#39;</span><span class="p">)</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">to_str</span><span class="p">(</span><span class="n">_paths</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="ow">not</span> <span class="n">case_sensitive</span><span class="p">))</span>
+    <span class="n">mxd_ref</span><span class="p">,</span> <span class="n">df_ref</span> <span class="o">=</span> <span class="n">_get_mxd_df</span><span class="p">(</span><span class="n">mxd</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">)</span>
+
+    <span class="c1"># Find the layer by name</span>
+    <span class="k">for</span> <span class="n">lyr</span> <span class="ow">in</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">ListLayers</span><span class="p">(</span><span class="n">mxd_ref</span><span class="p">,</span> <span class="n">data_frame</span><span class="o">=</span><span class="n">df_ref</span><span class="p">):</span>
+        <span class="n">lyr_name</span> <span class="o">=</span> <span class="n">lyr</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">case_sensitive</span> <span class="k">else</span> <span class="n">lyr</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">lyr_name</span> <span class="o">==</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">_paths</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">lyr</span><span class="o">.</span><span class="n">longName</span><span class="p">,</span> <span class="ow">not</span> <span class="n">case_sensitive</span><span class="p">)</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lyr</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="find_layers"><a class="viewcode-back" href="../../../gpf.tools.maputils.html#gpf.tools.maputils.find_layers">[docs]</a><span class="k">def</span> <span class="nf">find_layers</span><span class="p">(</span><span class="n">wildcard</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mxd</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;_arcpy.mapping.MapDocument&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">dataframe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;_arcpy.mapping.Layer&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds **all** layers that match a certain wild card expression in the specified ArcMap document (or current one).</span>
+<span class="sd">    All matching layers are returned as a list of Layer instances. If no layers were found, an empty list is returned.</span>
+
+<span class="sd">    :param wildcard:    Layer name search string (with wild card characters).</span>
+<span class="sd">                        Unlike the :func:`find_layer` method, it is **not** possible to use a group layer prefix here.</span>
+<span class="sd">                        Furthermore, the search string is case sensitive.</span>
+<span class="sd">                        If this value is not specified, all layers in the map document will be returned.</span>
+<span class="sd">    :param mxd:         The path to the ArcMap Document (MXD) or a MapDocument instance in which to find the layer(s).</span>
+<span class="sd">                        If no MXD is specified, the search will take place in the current MXD (if any).</span>
+<span class="sd">    :param dataframe:   The case-insensitive name of the data frame in which to find the layer(s).</span>
+<span class="sd">                        If no data frame is specified and/or there is only 1 data frame,</span>
+<span class="sd">                        the search will take place in the active data frame.</span>
+<span class="sd">    :raises ValueError: If no map document was found.</span>
+
+<span class="sd">    .. seealso::        https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wildcard</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">wildcard</span> <span class="k">else</span> <span class="n">_tu</span><span class="o">.</span><span class="n">to_str</span><span class="p">(</span><span class="n">wildcard</span><span class="p">)</span>
+    <span class="n">mxd_ref</span><span class="p">,</span> <span class="n">df_ref</span> <span class="o">=</span> <span class="n">_get_mxd_df</span><span class="p">(</span><span class="n">mxd</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">ListLayers</span><span class="p">(</span><span class="n">mxd_ref</span><span class="p">,</span> <span class="n">wildcard</span><span class="p">,</span> <span class="n">df_ref</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="get_referenced_layers"><a class="viewcode-back" href="../../../gpf.tools.maputils.html#gpf.tools.maputils.get_referenced_layers">[docs]</a><span class="k">def</span> <span class="nf">get_referenced_layers</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mxd</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;_arcpy.mapping.MapDocument&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">dataframe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="s1">&#39;_arcpy.mapping.Layer&#39;</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of all layers in which *dataset_path* is used as the data source.</span>
+<span class="sd">    The search takes place in the specified *mxd* (or current one) in the given *dataframe* (or active one).</span>
+<span class="sd">    All matching layers are returned as a list of Layer instances. If no layers were found, an empty list is returned.</span>
+
+<span class="sd">    :param dataset_path:    The full path to the dataset (e.g. feature class, table) to find.</span>
+<span class="sd">                            The path is case-insensitive, but if the layer data source is expected to have</span>
+<span class="sd">                            database qualifiers, these should be included as well, unless *strict* is ``False``.</span>
+<span class="sd">    :param mxd:             An optional path of the ArcMap document (MXD) to search through.</span>
+<span class="sd">                            If no MXD is specified, the search will take place in the current MXD.</span>
+<span class="sd">    :param dataframe:       The case-insensitive name of the data frame in which to find the layer(s).</span>
+<span class="sd">                            If no data frame is specified and/or there is only 1 data frame,</span>
+<span class="sd">                            the search will take place in the active data frame.</span>
+<span class="sd">    :param strict:          If ``True`` (default) the case-insensitive data source path of the layer needs</span>
+<span class="sd">                            to exactly match the *dataset_path*. For SDE connections, this could mean that the data</span>
+<span class="sd">                            source will never be found. If *strict* is set to ``False``, only the feature class name</span>
+<span class="sd">                            (and feature dataset name, if applicable) is matched.</span>
+<span class="sd">    :raises ValueError:     If no map document was found.</span>
+
+<span class="sd">    .. seealso::            https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mxd_ref</span><span class="p">,</span> <span class="n">df_ref</span> <span class="o">=</span> <span class="n">_get_mxd_df</span><span class="p">(</span><span class="n">mxd</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">)</span>
+    <span class="n">dataset_path</span> <span class="o">=</span> <span class="n">_paths</span><span class="o">.</span><span class="n">get_abs</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">ds_parts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">lyr</span> <span class="ow">in</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">ListLayers</span><span class="p">(</span><span class="n">mxd_ref</span><span class="p">,</span> <span class="n">data_frame</span><span class="o">=</span><span class="n">df_ref</span><span class="p">):</span>
+        <span class="n">lyr_path</span> <span class="o">=</span> <span class="n">lyr</span><span class="o">.</span><span class="n">dataSource</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">lyr_path</span> <span class="o">==</span> <span class="n">dataset_path</span><span class="p">:</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lyr</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">strict</span><span class="p">:</span>
+            <span class="n">lyr_parts</span> <span class="o">=</span> <span class="n">_split</span><span class="p">(</span><span class="n">lyr_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ds_parts</span><span class="p">:</span>
+                <span class="n">ds_parts</span> <span class="o">=</span> <span class="n">_split</span><span class="p">(</span><span class="n">dataset_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="n">lyr_parts</span> <span class="o">==</span> <span class="n">ds_parts</span><span class="p">:</span>
+                <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lyr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">layers</span></div>
+
+
+<div class="viewcode-block" id="get_layer_selection"><a class="viewcode-back" href="../../../gpf.tools.maputils.html#gpf.tools.maputils.get_layer_selection">[docs]</a><span class="k">def</span> <span class="nf">get_layer_selection</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;_arcpy.mapping.Layer&#39;</span><span class="p">],</span>
+                        <span class="n">mxd</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;_arcpy.mapping.MapDocument&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">dataframe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a ``set`` of selected Object ID&#39;s for the given layer name or Layer instance.</span>
+<span class="sd">    Note that this might return an empty set if no features or rows are selected for the given layer.</span>
+<span class="sd">    This behaviour is different from the standard call to :func:`getSelectionSet` on an ArcMap ``Layer`` object:</span>
+<span class="sd">    if no selection is present, arcpy returns ``None`` instead.</span>
+
+<span class="sd">    :param layer:           Layer instance or the name of the layer for which to get the selected Object ID&#39;s.</span>
+<span class="sd">                            If the layer name exists multiple times in different group layers,</span>
+<span class="sd">                            you can prefix the layer with the group layer name followed by a forward slash (/).</span>
+<span class="sd">                            If a Layer instance is used as input, all other arguments are ignored and</span>
+<span class="sd">                            the selection set is returned immediately.</span>
+<span class="sd">    :param mxd:             The path to the ArcMap Document (MXD) or a MapDocument instance in which to find the layer.</span>
+<span class="sd">                            If no MXD is specified, the search will take place in the current MXD (if any).</span>
+<span class="sd">    :param dataframe:       The name of the data frame in which to find the layer.</span>
+<span class="sd">                            If no data frame is specified and/or there is only 1 data frame,</span>
+<span class="sd">                            the search will take place in the active data frame.</span>
+<span class="sd">    :param case_sensitive:  If ``True``, the layer name needs to match exactly.</span>
+<span class="sd">                            If ``False`` (default), the layer character case is ignored.</span>
+<span class="sd">                            Note that this setting also affects the *dataframe* argument, when specified.</span>
+
+<span class="sd">    .. seealso::            https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">layer</span><span class="o">.</span><span class="n">getSelectionSet</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">lyr</span> <span class="o">=</span> <span class="n">find_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">mxd</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">case_sensitive</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">lyr</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">lyr</span><span class="o">.</span><span class="n">getSelectionSet</span><span class="p">()</span> <span class="ow">or</span> <span class="nb">set</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

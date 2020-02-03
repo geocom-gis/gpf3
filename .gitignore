@@ -12,3 +12,6 @@
 /build/
 /*.egg-info
 /.eggs/
+/docs/_sources/
+/docs/.doctrees/
+*.inv

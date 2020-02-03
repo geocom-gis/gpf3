@@ -1,0 +1,680 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.loggers module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="gpf.lookups module" href="gpf.lookups.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.paths.html">gpf.paths module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.cursors.html">gpf.cursors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.lookups.html">gpf.lookups module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">gpf.loggers module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+      <li>gpf.loggers module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.loggers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.loggers">
+<span id="gpf-loggers-module"></span><h1>gpf.loggers module<a class="headerlink" href="#module-gpf.loggers" title="Permalink to this headline">¶</a></h1>
+<p>This module provides a standardized alternative to the built-in Python Logger (<code class="docutils literal notranslate"><span class="pre">logging</span></code> package).</p>
+<dl class="class">
+<dt id="gpf.loggers.Logger">
+<em class="property">class </em><code class="descclassname">gpf.loggers.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>identity</em>, <em>{log_file}</em>, <em>{level}</em>, <em>{encoding}</em>, <em>{time_tag}</em>, <em>{max_name}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standard logger class that logs to stdout (e.g. console) and optionally a file.</p>
+<p><strong>Params:</strong></p>
+<ul>
+<li><p class="first"><strong>identity</strong> (str, unicode):</p>
+<p>The name of the owner of this Logger, as it will appear in the log file entries.</p>
+</li>
+<li><p class="first"><strong>log_file</strong> (str, unicode, <a class="reference internal" href="gpf.paths.html#gpf.paths.Path" title="gpf.paths.Path"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.paths.Path</span></code></a>):</p>
+<p>Optional log file name or path to the log file.
+If there’s already a log handler for this file, this handler will be used automatically.</p>
+<ul class="simple">
+<li>If <em>log_file</em> does not have an extension, a <em>.log</em> extension will be added.</li>
+<li>If <em>log_file</em> has an extension, but it’s not <em>.txt</em> or <em>.log</em>, it will be reset to <em>.log</em>.</li>
+<li>If <em>time_tag</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), a <em>_YYMMDD_HHMMSS</em> timestamp (current local time)           will be added to the log file name automatically.</li>
+<li>If <em>log_file</em> is just a name, the output directory will be set to the user temp directory.</li>
+<li>If <em>log_file</em> is a relative path, it will be made absolute (relative to <code class="docutils literal notranslate"><span class="pre">os.curdir</span></code>).</li>
+<li>If <em>log_file</em> is an absolute path, that path will be used as-is.</li>
+<li>If the log directory of <em>log_file</em> does not exist, it will be created.</li>
+</ul>
+<p>When <em>log_file</em> is omitted, the Logger will only write to the stdout stream (e.g. console).</p>
+</li>
+<li><p class="first"><strong>level</strong> (int):</p>
+<p>The minimum log level of messages that should be logged. Defaults to INFO.</p>
+</li>
+</ul>
+<p><strong>Keyword params:</strong></p>
+<ul>
+<li><p class="first"><strong>max_name</strong> (int):</p>
+<p>The maximum length of the logger name used in the log record. Defaults to 15.</p>
+</li>
+<li><p class="first"><strong>encoding</strong> (str):</p>
+<p>The encoding to use in log <strong>files</strong>. Defaults to the preferred system encoding.</p>
+</li>
+<li><p class="first"><strong>time_tag</strong> (bool):</p>
+<p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), a timestamp will be appended to the log file name.</p>
+</li>
+</ul>
+<dl class="attribute">
+<dt id="gpf.loggers.Logger.file_path">
+<code class="descname">file_path</code><a class="headerlink" href="#gpf.loggers.Logger.file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the (first) file path of the current Logger (if setup as file-based logger).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an info/standard message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.warning">
+<code class="descname">warning</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a warning message and increments the warning counter. Multi-line messages count as 1 warning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.error">
+<code class="descname">error</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.critical">
+<code class="descname">critical</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.critical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.critical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.exception">
+<code class="descname">exception</code><span class="sig-paren">(</span><em>message: Union[str, Exception], **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.section">
+<code class="descname">section</code><span class="sig-paren">(</span><em>message: str = ''</em>, <em>max_length: int = 80</em>, <em>symbol: str = '-'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a centered message wrapped inside a section line to the log.
+When message exceeds <em>max_length</em>, it will be logged as-is.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to put in the middle of the line (optional).</li>
+<li><strong>max_length</strong> – The maximum length of the line.</li>
+<li><strong>symbol</strong> – The character to generate the line.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.status">
+<code class="descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a (final) status message to the log, telling the user how
+many errors and warnings were logged by this instance.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>
+<span class="go">ERROR: message</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>
+<span class="go">WARNING: message</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="go">Logged 1 error and 1 warning.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">reset_stats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="go">Logged 0 errors and 0 warnings.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.time_elapsed">
+<code class="descname">time_elapsed</code><span class="sig-paren">(</span><em>func: Callable = None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.time_elapsed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.time_elapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a nicely printed message stating how much time has passed.
+If the callable <em>func</em> is specified, this function is executed and its execution time is logged.
+If no callable <em>func</em> has been given, the elapsed time (since init or last <code class="docutils literal notranslate"><span class="pre">reset_stats</span></code> call) is logged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> – The optional callable to execute.</li>
+<li><strong>args</strong> – Positional arguments for <em>func</em>.</li>
+<li><strong>kwargs</strong> – Keyword arguments for <em>func</em>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.reset_stats">
+<code class="descname">reset_stats</code><span class="sig-paren">(</span><em>time: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.reset_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.reset_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the error and warning counters. Optionally, the start time can also be reset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>time</strong> (<em>bool</em>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code> (default) the start time of the logger will also be reset (to local <code class="docutils literal notranslate"><span class="pre">now()</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.Logger.quit">
+<code class="descname">quit</code><span class="sig-paren">(</span><em>error_msg: Union[Exception</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#Logger.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.Logger.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Releases the current logger and shuts down the (main) logger.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error_msg</strong> – Optional termination message (or Exception instance) for fatal errors.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>..note::            No more logging can take place after this call.</dt>
+<dd>Under normal circumstances, the user does not need to call this method, because it is
+automatically being called once the user application has exited.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.loggers.ArcLogger">
+<em class="property">class </em><code class="descclassname">gpf.loggers.</code><code class="descname">ArcLogger</code><span class="sig-paren">(</span><em>identity</em>, <em>{log_file}</em>, <em>{level}</em>, <em>{encoding}</em>, <em>{time_tag}</em>, <em>{max_name}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/loggers.html#ArcLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.loggers.ArcLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logger that forwards all messages to ArcGIS and optionally logs to a file.
+Forwarding messages to ArcGIS is only useful when logging from an ArcToolbox or GEONIS Python script.</p>
+<p><strong>Params:</strong></p>
+<ul>
+<li><p class="first"><strong>identity</strong> (str, unicode):</p>
+<p>The name of the owner of this Logger, as it will appear in the log file entries.</p>
+</li>
+<li><p class="first"><strong>log_file</strong> (str, unicode, <a class="reference internal" href="gpf.paths.html#gpf.paths.Path" title="gpf.paths.Path"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.paths.Path</span></code></a>):</p>
+<p>Optional log file name or path to the log file.
+If there’s already a log handler for this file, this handler will be used automatically.</p>
+<ul class="simple">
+<li>If <em>log_file</em> does not have an extension, a <em>.log</em> extension will be added.</li>
+<li>If <em>log_file</em> has an extension, but it’s not <em>.txt</em> or <em>.log</em>, it will be reset to <em>.log</em>.</li>
+<li>If <em>time_tag</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default = <code class="docutils literal notranslate"><span class="pre">False</span></code>), a <em>_YYMMDD_HHMMSS</em> timestamp (current local time)           will be added to the log file name automatically.</li>
+<li>If <em>log_file</em> is just a name, the output directory will be set to the user temp directory.</li>
+<li>If <em>log_file</em> is a relative path, it will be made absolute (relative to <code class="docutils literal notranslate"><span class="pre">os.curdir</span></code>).</li>
+<li>If <em>log_file</em> is an absolute path, that path will be used as-is.</li>
+<li>If the log directory of <em>log_file</em> does not exist, it will be created.</li>
+</ul>
+<p>When <em>log_file</em> is omitted, the Logger will only write to the stdout stream (e.g. console).</p>
+</li>
+<li><p class="first"><strong>level</strong> (int):</p>
+<p>The minimum log level of messages that should be logged. Defaults to INFO.</p>
+</li>
+</ul>
+<p><strong>Keyword params:</strong></p>
+<ul>
+<li><p class="first"><strong>max_name</strong> (int):</p>
+<p>The maximum length of the logger name used in the log record. Defaults to 15.</p>
+</li>
+<li><p class="first"><strong>encoding</strong> (str):</p>
+<p>The encoding to use in log files (only). Defaults to cp1252 on Windows.</p>
+</li>
+<li><p class="first"><strong>time_tag</strong> (bool):</p>
+<p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default = <code class="docutils literal notranslate"><span class="pre">False</span></code>), a timestamp will be appended to the log file name.</p>
+</li>
+</ul>
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.critical">
+<code class="descname">critical</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.critical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.error">
+<code class="descname">error</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.exception">
+<code class="descname">exception</code><span class="sig-paren">(</span><em>message: Union[str, Exception], **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.loggers.ArcLogger.file_path">
+<code class="descname">file_path</code><a class="headerlink" href="#gpf.loggers.ArcLogger.file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the (first) file path of the current Logger (if setup as file-based logger).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an info/standard message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.quit">
+<code class="descname">quit</code><span class="sig-paren">(</span><em>error_msg: Union[Exception</em>, <em>str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Releases the current logger and shuts down the (main) logger.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error_msg</strong> – Optional termination message (or Exception instance) for fatal errors.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>..note::            No more logging can take place after this call.</dt>
+<dd>Under normal circumstances, the user does not need to call this method, because it is
+automatically being called once the user application has exited.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.reset_stats">
+<code class="descname">reset_stats</code><span class="sig-paren">(</span><em>time: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.reset_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the error and warning counters. Optionally, the start time can also be reset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>time</strong> (<em>bool</em>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code> (default) the start time of the logger will also be reset (to local <code class="docutils literal notranslate"><span class="pre">now()</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.section">
+<code class="descname">section</code><span class="sig-paren">(</span><em>message: str = ''</em>, <em>max_length: int = 80</em>, <em>symbol: str = '-'</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a centered message wrapped inside a section line to the log.
+When message exceeds <em>max_length</em>, it will be logged as-is.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to put in the middle of the line (optional).</li>
+<li><strong>max_length</strong> – The maximum length of the line.</li>
+<li><strong>symbol</strong> – The character to generate the line.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.status">
+<code class="descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a (final) status message to the log, telling the user how
+many errors and warnings were logged by this instance.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>
+<span class="go">ERROR: message</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>
+<span class="go">WARNING: message</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="go">Logged 1 error and 1 warning.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">reset_stats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="go">Logged 0 errors and 0 warnings.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.time_elapsed">
+<code class="descname">time_elapsed</code><span class="sig-paren">(</span><em>func: Callable = None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.time_elapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a nicely printed message stating how much time has passed.
+If the callable <em>func</em> is specified, this function is executed and its execution time is logged.
+If no callable <em>func</em> has been given, the elapsed time (since init or last <code class="docutils literal notranslate"><span class="pre">reset_stats</span></code> call) is logged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> – The optional callable to execute.</li>
+<li><strong>args</strong> – Positional arguments for <em>func</em>.</li>
+<li><strong>kwargs</strong> – Keyword arguments for <em>func</em>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.loggers.ArcLogger.warning">
+<code class="descname">warning</code><span class="sig-paren">(</span><em>message: str</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.loggers.ArcLogger.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a warning message and increments the warning counter. Multi-line messages count as 1 warning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="gpf.lookups.html" class="btn btn-neutral float-left" title="gpf.lookups module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

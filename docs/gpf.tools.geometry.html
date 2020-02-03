@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.geometry module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.tools.maputils module" href="gpf.tools.maputils.html" />
+    <link rel="prev" title="gpf.tools.fieldutils module" href="gpf.tools.fieldutils.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.tools.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.tools.html#module-gpf.tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.tools.html">gpf.tools package</a> &raquo;</li>
+        
+      <li>gpf.tools.geometry module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.tools.geometry.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.tools.geometry">
+<span id="gpf-tools-geometry-module"></span><h1>gpf.tools.geometry module<a class="headerlink" href="#module-gpf.tools.geometry" title="Permalink to this headline">¶</a></h1>
+<p>The <em>geometry</em> module contains functions that help working with Esri geometries.</p>
+<dl class="exception">
+<dt id="gpf.tools.geometry.GeometryError">
+<em class="property">exception </em><code class="descclassname">gpf.tools.geometry.</code><code class="descname">GeometryError</code><a class="reference internal" href="_modules/gpf/tools/geometry.html#GeometryError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.GeometryError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>If the <a class="reference internal" href="#gpf.tools.geometry.ShapeBuilder" title="gpf.tools.geometry.ShapeBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeBuilder</span></code></a> cannot create the desired output geometry, a GeometryError is raised.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.tools.geometry.ShapeBuilder">
+<em class="property">class </em><code class="descclassname">gpf.tools.geometry.</code><code class="descname">ShapeBuilder</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/geometry.html#ShapeBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Helper class to create Esri geometry objects from arcpy <code class="docutils literal notranslate"><span class="pre">Point</span></code> or <code class="docutils literal notranslate"><span class="pre">Array</span></code> objects or coordinate values.</p>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># instantiate a 2D PointGeometry</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ShapeBuilder</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">)</span><span class="o">.</span><span class="n">as_point</span><span class="p">()</span>
+<span class="go">&lt;PointGeometry object at 0x19fcbdf0[0x19fcbd80]&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># instantiate a 3D PointGeometry</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ShapeBuilder</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">5.3</span><span class="p">)</span><span class="o">.</span><span class="n">as_point</span><span class="p">(</span><span class="n">has_z</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&lt;PointGeometry object at 0x6b96210[0x19fcbbe0]&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># make_path a 2D line (append technique)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shp</span> <span class="o">=</span> <span class="n">ShapeBuilder</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shp</span><span class="o">.</span><span class="n">as_polyline</span><span class="p">()</span>
+<span class="go">&lt;Polyline object at 0x6a9bb70[0x6fe2540]&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># make_path a 3D polygon from 2D coordinates</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shp</span> <span class="o">=</span> <span class="n">ShapeBuilder</span><span class="p">([(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">polygon</span> <span class="o">=</span> <span class="n">shp</span><span class="o">.</span><span class="n">as_polygon</span><span class="p">(</span><span class="n">has_z</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Z values are added and set to 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">polygon</span><span class="o">.</span><span class="n">firstPoint</span>
+<span class="go">&lt;Point (1.00012207031, 2.00012207031, 0.0, #)&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># note that the &quot;open&quot; polygons will be closed automatically</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">polygon</span><span class="o">.</span><span class="n">firstPoint</span> <span class="o">==</span> <span class="n">polygon</span><span class="o">.</span><span class="n">lastPoint</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># calling as_point() on a ShapeBuilder with multiple coordinates will return a centroid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shp</span><span class="o">.</span><span class="n">as_point</span><span class="p">()</span>
+<span class="go">&lt;Point (1.50012207031, 2.33345540365, #, #)&gt;</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="gpf.tools.geometry.ShapeBuilder.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/geometry.html#ShapeBuilder.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a coordinate or coordinate array to the geometry.
+Valid objects are another <code class="docutils literal notranslate"><span class="pre">ShapeBuilder</span></code> instance, an ArcPy <code class="docutils literal notranslate"><span class="pre">Point</span></code> or <code class="docutils literal notranslate"><span class="pre">Array</span></code> instance,
+or numeric X, Y, (Z, M, ID) values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>float</em><em>, </em><em>int</em><em>, </em><em>arcpy.Point</em><em>, </em><em>arcpy.Array</em><em>, </em><a class="reference internal" href="#gpf.tools.geometry.ShapeBuilder" title="gpf.tools.geometry.ShapeBuilder"><em>ShapeBuilder</em></a>) – A valid coordinate object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – If the coordinate object is invalid and cannot be added.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-classes/point.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-classes/point.htm</a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.geometry.ShapeBuilder.extend">
+<code class="descname">extend</code><span class="sig-paren">(</span><em>values: Iterable</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/geometry.html#ShapeBuilder.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds multiple coordinates to the geometry.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>tuple</em><em>, </em><em>list</em>) – An iterable of numeric coordinate values, <code class="docutils literal notranslate"><span class="pre">Point</span></code>, <code class="docutils literal notranslate"><span class="pre">Array</span></code> or <code class="docutils literal notranslate"><span class="pre">ShapeBuilder</span></code> objects.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – If the <em>values</em> argument is not an iterable.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.geometry.ShapeBuilder.num_coords">
+<code class="descname">num_coords</code><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder.num_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the total number of coordinates in the ShapeBuilder.
+Note that this does not always return the same value as calling <code class="xref py py-func docutils literal notranslate"><span class="pre">len()</span></code> on the ShapeBuilder,
+because <a class="reference internal" href="#gpf.tools.geometry.ShapeBuilder.num_coords" title="gpf.tools.geometry.ShapeBuilder.num_coords"><code class="xref py py-func docutils literal notranslate"><span class="pre">num_coords()</span></code></a> also counts the coordinates in nested geometry arrays.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.geometry.ShapeBuilder.as_point">
+<code class="descname">as_point</code><span class="sig-paren">(</span><em>spatial_reference: Union[str</em>, <em>int</em>, <em>arcpy.arcobjects.arcobjects.SpatialReference</em>, <em>None] = None</em>, <em>has_z: bool = False</em>, <em>has_m: bool = False</em><span class="sig-paren">)</span> &#x2192; arcpy.arcobjects.geometries.PointGeometry<a class="reference internal" href="_modules/gpf/tools/geometry.html#ShapeBuilder.as_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder.as_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the constructed geometry as an Esri <code class="docutils literal notranslate"><span class="pre">PointGeometry</span></code>.
+Note that if the ShapeBuilder holds more than 1 coordinate, a centroid point is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>spatial_reference</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>arcpy.SpatialReference</em>) – An optional spatial reference. Defaults to ‘Unknown’.</li>
+<li><strong>has_z</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is Z aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+<li><strong>has_m</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is M aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#gpf.tools.geometry.GeometryError" title="gpf.tools.geometry.GeometryError"><strong>GeometryError</strong></a> – If there is less than 1 coordinate.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.geometry.ShapeBuilder.as_multipoint">
+<code class="descname">as_multipoint</code><span class="sig-paren">(</span><em>spatial_reference: Union[str</em>, <em>int</em>, <em>arcpy.arcobjects.arcobjects.SpatialReference</em>, <em>None] = None</em>, <em>has_z: bool = False</em>, <em>has_m: bool = False</em><span class="sig-paren">)</span> &#x2192; arcpy.arcobjects.geometries.Multipoint<a class="reference internal" href="_modules/gpf/tools/geometry.html#ShapeBuilder.as_multipoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder.as_multipoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the constructed geometry as an Esri <code class="docutils literal notranslate"><span class="pre">Multipoint</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>spatial_reference</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>arcpy.SpatialReference</em>) – An optional spatial reference. Defaults to ‘Unknown’.</li>
+<li><strong>has_z</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is Z aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+<li><strong>has_m</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is M aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#gpf.tools.geometry.GeometryError" title="gpf.tools.geometry.GeometryError"><strong>GeometryError</strong></a> – If there are less than 2 coordinates.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.geometry.ShapeBuilder.as_polyline">
+<code class="descname">as_polyline</code><span class="sig-paren">(</span><em>spatial_reference: Union[str</em>, <em>int</em>, <em>arcpy.arcobjects.arcobjects.SpatialReference</em>, <em>None] = None</em>, <em>has_z: bool = False</em>, <em>has_m: bool = False</em><span class="sig-paren">)</span> &#x2192; arcpy.arcobjects.geometries.Polyline<a class="reference internal" href="_modules/gpf/tools/geometry.html#ShapeBuilder.as_polyline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder.as_polyline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the constructed geometry as an Esri <code class="docutils literal notranslate"><span class="pre">Polyline</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>spatial_reference</strong> (<em>str</em><em>, </em><em>int</em><em>, </em><em>arcpy.SpatialReference</em>) – An optional spatial reference. Defaults to ‘Unknown’.</li>
+<li><strong>has_z</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is Z aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+<li><strong>has_m</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is M aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#gpf.tools.geometry.GeometryError" title="gpf.tools.geometry.GeometryError"><strong>GeometryError</strong></a> – If there are less than 2 coordinates.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.geometry.ShapeBuilder.as_polygon">
+<code class="descname">as_polygon</code><span class="sig-paren">(</span><em>spatial_reference: Union[str</em>, <em>int</em>, <em>arcpy.arcobjects.arcobjects.SpatialReference</em>, <em>None] = None</em>, <em>has_z: bool = False</em>, <em>has_m: bool = False</em><span class="sig-paren">)</span> &#x2192; arcpy.arcobjects.geometries.Polygon<a class="reference internal" href="_modules/gpf/tools/geometry.html#ShapeBuilder.as_polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.ShapeBuilder.as_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the constructed geometry as an Esri <code class="docutils literal notranslate"><span class="pre">Polygon</span></code>.
+If the polygon is not closed, the first coordinate will be added as the last coordinate automatically
+in order to properly close it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>spatial_reference</strong> – An optional spatial reference. Defaults to ‘Unknown’.</li>
+<li><strong>has_z</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is Z aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+<li><strong>has_m</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the geometry is M aware. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If there are less than 3 coordinates.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.geometry.get_xyz">
+<code class="descclassname">gpf.tools.geometry.</code><code class="descname">get_xyz</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span> &#x2192; Tuple[float]<a class="reference internal" href="_modules/gpf/tools/geometry.html#get_xyz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.get_xyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a floating point coordinate XYZ tuple for a given coordinate.
+Valid input includes EsriJSON, ArcPy Point or PointGeometry instances or a minimum of 2 floating point values.
+If the geometry is not Z aware, the Z value in the output tuple will be set to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> – A tuple of floating point values, an EsriJSON dictionary, an ArcPy Point or PointGeometry instance.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For Point geometries, M and ID values are ignored.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.geometry.get_vertices">
+<code class="descclassname">gpf.tools.geometry.</code><code class="descname">get_vertices</code><span class="sig-paren">(</span><em>geometry</em><span class="sig-paren">)</span> &#x2192; Generator<a class="reference internal" href="_modules/gpf/tools/geometry.html#get_vertices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.geometry.get_vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a generator of coordinate tuples (x, y[, z] floats) for all vertices in an Esri Geometry.
+If the geometry is not Z aware, the coordinate tuples will only hold 2 values (X and Y).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geometry</strong> – The Esri Geometry (e.g. Polygon, Polyline etc.) for which to extract all vertices.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.tools.maputils.html" class="btn btn-neutral float-right" title="gpf.tools.maputils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.tools.fieldutils.html" class="btn btn-neutral float-left" title="gpf.tools.fieldutils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

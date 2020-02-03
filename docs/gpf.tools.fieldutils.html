@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.fieldutils module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.tools.geometry module" href="gpf.tools.geometry.html" />
+    <link rel="prev" title="gpf.tools package" href="gpf.tools.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.tools.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.tools.html#module-gpf.tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.tools.html">gpf.tools package</a> &raquo;</li>
+        
+      <li>gpf.tools.fieldutils module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.tools.fieldutils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.tools.fieldutils">
+<span id="gpf-tools-fieldutils-module"></span><h1>gpf.tools.fieldutils module<a class="headerlink" href="#module-gpf.tools.fieldutils" title="Permalink to this headline">¶</a></h1>
+<p>The <em>fields</em> module contains helper functions related to working with Esri Fields (GIS attributes).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">The <a class="reference internal" href="gpf.tools.metadata.html#gpf.tools.metadata.Describe" title="gpf.tools.metadata.Describe"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.metadata.Describe</span></code></a> class has a <a class="reference internal" href="gpf.tools.metadata.html#gpf.tools.metadata.Describe.get_fields" title="gpf.tools.metadata.Describe.get_fields"><code class="xref py py-func docutils literal notranslate"><span class="pre">gpf.tools.metadata.Describe.get_fields()</span></code></a>
+and a <code class="xref py py-func docutils literal notranslate"><span class="pre">gpf.tools.metadata.Describe.get_editable_fields()</span></code> function, which might also be helpful.</p>
+</div>
+<dl class="data">
+<dt id="gpf.tools.fieldutils.FIELDTYPE_MAPPING">
+<code class="descclassname">gpf.tools.fieldutils.</code><code class="descname">FIELDTYPE_MAPPING</code><em class="property"> = {'Blob': 'BLOB', 'Date': 'DATE', 'Double': 'DOUBLE', 'Guid': 'GUID', 'Integer': 'LONG', 'Raster': 'RASTER', 'Single': 'FLOAT', 'SmallInteger': 'SHORT', 'Text': 'TEXT'}</em><a class="headerlink" href="#gpf.tools.fieldutils.FIELDTYPE_MAPPING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lookup dictionary to map <code class="docutils literal notranslate"><span class="pre">Field</span></code> types to the field types used in ArcPy’s <code class="xref py py-func docutils literal notranslate"><span class="pre">AddField()</span></code> function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.fieldutils.get_name">
+<code class="descclassname">gpf.tools.fieldutils.</code><code class="descname">get_name</code><span class="sig-paren">(</span><em>field: arcpy.arcobjects.arcobjects.Field</em>, <em>uppercase: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/tools/fieldutils.html#get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.fieldutils.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves the field name from a <code class="docutils literal notranslate"><span class="pre">Field</span></code> instance and optionally changes it to uppercase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>field</strong> – An <code class="xref py py-class docutils literal notranslate"><span class="pre">arcpy.Field</span></code> instance.</li>
+<li><strong>uppercase</strong> – When <code class="docutils literal notranslate"><span class="pre">True</span></code> (default = <code class="docutils literal notranslate"><span class="pre">False</span></code>), the returned name will be made uppercase.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.fieldutils.list_fields">
+<code class="descclassname">gpf.tools.fieldutils.</code><code class="descname">list_fields</code><span class="sig-paren">(</span><em>obj: Sequence</em>, <em>names_only: bool = True</em>, <em>uppercase: bool = False</em><span class="sig-paren">)</span> &#x2192; List[Union[str, arcpy.arcobjects.arcobjects.Field]]<a class="reference internal" href="_modules/gpf/tools/fieldutils.html#list_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.fieldutils.list_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of Field objects or field names for a given list of Field objects or a dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obj</strong> – Dataset path or list of original <code class="docutils literal notranslate"><span class="pre">Field</span></code> instances.</li>
+<li><strong>names_only</strong> – When <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), a list of field names instead of <code class="docutils literal notranslate"><span class="pre">Field</span></code> instances is returned.</li>
+<li><strong>uppercase</strong> – When <code class="docutils literal notranslate"><span class="pre">True</span></code> (default=``False``), the returned field names will be uppercase.
+This does <strong>not</strong> apply when <em>names_only</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and <code class="docutils literal notranslate"><span class="pre">Field</span></code> instances are returned.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">List of field names or <code class="docutils literal notranslate"><span class="pre">Field</span></code> instances.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.fieldutils.list_missing">
+<code class="descclassname">gpf.tools.fieldutils.</code><code class="descname">list_missing</code><span class="sig-paren">(</span><em>table: str, expected_fields: Sequence[str]</em><span class="sig-paren">)</span> &#x2192; Sequence[str]<a class="reference internal" href="_modules/gpf/tools/fieldutils.html#list_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.fieldutils.list_missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of missing field <strong>names</strong> for a specified table or feature class.
+The expected field names are case-insensitive.
+If an empty list is returned, all fields are accounted for.</p>
+<p>If one ore more expected field names are a “special field” (containing an ‘&#64;’ sign),
+these will be resolved to the actual field names.
+If this process fails, the field will be considered missing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>table</strong> – The table or feature class for which to check the fields.</li>
+<li><strong>expected_fields</strong> – A list of fields that should be present in the table or feature class.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.fieldutils.has_field">
+<code class="descclassname">gpf.tools.fieldutils.</code><code class="descname">has_field</code><span class="sig-paren">(</span><em>table: str</em>, <em>field_name: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/tools/fieldutils.html#has_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.fieldutils.has_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple wrapper for the <a class="reference internal" href="#gpf.tools.fieldutils.list_missing" title="gpf.tools.fieldutils.list_missing"><code class="xref py py-func docutils literal notranslate"><span class="pre">list_missing()</span></code></a> function to check if a single field exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table</strong> – </li>
+<li><strong>field_name</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.fieldutils.add_field">
+<code class="descclassname">gpf.tools.fieldutils.</code><code class="descname">add_field</code><span class="sig-paren">(</span><em>dataset: str</em>, <em>name: str</em>, <em>template_field: [&lt;class 'arcpy.arcobjects.arcobjects.Field'&gt;</em>, <em>None] = None</em>, <em>alias: [&lt;class 'str'&gt;</em>, <em>None] = None</em><span class="sig-paren">)</span> &#x2192; arcpy.arcobjects.arcobjects.Result<a class="reference internal" href="_modules/gpf/tools/fieldutils.html#add_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.fieldutils.add_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new field to a <em>dataset</em>, based off a <em>template_field</em> <code class="docutils literal notranslate"><span class="pre">Field</span></code> instance.
+All properties from the new field will be taken from this template field, except for the <em>name</em> (and <em>alias</em>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> – The full path to the dataset (table, feature class) to which the field should be added.</li>
+<li><strong>name</strong> – The name of the field to add.</li>
+<li><strong>template_field</strong> – An optional template <code class="docutils literal notranslate"><span class="pre">Field</span></code> on which the new field should be based.
+If no template field is specified, a default field of type TEXT is created.</li>
+<li><strong>alias</strong> – An optional alias name for the field. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If a template field was provided, but it’s not a <code class="docutils literal notranslate"><span class="pre">Field</span></code> instance,
+or if the template field is of an unsupported type (i.e. GlobalID, OID or Geometry).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.tools.geometry.html" class="btn btn-neutral float-right" title="gpf.tools.geometry module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.tools.html" class="btn btn-neutral float-left" title="gpf.tools package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
