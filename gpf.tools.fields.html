@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.fields module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.tools.geometry module" href="gpf.tools.geometry.html" />
+    <link rel="prev" title="gpf.tools.cursors module" href="gpf.tools.cursors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.feedback.html">gpf.feedback package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.tools.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.tools.html#module-gpf.tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.tools.html">gpf.tools package</a> &raquo;</li>
+        
+      <li>gpf.tools.fields module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.tools.fields.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.tools.fields">
+<span id="gpf-tools-fields-module"></span><h1>gpf.tools.fields module<a class="headerlink" href="#module-gpf.tools.fields" title="Permalink to this headline">¶</a></h1>
+<p>The <em>fields</em> module contains helper functions related to working with Esri Fields (GIS attributes).</p>
+<dl class="function">
+<dt id="gpf.tools.fields.check_missing">
+<code class="descclassname">gpf.tools.fields.</code><code class="descname">check_missing</code><span class="sig-paren">(</span><em>table: str, fields: Iterable[str]</em><span class="sig-paren">)</span> &#x2192; Iterable[str]<a class="reference internal" href="_modules/gpf/tools/fields.html#check_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.fields.check_missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of missing fields for a specified table or feature class.
+The field names are case-insensitive.
+If an empty list is returned, all fields are accounted for.</p>
+<p>If one ore more expected field names are a “special field” (containing an ‘&#64;’ sign),
+these will be resolved to the actual field names.
+If this process fails, the field will be considered missing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>table</strong> – The table or feature class for which to check the fields.</li>
+<li><strong>fields</strong> – A list of fields that should be present in the table or feature class.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.tools.geometry.html" class="btn btn-neutral float-right" title="gpf.tools.geometry module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.tools.cursors.html" class="btn btn-neutral float-left" title="gpf.tools.cursors module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

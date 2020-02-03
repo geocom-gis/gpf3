@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.lookup module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.tools.maplayers module" href="gpf.tools.maplayers.html" />
+    <link rel="prev" title="gpf.tools.geometry module" href="gpf.tools.geometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.feedback.html">gpf.feedback package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.tools.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.tools.html#module-gpf.tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.tools.html">gpf.tools package</a> &raquo;</li>
+        
+      <li>gpf.tools.lookup module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.tools.lookup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.tools.lookup">
+<span id="gpf-tools-lookup-module"></span><h1>gpf.tools.lookup module<a class="headerlink" href="#module-gpf.tools.lookup" title="Permalink to this headline">¶</a></h1>
+<p>This module can be used to build lookup data structures from Esri tables and feature classes.</p>
+<dl class="data">
+<dt id="gpf.tools.lookup.XYZ_RESOLUTION">
+<code class="descclassname">gpf.tools.lookup.</code><code class="descname">XYZ_RESOLUTION</code><em class="property"> = 0.0001</em><a class="headerlink" href="#gpf.tools.lookup.XYZ_RESOLUTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default (Esri-recommended) resolution that is used by the <a class="reference internal" href="#gpf.tools.lookup.coord_key" title="gpf.tools.lookup.coord_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">coord_key()</span></code></a> function (i.e. for lookups).
+If coordinate values fall within this distance, they are considered equal.
+Set this to a higher or lower value (metric units) if required.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.lookup.coord_key">
+<code class="descclassname">gpf.tools.lookup.</code><code class="descname">coord_key</code><span class="sig-paren">(</span><em>x: Union[int, float], y: Union[int, float], z: Union[int, float] = None</em><span class="sig-paren">)</span> &#x2192; Tuple[int]<a class="reference internal" href="_modules/gpf/tools/lookup.html#coord_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.lookup.coord_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function creates a hash-like tuple that can be used as a key in a <a class="reference internal" href="#gpf.tools.lookup.RowLookup" title="gpf.tools.lookup.RowLookup"><code class="xref py py-class docutils literal notranslate"><span class="pre">RowLookup</span></code></a> or
+<a class="reference internal" href="#gpf.tools.lookup.ValueLookup" title="gpf.tools.lookup.ValueLookup"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueLookup</span></code></a> dictionary.
+The tuple does not contain actual hashes, but consists of 2 or 3 (long) integers, which essentially are created by
+dividing the coordinate values by the default resolution (0.0001) and truncating them to an integer.</p>
+<p>Whenever a lookup is created using <cite>SHAPE&#64;XY</cite> or <cite>SHAPE&#64;XYZ</cite> as the <em>key_field</em>, this function is automatically
+used to generate a key for the coordinate. If the user has a coordinate and wants to find the matching value(s)
+in the lookup, the coordinate must be turned into a key first using this function.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The number of dimensions of the coordinate must match the ones in the lookup.
+In other words, when a lookup was built using 2D coordinates, the lookup key must be 2D as well.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This function has been tested on 10 million random points and no duplicate keys were encountered.
+However, bear in mind that 2 nearly identical coordinates might share the same key if they lie
+within the default resolution distance from each other (0.0001 meter).
+If the default resolution needs to be changed, set the <code class="docutils literal notranslate"><span class="pre">XYZ_RESOLUTION</span></code> constant beforehand.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coord_lookup</span> <span class="o">=</span> <span class="n">ValueLookup</span><span class="p">(</span><span class="s1">&#39;C:/Temp/test.gdb/my_points&#39;</span><span class="p">,</span> <span class="s1">&#39;SHAPE@XY&#39;</span><span class="p">,</span> <span class="s1">&#39;GlobalID&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coord</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.2452</span><span class="p">,</span> <span class="mf">23.24541</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="p">(</span><span class="o">*</span><span class="n">coord</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="go">(42451, 232454)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coord_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">coord_key</span><span class="p">)</span>
+<span class="go">&#39;{628ee94d-2063-47be-b57f-8c2af6345d4e}&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – The X value of the coordinate.</li>
+<li><strong>y</strong> – The Y value of the coordinate.</li>
+<li><strong>z</strong> – An optional Z value of the coordinate (if 3D).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.tools.lookup.ValueLookup">
+<em class="property">class </em><code class="descclassname">gpf.tools.lookup.</code><code class="descname">ValueLookup</code><span class="sig-paren">(</span><em>table_path</em>, <em>key_field</em>, <em>value_field</em>, <em>{where_clause}</em>, <em>{duplicate_keys}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/lookup.html#ValueLookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.lookup.ValueLookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.lookup._BaseLookup</span></code></p>
+<p>Creates a lookup dictionary from a given source table or feature class.
+ValueLookup inherits from <code class="docutils literal notranslate"><span class="pre">dict</span></code>, so all the built-in dictionary functions
+(<code class="xref py py-func docutils literal notranslate"><span class="pre">update()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">items()</span></code> etc.) are available.</p>
+<p>When an empty key (<code class="docutils literal notranslate"><span class="pre">None</span></code>) is encountered, the key-value pair will be discarded.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table_path</strong> (<em>str</em>) – Full source table or feature class path.</li>
+<li><strong>key_field</strong> (<em>str</em>) – The field to use for the ValueLookup dictionary keys.
+If <cite>SHAPE&#64;XY</cite> is used as the key field, the coordinates are “hashed” using the
+<a class="reference internal" href="#gpf.tools.lookup.coord_key" title="gpf.tools.lookup.coord_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">gpf.tools.lookup.coord_key()</span></code></a> function.
+This means, that the user should use this function as well in order to
+to create a coordinate key prior to looking up the matching value for it.</li>
+<li><strong>value_field</strong> (<em>str</em>) – The single field to include in the ValueLookup dictionary value.
+This is the value that is returned when you perform a lookup by key.</li>
+<li><strong>where_clause</strong> (<em>str</em><em>, </em><a class="reference internal" href="gpf.tools.queries.html#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><em>gpf.tools.queries.Where</em></a>) – An optional where clause to filter the table.</li>
+<li><strong>duplicate_keys</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the ValueLookup allows for duplicate keys in the input.
+The dictionary values will become <strong>lists</strong> of values instead of a <strong>single</strong> value.
+Please note that actual duplicate checks will not be performed. This means, that
+when <em>duplicate_keys</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and duplicates <em>are</em> encountered,
+the last existing key-value pair will be overwritten.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>RuntimeError</strong> – When the lookup cannot be created or populated.</li>
+<li><strong>ValueError</strong> – When a specified lookup field does not exist in the source table,
+or when multiple value fields were specified.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">When multiple fields should be stored in the lookup,
+the <a class="reference internal" href="#gpf.tools.lookup.RowLookup" title="gpf.tools.lookup.RowLookup"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.lookup.RowLookup</span></code></a> class should be used instead.</p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.tools.lookup.RowLookup">
+<em class="property">class </em><code class="descclassname">gpf.tools.lookup.</code><code class="descname">RowLookup</code><span class="sig-paren">(</span><em>table_path</em>, <em>key_field</em>, <em>value_fields</em>, <em>{where_clause}</em>, <em>{duplicate_keys}</em>, <em>{mutable_values}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/lookup.html#RowLookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.lookup.RowLookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.lookup._BaseLookup</span></code></p>
+<p>Creates a lookup dictionary from a given table or feature class.
+RowLookup inherits from <code class="docutils literal notranslate"><span class="pre">dict</span></code>, so all the built-in dictionary functions
+(<code class="xref py py-func docutils literal notranslate"><span class="pre">update()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">items()</span></code> etc.) are available.</p>
+<p>When an empty key (<code class="docutils literal notranslate"><span class="pre">None</span></code>) is encountered, the key-values pair will be discarded.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table_path</strong> (<em>str</em>) – Full table or feature class path.</li>
+<li><strong>key_field</strong> (<em>str</em>) – The field to use for the RowLookup dictionary keys.
+If <cite>SHAPE&#64;XY</cite> is used as the key field, the coordinates are “hashed” using the
+<a class="reference internal" href="#gpf.tools.lookup.coord_key" title="gpf.tools.lookup.coord_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">gpf.tools.lookup.coord_key()</span></code></a> function.
+This means, that the user should use this function as well in order to
+to create a coordinate key prior to looking up the matching values for it.</li>
+<li><strong>value_fields</strong> (<em>list</em><em>, </em><em>tuple</em>) – The fields to include in the RowLookup dictionary values.
+These are the values that are returned when you perform a lookup by key.</li>
+<li><strong>where_clause</strong> (<em>str</em><em>, </em><a class="reference internal" href="gpf.tools.queries.html#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><em>gpf.tools.queries.Where</em></a>) – An optional where clause to filter the table.</li>
+<li><strong>duplicate_keys</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the RowLookup allows for duplicate keys in the input.
+The values will become <strong>lists</strong> of tuples/lists instead of a <strong>single</strong> tuple/list.
+Please note that duplicate checks will not actually be performed. This means, that
+when <em>duplicate_keys</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and duplicates are encountered,
+the last existing key-value pair will be simply overwritten.</li>
+<li><strong>mutable_values</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the RowLookup values are stored as <code class="docutils literal notranslate"><span class="pre">list</span></code> objects.
+These are mutable, which means that you can change the values or add new ones.
+The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>, which causes the RowLookup values to become <code class="docutils literal notranslate"><span class="pre">tuple</span></code> objects.
+These are immutable, which consumes less memory and allows for faster retrieval.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>RuntimeError</strong> – When the lookup cannot be created or populated.</li>
+<li><strong>ValueError</strong> – When a specified lookup field does not exist in the source table,
+or when a single value field was specified.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">When a single field value should be stored in the lookup,
+the <a class="reference internal" href="#gpf.tools.lookup.ValueLookup" title="gpf.tools.lookup.ValueLookup"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.lookup.ValueLookup</span></code></a> class should be used instead.</p>
+</div>
+<dl class="method">
+<dt id="gpf.tools.lookup.RowLookup.get_fieldvalue">
+<code class="descname">get_fieldvalue</code><span class="sig-paren">(</span><em>key: Any</em>, <em>field: str</em>, <em>default: Any = None</em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/gpf/tools/lookup.html#RowLookup.get_fieldvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.lookup.RowLookup.get_fieldvalue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Looks up a value by key for a specific field name.
+This function can be convenient when only a single value needs to be retrieved from the lookup.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_lookup</span> <span class="o">=</span> <span class="n">RowLookup</span><span class="p">(</span><span class="s1">&#39;C:/Temp/test.gdb/my_table&#39;</span><span class="p">,</span> <span class="s1">&#39;GlobalID&#39;</span><span class="p">,</span> <span class="s1">&#39;Field1&#39;</span><span class="p">,</span> <span class="s1">&#39;Field2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Traditional approach to print Field1:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">my_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;{628ee94d-2063-47be-b57f-8c2af6345d4e}&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">&#39;ThisIsTheValueOfField1&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Alternative traditional approach to print Field1:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">field1</span><span class="p">,</span> <span class="n">field2</span> <span class="o">=</span> <span class="n">my_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;{628ee94d-2063-47be-b57f-8c2af6345d4e}&#39;</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">field1</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">field1</span><span class="p">)</span>
+<span class="go">&#39;ThisIsTheValueOfField1&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Approach using the get_fieldvalue() function:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_lookup</span><span class="o">.</span><span class="n">get_fieldvalue</span><span class="p">(</span><span class="s1">&#39;{628ee94d-2063-47be-b57f-8c2af6345d4e}&#39;</span><span class="p">,</span> <span class="s1">&#39;Field1&#39;</span><span class="p">))</span>
+<span class="go">&#39;ThisIsTheValueOfField1&#39;</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> – Key to find in the lookup dictionary.</li>
+<li><strong>field</strong> – The field name (as used during initialization of the lookup) for which to retrieve the value.</li>
+<li><strong>default</strong> – The value to return when the value was not found. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.tools.maplayers.html" class="btn btn-neutral float-right" title="gpf.tools.maplayers module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.tools.geometry.html" class="btn btn-neutral float-left" title="gpf.tools.geometry module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

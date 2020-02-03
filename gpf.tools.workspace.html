@@ -1,0 +1,606 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.workspace module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="gpf.tools.queries module" href="gpf.tools.queries.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.feedback.html">gpf.feedback package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.tools.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.tools.html#module-gpf.tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.tools.html">gpf.tools package</a> &raquo;</li>
+        
+      <li>gpf.tools.workspace module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.tools.workspace.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.tools.workspace">
+<span id="gpf-tools-workspace-module"></span><h1>gpf.tools.workspace module<a class="headerlink" href="#module-gpf.tools.workspace" title="Permalink to this headline">¶</a></h1>
+<p>Module that simplifies working with Esri Geodatabase or workspace paths.</p>
+<dl class="function">
+<dt id="gpf.tools.workspace.is_gdbpath">
+<code class="descclassname">gpf.tools.workspace.</code><code class="descname">is_gdbpath</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/tools/workspace.html#is_gdbpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.is_gdbpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the given path could be an Esri Geodatabase path by searching for 1 (and only 1!) of its known extensions.
+Note however that this does not truly guarantee that the path actually refers to a geodatabase!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> – The path to verify.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.workspace.split_gdbpath">
+<code class="descclassname">gpf.tools.workspace.</code><code class="descname">split_gdbpath</code><span class="sig-paren">(</span><em>path: str</em>, <em>remove_qualifier: bool = True</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/gpf/tools/workspace.html#split_gdbpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.split_gdbpath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the Esri Geodatabase <em>path</em> into a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of <em>(workspace, feature_dataset, feature_class/table)</em>.
+If any of the output tuple parts is not present, these will be set to an empty string.
+Note that if the path refers to a table or feature class that is not stored in a feature dataset,
+the <em>feature_dataset</em> part in the output tuple will be an empty string and the last part will contain the table
+or feature class name.</p>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">split_gdbpath</span><span class="p">(</span><span class="s1">&#39;C:/test.gdb/table&#39;</span><span class="p">)</span>
+<span class="go">(&#39;C:\test.gdb&#39;, &#39;&#39;, &#39;table&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_gdbpath</span><span class="p">(</span><span class="s1">&#39;C:/test.sde/qualifier.featureclass&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="go">(&#39;C:\test.sde&#39;, &#39;&#39;, &#39;qualifier.featureclass&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_gdbpath</span><span class="p">(</span><span class="s1">&#39;C:/test.sde/qualifier.fds/qualifier.fc&#39;</span><span class="p">)</span>
+<span class="go">(&#39;C:\test.sde&#39;, &#39;fds&#39;, &#39;fc&#39;)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path</strong> – The full path to the Geodatabase feature class or table.</li>
+<li><strong>remove_qualifier</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the split parts are “unqualified”. If any DB qualifiers exist in the path,
+they will be removed. This is the default behaviour.
+Set this parameter to <code class="docutils literal notranslate"><span class="pre">False</span></code> if qualifiers must be persisted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If the given path does not seem to be a Geodatabase path or
+there are more than 2 levels in the Geodatabase.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.workspace.exists">
+<code class="descclassname">gpf.tools.workspace.</code><code class="descname">exists</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/gpf/tools/workspace.html#exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if <em>path</em> exists. Esri paths (e.g. feature classes) are also supported.</p>
+<p>This function can be slightly faster than Esri’s <code class="xref py py-func docutils literal notranslate"><span class="pre">Exists()</span></code>, because it checks first if the <em>workspace</em> path
+exists using Python’s built-in <code class="docutils literal notranslate"><span class="pre">os.path</span></code> module. If this is not the case, it immediately returns <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+Only if the workspace exists, it will use Esri’s <code class="xref py py-func docutils literal notranslate"><span class="pre">Exists()</span></code> to check the complete path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> – The path to verify.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.workspace.unqualify">
+<code class="descclassname">gpf.tools.workspace.</code><code class="descname">unqualify</code><span class="sig-paren">(</span><em>element: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/tools/workspace.html#unqualify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.unqualify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the qualifier (and anything before that) for a data element part.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.tools.workspace.WorkspaceManager">
+<em class="property">class </em><code class="descclassname">gpf.tools.workspace.</code><code class="descname">WorkspaceManager</code><span class="sig-paren">(</span><em>workspace</em>, <em>{qualifier=''}</em>, <em>{root=None}</em>, <em>{separator='.'}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/workspace.html#WorkspaceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="gpf.common.paths.html#gpf.common.paths.BasePathManager" title="gpf.common.paths.BasePathManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.common.paths.BasePathManager</span></code></a></p>
+<p>Helper class to generate fully qualified paths for elements (tables, feature datasets etc.) in an Esri workspace.
+An Esri Workspace can be anything ranging from an SDE connection file to a File Geodatabase folder or a simple
+directory containing Shapefiles.</p>
+<p>Please note that the specified <em>workspace</em> is never explicitly checked for existence.
+If the user wants to validate the path, use the <a class="reference internal" href="#gpf.tools.workspace.exists" title="gpf.tools.workspace.exists"><code class="xref py py-func docutils literal notranslate"><span class="pre">exists()</span></code></a>, <a class="reference internal" href="#gpf.tools.workspace.WorkspaceManager.is_file" title="gpf.tools.workspace.WorkspaceManager.is_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_file()</span></code></a> or <a class="reference internal" href="#gpf.tools.workspace.WorkspaceManager.is_dir" title="gpf.tools.workspace.WorkspaceManager.is_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_dir()</span></code></a> properties.
+An exception to the rule is the <a class="reference internal" href="#gpf.tools.workspace.WorkspaceManager.find_path" title="gpf.tools.workspace.WorkspaceManager.find_path"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_path()</span></code></a> function, which will validate the path before it is returned.</p>
+<p>If you like to return the <em>WorkspaceManager</em> as its normalized initial path (e.g. for printing purposes),
+simply wrap it into a <code class="docutils literal notranslate"><span class="pre">str</span></code> statement.
+Note that the <em>WorkspaceManager</em> also be used as a context manager using the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>workspace</strong> – The workspace path (e.g. File Geodatabase, SDE connection file) or name.</li>
+<li><strong>qualifier</strong> – An optional database qualifier. If not set and <em>workspace</em> is a remote database,
+the qualifier will be equal to the DB user specified in the SDE connection file.</li>
+<li><strong>base</strong> – When this is set to a directory path, the <em>WorkspaceManager</em> assumes
+that <em>workspace</em> is relative to this <em>base</em> directory and will make <em>workspace</em> absolute.
+Otherwise, it will leave <em>workspace</em> unchanged (whether absolute or relative).</li>
+<li><strong>separator</strong> (<em>str</em>) – Optional separator (default = <code class="docutils literal notranslate"><span class="pre">'.'</span></code>) between the qualifier and the data element name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If <em>qualifier</em> has not been set and the workspace is an existing remote database
+for which the properties cannot be retrieved, initialization will fail.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="classmethod">
+<dt id="gpf.tools.workspace.WorkspaceManager.get_parent">
+<em class="property">classmethod </em><code class="descname">get_parent</code><span class="sig-paren">(</span><em>path: str</em>, <em>outside_gdb: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/tools/workspace.html#WorkspaceManager.get_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method that extracts the parent workspace path for a given Esri table/feature class path.
+Depending on the path, this might return a feature dataset workspace or the root workspace path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> – Full path to an Esri table, feature class or feature dataset.</li>
+<li><strong>outside_gdb</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, this will allow the function to return the parent directory
+of a Geodatabase, if the workspace is a GDB path. This effectively means that the function
+is allowed to go ‘outside’ of the Geodatabase.
+By default, this value is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+For non-Geodatabase paths, this will have no effect: the parent directory is returned.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\test.gdb&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb/feature_dataset&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\test.gdb&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb&#39;</span><span class="p">,</span> <span class="n">outside_gdb</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&#39;C:\temp&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.shp&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="gpf.tools.workspace.WorkspaceManager.get_root">
+<em class="property">classmethod </em><code class="descname">get_root</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/tools/workspace.html#WorkspaceManager.get_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.get_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method that extracts the root workspace for a given Esri table/feature class path.</p>
+<p>A root workspace is the Esri workspace of the “highest order”. For an SDE feature class, this is the SDE
+connection file, for a File Geodatabase table, this is the File Geodatabase directory (.gdb) itself.
+For a Shapefile path, this will return the parent directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> – Full path to an Esri table, feature class or feature dataset.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb/ele/ele_kabel&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\test.gdb&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/mydir/test.shp&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\mydir</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb/ele&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\test.gdb&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.is_remote">
+<code class="descname">is_remote</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.is_remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the workspace path seems to be a remote SDE geodatabase connection.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.is_gdb">
+<code class="descname">is_gdb</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.is_gdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the workspace path seems to be an Esri Geodatabase (remote or local).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.root">
+<code class="descname">root</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root workspace as a new <code class="docutils literal notranslate"><span class="pre">WorkspaceManager</span></code> instance.
+If the initial path already was the root path, this will return the current instance (<code class="docutils literal notranslate"><span class="pre">self</span></code>).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.parent">
+<code class="descname">parent</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the parent workspace as a new <code class="docutils literal notranslate"><span class="pre">WorkspaceManager</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.exists">
+<code class="descname">exists</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the workspace path exists and/or is a valid Esri workspace.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.qualifier">
+<code class="descname">qualifier</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.qualifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the qualifier for the current Esri workspace. For local workspaces, this is an empty string.
+The trailing separator will not be included in the output string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.separator">
+<code class="descname">separator</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.separator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the separator for the current Esri workspace. For local workspaces, this is an empty string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.workspace.WorkspaceManager.qualify">
+<code class="descname">qualify</code><span class="sig-paren">(</span><em>name: str</em>, <em>qualifier: str = None</em>, <em>separator: str = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/tools/workspace.html#WorkspaceManager.qualify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.qualify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Qualifies (prefixes) a data element name for SDE workspaces.
+If the workspace is not an SDE workspace or the name is qualified already, the input name is returned as-is.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> – Feature dataset, feature class or table name.</li>
+<li><strong>qualifier</strong> – Optional qualifier if the one derived from the DB connection should be overridden.</li>
+<li><strong>separator</strong> – Optional separator if the initial one should be overridden (defaults to <code class="docutils literal notranslate"><span class="pre">'.'</span></code>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If no table name was specified.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.workspace.WorkspaceManager.find_path">
+<code class="descname">find_path</code><span class="sig-paren">(</span><em>table: str</em>, <em>refresh: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/tools/workspace.html#WorkspaceManager.find_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.find_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to resolve the full (qualified) path for the specified table or feature class and returns it,
+by looking up the matching feature dataset (or workspace root when not found).
+In contrast to the <a class="reference internal" href="#gpf.tools.workspace.WorkspaceManager.construct" title="gpf.tools.workspace.WorkspaceManager.construct"><code class="xref py py-func docutils literal notranslate"><span class="pre">construct()</span></code></a> function, the path is verified before it is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>table</strong> – The (unqualified) table or feature class name to find.</li>
+<li><strong>refresh</strong> – Updates the internal table lookup first. See note below.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If the table was not found or found multiple times (should not happen).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wm</span> <span class="o">=</span> <span class="n">WorkspaceManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/db_user.sde&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wm</span><span class="o">.</span><span class="n">qualifier</span>
+<span class="go">&#39;user&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wm</span><span class="o">.</span><span class="n">find_path</span><span class="p">(</span><span class="s1">&#39;ele_cable&#39;</span><span class="p">)</span>  <span class="c1"># finds the feature class in feature dataset &quot;ELE&quot;</span>
+<span class="go">&#39;C:\temp\db_user.sde\user.ele\user.ele_cable&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The feature dataset lookup is created once on the first call to this function.
+This means that the first call is relatively slow and consecutive ones are fast.
+When the user creates new feature class paths using the <a class="reference internal" href="#gpf.tools.workspace.WorkspaceManager.construct" title="gpf.tools.workspace.WorkspaceManager.construct"><code class="xref py py-func docutils literal notranslate"><span class="pre">construct()</span></code></a> method,
+the lookup is updated automatically, so that this function can find the new feature class.
+However, when the workspace is updated <em>from the outside</em>, the lookup is not updated.
+If the user wishes to force-update the lookup, set the <em>refresh</em> argument to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.workspace.WorkspaceManager.construct">
+<code class="descname">construct</code><span class="sig-paren">(</span><em>*parts</em>, <em>{qualifier}</em>, <em>{separator}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/tools/workspace.html#WorkspaceManager.construct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a (qualified) path for the given named parts (data elements) in the order they appear.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parts</strong> – Feature dataset, feature class and/or table name(s) to concatenate.
+Note that if the workspace is a FileSystem directory, the last part of <cite>parts</cite> should
+include a file extension (e.g. ‘.shp’).</li>
+<li><strong>qualifier</strong> – Optional qualifier if the one derived from the DB connection should be overridden.</li>
+<li><strong>separator</strong> – Optional separator if the initial one should be overridden (defaults to ‘.’).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>IndexError</strong> – When more than 2 <cite>parts</cite> have been specified, this function will fail.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>In the following example, the qualifier (“user”) is derived from the connection:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wm</span> <span class="o">=</span> <span class="n">WorkspaceManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/db_user.sde&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wm</span><span class="o">.</span><span class="n">qualifier</span>
+<span class="go">&#39;user&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wm</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="s1">&#39;ele&#39;</span><span class="p">,</span> <span class="s1">&#39;ele_kabel&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\db_user.sde\user.ele\user.ele_kabel&#39;</span>
+</pre></div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">WorkspaceManager</span></code> above, we can override the qualifier with a custom one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wm</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="s1">&#39;ele&#39;</span><span class="p">,</span> <span class="s1">&#39;ele_kabel&#39;</span><span class="p">,</span> <span class="n">qualifier</span><span class="o">=</span><span class="s1">&#39;editor&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\db_user.sde\editor.ele\editor.ele_kabel&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.workspace.WorkspaceManager.basename">
+<code class="descname">basename</code><span class="sig-paren">(</span><em>keep_ext: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a file name (if initial path is a file) or a directory name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keep_ext</strong> – For files, setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code> will remove the file extension. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+Note that for directories, this might not have any effect.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.tools.workspace.WorkspaceManager.extension">
+<code class="descname">extension</code><span class="sig-paren">(</span><em>keep_dot: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the extension part of the initial path.
+For directories or files without extension, an empty string is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keep_dot</strong> – When <code class="docutils literal notranslate"><span class="pre">False</span></code>, the extension’s trailing dot will be removed. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.is_dir">
+<code class="descname">is_dir</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path is an existing directory.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.tools.workspace.WorkspaceManager.is_file">
+<code class="descname">is_file</code><a class="headerlink" href="#gpf.tools.workspace.WorkspaceManager.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path is an existing file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.workspace.get_workspace">
+<code class="descclassname">gpf.tools.workspace.</code><code class="descname">get_workspace</code><span class="sig-paren">(</span><em>table_path: str</em>, <em>root: bool = False</em>, <em>**kwargs</em><span class="sig-paren">)</span> &#x2192; gpf.tools.workspace.WorkspaceManager<a class="reference internal" href="_modules/gpf/tools/workspace.html#get_workspace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.tools.workspace.get_workspace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the workspace from <em>table_path</em> and returns a <a class="reference internal" href="#gpf.tools.workspace.WorkspaceManager" title="gpf.tools.workspace.WorkspaceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkspaceManager</span></code></a> instance for it.
+By default (<code class="docutils literal notranslate"><span class="pre">root=False</span></code>), this will return the first workspace it can find in an upwards direction:
+i.e. for a feature class inside a feature dataset, the feature dataset path will be returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>table_path</strong> – The full path to a table or feature class.</li>
+<li><strong>root</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default = <code class="docutils literal notranslate"><span class="pre">False</span></code>), the root workspace will be extracted.</li>
+<li><strong>kwargs</strong> – Optional keyword arguments for the <a class="reference internal" href="#gpf.tools.workspace.WorkspaceManager" title="gpf.tools.workspace.WorkspaceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkspaceManager</span></code></a> initialization.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_workspace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb/feature_dataset/feature_class&#39;</span><span class="p">)</span>
+<span class="go">WorkspaceManager(&#39;C:\temp\test.gdb\feature_dataset&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">get_workspace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb/feature_dataset/feature_class&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">WorkspaceManager(&#39;C:\temp\test.gdb&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="gpf.tools.queries.html" class="btn btn-neutral float-left" title="gpf.tools.queries module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

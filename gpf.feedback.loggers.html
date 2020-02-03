@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.feedback.loggers module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.tools package" href="gpf.tools.html" />
+    <link rel="prev" title="gpf.feedback.handlers module" href="gpf.feedback.handlers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.feedback.html">gpf.feedback package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.feedback.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.feedback.html#module-gpf.feedback">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.feedback.html">gpf.feedback package</a> &raquo;</li>
+        
+      <li>gpf.feedback.loggers module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.feedback.loggers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.feedback.loggers">
+<span id="gpf-feedback-loggers-module"></span><h1>gpf.feedback.loggers module<a class="headerlink" href="#module-gpf.feedback.loggers" title="Permalink to this headline">¶</a></h1>
+<p>This module provides a standardized alternative to the built-in Python Logger (<code class="docutils literal notranslate"><span class="pre">logging</span></code> package).</p>
+<dl class="class">
+<dt id="gpf.feedback.loggers.Logger">
+<em class="property">class </em><code class="descclassname">gpf.feedback.loggers.</code><code class="descname">Logger</code><span class="sig-paren">(</span><em>identity</em>, <em>{log_file}</em>, <em>{level}</em>, <em>{encoding}</em>, <em>{time_tag}</em>, <em>{logname_len}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Standard logger class that logs to stdout (e.g. console) and optionally a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>identity</strong> – The name of the owner of this Logger, as it will appear in the log file entries.</li>
+<li><strong>log_file</strong> – The name or path to the output log file. If no log file is required, leave it empty.
+When this is omitted, the Logger will only write to the standard stream (e.g. console).
+If there’s already a log handler for this file, this handler will be used automatically.</li>
+<li><strong>level</strong> – The minimum log level of messages that should be logged. Defaults to INFO.</li>
+<li><strong>logname_len</strong> (<em>int</em>) – The maximum length of the logger name used in the log record. Defaults to 15.</li>
+<li><strong>encoding</strong> (<em>str</em>) – The encoding to use in log <strong>files</strong>. Defaults to the preferred system encoding.</li>
+<li><strong>time_tag</strong> (<em>bool</em>) – When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), a timestamp will be appended to the log file name.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For more information about valid <em>log_file</em> values, please refer to
+the <em>filename</em> argument for <a class="reference internal" href="gpf.feedback.handlers.html#gpf.feedback.handlers.FileLogHandler" title="gpf.feedback.handlers.FileLogHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.feedback.handlers.FileLogHandler</span></code></a>.</p>
+</div>
+<dl class="attribute">
+<dt id="gpf.feedback.loggers.Logger.file_path">
+<code class="descname">file_path</code><a class="headerlink" href="#gpf.feedback.loggers.Logger.file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the (first) file path of the current Logger (if setup as file-based logger).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>message: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an info/standard message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>args</strong> – Optional values for <cite>message</cite> placeholders.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.warn">
+<code class="descname">warn</code><span class="sig-paren">(</span><em>message: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.warn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.warn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a warning message and increments the warning counter. Multi-line messages count as 1 warning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>args</strong> – Optional values for <cite>message</cite> placeholders.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.error">
+<code class="descname">error</code><span class="sig-paren">(</span><em>message: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes an error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>args</strong> – Optional values for <cite>message</cite> placeholders.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.fatal">
+<code class="descname">fatal</code><span class="sig-paren">(</span><em>message: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.fatal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.fatal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a fatal error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>args</strong> – Optional values for <cite>message</cite> placeholders.</li>
+<li><strong>kwargs</strong> – Optional arguments (e.g. <cite>exc_info=True</cite> for exception stack trace logging).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.exception">
+<code class="descname">exception</code><span class="sig-paren">(</span><em>message: str</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a fatal error message and increments the error counter. Multi-line messages count as 1 error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to write.</li>
+<li><strong>args</strong> – Optional values for <cite>message</cite> placeholders.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.section">
+<code class="descname">section</code><span class="sig-paren">(</span><em>message: str = ''</em>, <em>max_length: int = 80</em>, <em>symbol: str = '-'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a centered message wrapped inside a section line to the log.
+When message exceeds <em>max_length</em>, it will be logged as-is.
+The actual length of the line will be <em>max_length</em> - length of logger name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> – The text to put in the middle of the line (optional).</li>
+<li><strong>max_length</strong> – The maximum length of the line.</li>
+<li><strong>symbol</strong> – The character to generate the line.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.status">
+<code class="descname">status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a (final) status message to the log, telling the user how
+many errors and warnings were logged by this instance.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>
+<span class="go">ERROR: message</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span>
+<span class="go">WARNING: message</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="go">Logged 1 error and 1 warning.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">reset_stats</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+<span class="go">Logged 0 errors and 0 warnings.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.time_elapsed">
+<code class="descname">time_elapsed</code><span class="sig-paren">(</span><em>func: Callable = None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.time_elapsed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.time_elapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a nicely printed message stating how much time has passed.
+If the callable <em>func</em> is specified, this function is executed and its execution time is logged.
+If no callable <em>func</em> has been given, the elapsed time (since init or last <code class="docutils literal notranslate"><span class="pre">reset_stats</span></code> call) is logged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> – The optional callable to execute.</li>
+<li><strong>args</strong> – Positional arguments for <em>func</em>.</li>
+<li><strong>kwargs</strong> – Keyword arguments for <em>func</em>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.reset_stats">
+<code class="descname">reset_stats</code><span class="sig-paren">(</span><em>time: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.reset_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.reset_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the error and warning counters. Optionally, the start time can also be reset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>time</strong> (<em>bool</em>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code> (default) the start time of the logger will also be reset (to local <code class="docutils literal notranslate"><span class="pre">now()</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.feedback.loggers.Logger.quit">
+<code class="descname">quit</code><span class="sig-paren">(</span><em>error_msg: str = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#Logger.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.Logger.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Releases the current logger and shuts down the (main) logger.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>error_msg</strong> – Optional termination message (or code) for fatal errors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.feedback.loggers.ArcLogger">
+<em class="property">class </em><code class="descclassname">gpf.feedback.loggers.</code><code class="descname">ArcLogger</code><span class="sig-paren">(</span><em>identity: str</em>, <em>log_file=None</em>, <em>level: int = 20</em>, <em>**options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/loggers.html#ArcLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.loggers.ArcLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gpf.feedback.loggers.Logger" title="gpf.feedback.loggers.Logger"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.feedback.loggers.Logger</span></code></a></p>
+<p>ArcLogger(identity, {log_file}, {level}, {encoding},</p>
+<p>Logger that forwards all messages to ArcGIS and optionally logs to a file.
+Forwarding messages to ArcGIS is only useful when logging from an ArcToolbox or GEONIS Python script.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>identity</strong> – The name of the owner of this Logger, as it will appear in the log file entries.</li>
+<li><strong>log_file</strong> – The name or path to the output log file. If no log file is required, leave it empty.
+If there’s already a log handler for this file, this handler will be used automatically.</li>
+<li><strong>level</strong> – The minimum log level of messages that should be logged. Defaults to INFO.</li>
+<li><strong>encoding</strong> – The encoding to use in log files (only). Defaults to Latin-1 a.k.a. cp1252.</li>
+<li><strong>time_tag</strong> – When set to True (default), a timestamp will be appended to the log file name.</li>
+<li><strong>logname_len</strong> – The maximum length of the logger name used in the log record. Defaults to 15.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.tools.html" class="btn btn-neutral float-right" title="gpf.tools package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.feedback.handlers.html" class="btn btn-neutral float-left" title="gpf.feedback.handlers module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.feedback.loggers &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gpf.html">gpf package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gpf.feedback.loggers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gpf.feedback.loggers</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright 2019 Geocom Informatik AG / VertiGIS</span>
+
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides a standardized alternative to the built-in Python Logger (``logging`` package).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">atexit</span> <span class="k">as</span> <span class="nn">_ae</span>
+<span class="kn">import</span> <span class="nn">logging</span> <span class="k">as</span> <span class="nn">_logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">_tp</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">_dt</span>
+
+<span class="kn">import</span> <span class="nn">more_itertools</span> <span class="k">as</span> <span class="nn">_iter</span>
+
+<span class="kn">import</span> <span class="nn">gpf.common.textutils</span> <span class="k">as</span> <span class="nn">_tu</span>
+<span class="kn">import</span> <span class="nn">gpf.common.validate</span> <span class="k">as</span> <span class="nn">_vld</span>
+<span class="kn">import</span> <span class="nn">gpf.feedback.formatters</span> <span class="k">as</span> <span class="nn">_fmt</span>
+<span class="kn">import</span> <span class="nn">gpf.feedback.handlers</span> <span class="k">as</span> <span class="nn">_hndlr</span>
+
+<span class="n">_LOGLINE_LENGTH</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="n">_LOGLVL_CRITICAL</span> <span class="o">=</span> <span class="s1">&#39;FATAL&#39;</span>
+<span class="n">_LOGLVL_WARNING</span> <span class="o">=</span> <span class="s1">&#39;WARN&#39;</span>
+
+<span class="n">LOG_DEBUG</span> <span class="o">=</span> <span class="n">_logging</span><span class="o">.</span><span class="n">DEBUG</span>
+<span class="n">LOG_INFO</span> <span class="o">=</span> <span class="n">_logging</span><span class="o">.</span><span class="n">INFO</span>
+<span class="n">LOG_WARN</span> <span class="o">=</span> <span class="n">_logging</span><span class="o">.</span><span class="n">WARNING</span>
+<span class="n">LOG_ERROR</span> <span class="o">=</span> <span class="n">_logging</span><span class="o">.</span><span class="n">ERROR</span>
+
+
+<div class="viewcode-block" id="Logger"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger">[docs]</a><span class="k">class</span> <span class="nc">Logger</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logger(identity, {log_file}, {level}, {encoding}, {time_tag}, {logname_len})</span>
+
+<span class="sd">    Standard logger class that logs to stdout (e.g. console) and optionally a file.</span>
+
+<span class="sd">    :param identity:        The name of the owner of this Logger, as it will appear in the log file entries.</span>
+<span class="sd">    :param log_file:        The name or path to the output log file. If no log file is required, leave it empty.</span>
+<span class="sd">                            When this is omitted, the Logger will only write to the standard stream (e.g. console).</span>
+<span class="sd">                            If there&#39;s already a log handler for this file, this handler will be used automatically.</span>
+<span class="sd">    :param level:           The minimum log level of messages that should be logged. Defaults to INFO.</span>
+<span class="sd">    :keyword logname_len:   The maximum length of the logger name used in the log record. Defaults to 15.</span>
+<span class="sd">    :keyword encoding:      The encoding to use in log **files**. Defaults to the preferred system encoding.</span>
+<span class="sd">    :keyword time_tag:      When set to ``True`` (default), a timestamp will be appended to the log file name.</span>
+<span class="sd">    :type encoding:         str</span>
+<span class="sd">    :type time_tag:         bool</span>
+<span class="sd">    :type logname_len:      int</span>
+
+<span class="sd">    .. note::               For more information about valid *log_file* values, please refer to</span>
+<span class="sd">                            the *filename* argument for :class:`gpf.feedback.handlers.FileLogHandler`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">log_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOG_INFO</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_warn</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_err</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">identity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fileid</span> <span class="o">=</span> <span class="n">log_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tstart</span> <span class="o">=</span> <span class="n">_dt</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="n">_ae</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Sets up and returns a basic logger for `identity`. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">:</span>
+            <span class="c1"># Logger exists. Check if (another)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_filehandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span>
+
+        <span class="c1"># Add custom log level names (if not added already)</span>
+        <span class="n">_logging</span><span class="o">.</span><span class="n">addLevelName</span><span class="p">(</span><span class="n">_logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">,</span> <span class="n">_LOGLVL_CRITICAL</span><span class="p">)</span>
+        <span class="n">_logging</span><span class="o">.</span><span class="n">addLevelName</span><span class="p">(</span><span class="n">_logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span> <span class="n">_LOGLVL_WARNING</span><span class="p">)</span>
+
+        <span class="c1"># Get basic console logger and attach stream handler</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">_logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_level</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_streamhandler</span><span class="p">())</span>
+
+        <span class="c1"># If a log file was specified, attach file handler</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fileid</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_filehandler</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attach_filehandler</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">logger</span>
+
+    <span class="k">def</span> <span class="nf">_get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the first handler where ``match_func(handler) is True``. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_iter</span><span class="o">.</span><span class="n">first</span><span class="p">((</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">handlers</span> <span class="k">if</span> <span class="n">match_func</span><span class="p">(</span><span class="n">h</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_streamhandler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns an existing StreamHandler or a new one when not found. &quot;&quot;&quot;</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler</span><span class="p">(</span><span class="k">lambda</span> <span class="n">h</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">_logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">handler</span><span class="p">:</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">_logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">_fmt</span><span class="o">.</span><span class="n">StreamFormatter</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">handler</span>
+
+    <span class="k">def</span> <span class="nf">_get_filehandler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a matching FileLogHandler for the current Logger instance. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler</span><span class="p">(</span><span class="k">lambda</span> <span class="n">h</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">_hndlr</span><span class="o">.</span><span class="n">FileLogHandler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">h</span><span class="o">.</span><span class="n">identity</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fileid</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_attach_filehandler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Hooks up a new FileLogHandler for the current Logger instance. &quot;&quot;&quot;</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">_hndlr</span><span class="o">.</span><span class="n">FileLogHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fileid</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">_fmt</span><span class="o">.</span><span class="n">FileLogFormatter</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">))</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span><span class="n">_logging</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">handler</span>
+
+    <span class="k">def</span> <span class="nf">_set_filehandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; If a log file was specified, attach an existing or new file handler for it. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fileid</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_filehandler</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attach_filehandler</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_close_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Closes all handlers and clears the log handler list. &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s1">&#39;close&#39;</span><span class="p">):</span>
+                <span class="n">h</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s1">&#39;flush&#39;</span><span class="p">):</span>
+                <span class="n">h</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_process_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prepares `message` for writing (optionally replacing placeholder `args`) and writes it to the log</span>
+<span class="sd">        for a specified `level`.</span>
+
+<span class="sd">        :param int level:   Log level (e.g. logging.INFO, logging.ERROR etc.).</span>
+<span class="sd">        :param message:     Message to write (optionally with %s placeholders).</span>
+<span class="sd">        :param args:        Optional placeholder arguments.</span>
+<span class="sd">        :param kwargs:      Other optional arguments (e.g. `exc_info=True` for exception stack trace logging).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_logger</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">&#39;splitlines&#39;</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="c1"># Never fail on logging errors. These also don&#39;t count towards the logging stats.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Suppressed logging exception. </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the (first) file path of the current Logger (if setup as file-based logger). &quot;&quot;&quot;</span>
+        <span class="n">fh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_filehandler</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">fh</span><span class="o">.</span><span class="n">baseFilename</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Logger.info"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes an info/standard message.</span>
+
+<span class="sd">        :param message: The text to write.</span>
+<span class="sd">        :param args:    Optional values for `message` placeholders.</span>
+<span class="sd">        :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_msg</span><span class="p">(</span><span class="n">LOG_INFO</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Logger.warn"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.warn">[docs]</a>    <span class="k">def</span> <span class="nf">warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes a warning message and increments the warning counter. Multi-line messages count as 1 warning.</span>
+
+<span class="sd">        :param message: The text to write.</span>
+<span class="sd">        :param args:    Optional values for `message` placeholders.</span>
+<span class="sd">        :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_msg</span><span class="p">(</span><span class="n">LOG_WARN</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_warn</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Logger.error"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.error">[docs]</a>    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes an error message and increments the error counter. Multi-line messages count as 1 error.</span>
+
+<span class="sd">        :param message: The text to write.</span>
+<span class="sd">        :param args:    Optional values for `message` placeholders.</span>
+<span class="sd">        :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_msg</span><span class="p">(</span><span class="n">LOG_ERROR</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_err</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Logger.fatal"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.fatal">[docs]</a>    <span class="k">def</span> <span class="nf">fatal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes a fatal error message and increments the error counter. Multi-line messages count as 1 error.</span>
+
+<span class="sd">        :param message: The text to write.</span>
+<span class="sd">        :param args:    Optional values for `message` placeholders.</span>
+<span class="sd">        :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_msg</span><span class="p">(</span><span class="n">_logging</span><span class="o">.</span><span class="n">FATAL</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_err</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Logger.exception"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.exception">[docs]</a>    <span class="k">def</span> <span class="nf">exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes a fatal error message and increments the error counter. Multi-line messages count as 1 error.</span>
+
+<span class="sd">        :param message: The text to write.</span>
+<span class="sd">        :param args:    Optional values for `message` placeholders.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_err</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Logger.section"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.section">[docs]</a>    <span class="k">def</span> <span class="nf">section</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">,</span> <span class="n">max_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">80</span><span class="p">,</span> <span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">DASH</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes a centered message wrapped inside a section line to the log.</span>
+<span class="sd">        When message exceeds *max_length*, it will be logged as-is.</span>
+<span class="sd">        The actual length of the line will be *max_length* - length of logger name.</span>
+
+<span class="sd">        :param message:         The text to put in the middle of the line (optional).</span>
+<span class="sd">        :param max_length:      The maximum length of the line.</span>
+<span class="sd">        :param symbol:          The character to generate the line.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_length</span> <span class="o">-=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">msg_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">msg_length</span> <span class="o">&lt;</span> <span class="n">max_length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">fill_char</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">SPACE</span>   <span class="c1"># default separator between line and message</span>
+            <span class="k">if</span> <span class="n">msg_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">fill_char</span> <span class="o">=</span> <span class="n">symbol</span>  <span class="c1"># separator if there is no message</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">msg_length</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fill_char</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">max_length</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Logger.status"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes a (final) status message to the log, telling the user how</span>
+<span class="sd">        many errors and warnings were logged by this instance.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">            &gt;&gt;&gt; l = Logger(&#39;test&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; l.error(&#39;message&#39;)</span>
+<span class="sd">            ERROR: message</span>
+<span class="sd">            &gt;&gt;&gt; l.warn(&#39;message&#39;)</span>
+<span class="sd">            WARNING: message</span>
+<span class="sd">            &gt;&gt;&gt; l.status()</span>
+<span class="sd">            Logged 1 error and 1 warning.</span>
+<span class="sd">            &gt;&gt;&gt; l.reset_stats()</span>
+<span class="sd">            &gt;&gt;&gt; l.status()</span>
+<span class="sd">            Logged 0 errors and 0 warnings.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">format_plural</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_err</span><span class="p">)</span>
+        <span class="n">warnings</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">format_plural</span><span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_warn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Logged </span><span class="si">{}</span><span class="s1"> and </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Logger.time_elapsed"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.time_elapsed">[docs]</a>    <span class="k">def</span> <span class="nf">time_elapsed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Logs a nicely printed message stating how much time has passed.</span>
+<span class="sd">        If the callable *func* is specified, this function is executed and its execution time is logged.</span>
+<span class="sd">        If no callable *func* has been given, the elapsed time (since init or last ``reset_stats`` call) is logged.</span>
+
+<span class="sd">        :param func:    The optional callable to execute.</span>
+<span class="sd">        :param args:    Positional arguments for *func*.</span>
+<span class="sd">        :param kwargs:  Keyword arguments for *func*.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">func</span><span class="p">:</span>
+            <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">callable</span><span class="p">(</span><span class="n">func</span><span class="p">),</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;&#39;func&#39; attribute must be a callable&quot;</span><span class="p">)</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">_dt</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">() executed in </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">format_timedelta</span><span class="p">(</span><span class="n">start</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Time elapsed: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">format_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tstart</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Logger.reset_stats"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.reset_stats">[docs]</a>    <span class="k">def</span> <span class="nf">reset_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the error and warning counters. Optionally, the start time can also be reset.</span>
+
+<span class="sd">        :param time:    When ``True`` (default) the start time of the logger will also be reset (to local ``now()``).</span>
+<span class="sd">        :type time:     bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">time</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tstart</span> <span class="o">=</span> <span class="n">_dt</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_warn</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_err</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="Logger.quit"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.Logger.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Releases the current logger and shuts down the (main) logger.</span>
+
+<span class="sd">        :param error_msg:     Optional termination message (or code) for fatal errors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_close_handlers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log</span> <span class="o">=</span> <span class="kc">None</span></div></div>
+
+
+<div class="viewcode-block" id="ArcLogger"><a class="viewcode-back" href="../../../gpf.feedback.loggers.html#gpf.feedback.loggers.ArcLogger">[docs]</a><span class="k">class</span> <span class="nc">ArcLogger</span><span class="p">(</span><span class="n">Logger</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ArcLogger(identity, {log_file}, {level}, {encoding},</span>
+
+<span class="sd">    Logger that forwards all messages to ArcGIS and optionally logs to a file.</span>
+<span class="sd">    Forwarding messages to ArcGIS is only useful when logging from an ArcToolbox or GEONIS Python script.</span>
+
+<span class="sd">    :param identity:        The name of the owner of this Logger, as it will appear in the log file entries.</span>
+<span class="sd">    :param log_file:        The name or path to the output log file. If no log file is required, leave it empty.</span>
+<span class="sd">                            If there&#39;s already a log handler for this file, this handler will be used automatically.</span>
+<span class="sd">    :param level:           The minimum log level of messages that should be logged. Defaults to INFO.</span>
+<span class="sd">    :keyword encoding:      The encoding to use in log files (only). Defaults to Latin-1 a.k.a. cp1252.</span>
+<span class="sd">    :keyword time_tag:      When set to True (default), a timestamp will be appended to the log file name.</span>
+<span class="sd">    :keyword logname_len:   The maximum length of the logger name used in the log record. Defaults to 15.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">log_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOG_INFO</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="n">log_file</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_streamhandler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns an existing ArcLogHandler or StreamHandler or a new one when not found. &quot;&quot;&quot;</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_handler</span><span class="p">(</span><span class="k">lambda</span> <span class="n">h</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">_hndlr</span><span class="o">.</span><span class="n">ArcLogHandler</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">handler</span><span class="p">:</span>
+            <span class="n">handler</span> <span class="o">=</span> <span class="n">_hndlr</span><span class="o">.</span><span class="n">ArcLogHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">_fmt</span><span class="o">.</span><span class="n">StreamFormatter</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">handler</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

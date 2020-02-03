@@ -1,0 +1,686 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.cursors &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gpf.html">gpf package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gpf.tools.cursors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gpf.tools.cursors</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright 2019 Geocom Informatik AG / VertiGIS</span>
+
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains fast **and** user-friendly alternatives to Esri&#39;s standard cursors.</span>
+<span class="sd">The SearchCursor, InsertCursor and UpdateCursor listed here inherit from Esri&#39;s *Data Access* cursors,</span>
+<span class="sd">but there are some differences:</span>
+
+<span class="sd">    - SearchCursors return :class:`_Row` wrappers and have a :func:`getValue` function, similar to Esri&#39;s legacy rows;</span>
+<span class="sd">    - Insert- and UpdateCursors return :class:`_MutableRow` wrappers that also have a :func:`setValue` function,</span>
+<span class="sd">      similar to their legacy predecessors;</span>
+<span class="sd">    - The :func:`getValue` function can return a *default* value when the field was not found;</span>
+<span class="sd">    - The cursors *where_clause* argument also accepts a :class:`gpf.tools.queries.Where` instance.</span>
+
+<span class="sd">In theory, one should be able to simply replace the legacy Esri cursors (in some script, for example)</span>
+<span class="sd">with the ones in this module without too much hassle, since all old methods have been ported to this module.</span>
+<span class="sd">The only thing you might need to replace and verify for compatibility is the call to the actual cursor itself.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">_tp</span>
+
+<span class="kn">import</span> <span class="nn">gpf.common.const</span> <span class="k">as</span> <span class="nn">_const</span>
+<span class="kn">import</span> <span class="nn">gpf.common.textutils</span> <span class="k">as</span> <span class="nn">_tu</span>
+<span class="kn">import</span> <span class="nn">gpf.common.validate</span> <span class="k">as</span> <span class="nn">_vld</span>
+<span class="kn">import</span> <span class="nn">gpf.tools.queries</span> <span class="k">as</span> <span class="nn">_q</span>
+<span class="kn">import</span> <span class="nn">gpf.tools.workspace</span> <span class="k">as</span> <span class="nn">_ws</span>
+<span class="kn">from</span> <span class="nn">gpf.tools</span> <span class="k">import</span> <span class="n">arcpy</span> <span class="k">as</span> <span class="n">_arcpy</span>
+
+
+<span class="k">def</span> <span class="nf">_map_fields</span><span class="p">(</span><span class="n">fields</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Maps a list of field names to their position (index). &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">f</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fields</span><span class="p">)}</span>
+
+
+<span class="k">def</span> <span class="nf">_default_tuple</span><span class="p">(</span><span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Returns a tuple filled with None values. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_default_list</span><span class="p">(</span><span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Returns a list filled with None values. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+
+
+<span class="c1"># noinspection PyPep8Naming</span>
+<span class="k">class</span> <span class="nc">_Row</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    _Row(field_map, {default})</span>
+
+<span class="sd">    Wrapper class for backward compatibility to fetch values from an immutable row using legacy Esri cursor style.</span>
+
+<span class="sd">    This class is only intended for use by a ``SearchCursor``.</span>
+
+<span class="sd">    :param field_map:   The field map (name, position) to use for the row value lookup.</span>
+<span class="sd">    :keyword default:   The iterable type (``list`` or ``tuple``) to use as a data container.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="s1">&#39;_fieldmap&#39;</span><span class="p">,</span> <span class="s1">&#39;_data&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fieldmap</span> <span class="o">=</span> <span class="n">field_map</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">_default_tuple</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">field_map</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">to_repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__getslice__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">_default_tuple</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fieldmap</span><span class="p">))</span> <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">row</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">getValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="n">_const</span><span class="o">.</span><span class="n">EMPTY_OBJ</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the value that matches the given *field* name for the current row.</span>
+
+<span class="sd">        A *default* can be specified in case the value was not found.</span>
+
+<span class="sd">        :param field:       The (case-insensitive) name of the field for which to retrieve the value.</span>
+<span class="sd">        :param default:     The default value to return in case the field was not found.</span>
+<span class="sd">        :raise ValueError:  If *default* is omitted and a value cannot be found.</span>
+<span class="sd">        :return:            A value (an Esri or Python basic type) or ``None``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_fieldmap</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">upper</span><span class="p">()]]</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+            <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="n">_const</span><span class="o">.</span><span class="n">EMPTY_OBJ</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span>
+                          <span class="s1">&#39;getValue() field </span><span class="si">{!r}</span><span class="s1"> does not exist and no default value was provided&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">field</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">default</span>
+
+    <span class="k">def</span> <span class="nf">isNull</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the *field* value is NULL (``None``) or if *field* does not exist in the current row.</span>
+
+<span class="sd">        :param field:   The (case-insensitive) name of the field for which to check its value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getValue</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">asDict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convenience function to return the current row as a dictionary of ``{field: value}``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fieldmap</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+
+<span class="c1"># noinspection PyPep8Naming</span>
+<span class="k">class</span> <span class="nc">_MutableRow</span><span class="p">(</span><span class="n">_Row</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    _MutableRow(field_map, {default})</span>
+
+<span class="sd">    Wrapper class for backward compatibility to fetch values from a mutable row using legacy Esri cursor style.</span>
+
+<span class="sd">    This class is only intended for use by an``InsertCursor`` or ``UpdateCursor``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">field_map</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">_default_list</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">field_map</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">_default_list</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fieldmap</span><span class="p">))</span> <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">row</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">setValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the *field* to *value* for the current row.</span>
+
+<span class="sd">        If the *field* was not found, this function does nothing.</span>
+
+<span class="sd">        :param field:       The (case-insensitive) name of the field for which to set the value.</span>
+<span class="sd">        :param value:       The value to set (must be an Esri or Python basic type).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_fieldmap</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">upper</span><span class="p">()]]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">setNull</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the specified *field* value to NULL (``None``).</span>
+
+<span class="sd">        If the *field* was not found, no action is performed.</span>
+
+<span class="sd">        :param field:   The (case-insensitive) name of the field which should be set to NULL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="c1"># noinspection PyPep8Naming, PyUnusedLocal</span>
+<div class="viewcode-block" id="Editor"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.Editor">[docs]</a><span class="k">class</span> <span class="nc">Editor</span><span class="p">(</span><span class="n">_arcpy</span><span class="o">.</span><span class="n">da</span><span class="o">.</span><span class="n">Editor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Context manager wrapper for Esri&#39;s Data Access Editor class that opens an edit session on a workspace.</span>
+<span class="sd">    This class does not do more than Esri&#39;s Editor class, but it tends to be more user-friendly.</span>
+
+<span class="sd">    This Editor only has a :func:`start` and :func:`stop` method. The other available methods (:func:`startOperation`,</span>
+<span class="sd">    :func:`undoOperation` etc.) have been disabled to avoid confusion.</span>
+
+<span class="sd">    The recommended way of using the Editor is as a context manager (using the ``with`` statement).</span>
+<span class="sd">    This has the advantage that, upon failure, the edit session is closed automatically (optionally with rollback).</span>
+<span class="sd">    If no failures occurred, the edit session is closed normally and all edits are saved (committed).</span>
+<span class="sd">    However, one can also instantiate the Editor and call :func:`start` and :func:`stop` respectively when done.</span>
+
+<span class="sd">    :param path:        A path on which to open the edit session. This can be a table or feature class path,</span>
+<span class="sd">                        a workspace path or a class:`WorkspaceManager` instance.</span>
+<span class="sd">    :param with_undo:   If ``True`` (default = ``False``), an undo stack will be kept.</span>
+<span class="sd">                        For versioned workspaces, this setting has no effect (always ``True``).</span>
+<span class="sd">                        For all other workspaces, having this value set to ``False`` improves performance.</span>
+
+<span class="sd">    .. note::           The :class:`InsertCursor` and :class:`UpdateCursor` in this module use the Editor on demand,</span>
+<span class="sd">                        if these cursors are initialized with the *auto_edit* option set to ``True`` (default).</span>
+<span class="sd">    .. seealso::        https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-data-access/editor.htm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_ws</span><span class="o">.</span><span class="n">WorkspaceManager</span><span class="p">],</span> <span class="n">with_undo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">_ws</span><span class="o">.</span><span class="n">WorkspaceManager</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">_ws</span><span class="o">.</span><span class="n">get_workspace</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_versioned</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_arcpy</span><span class="o">.</span><span class="n">da</span><span class="o">.</span><span class="n">ListVersions</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_remote</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="c1"># If the database is versioned, always use the undo stack</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_undo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_versioned</span> <span class="ow">or</span> <span class="n">with_undo</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_undo</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">exc_type</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Editor.start"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.Editor.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_undo</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the edit operation.</span>
+<span class="sd">        If the Editor already is in an editing state, this method will do nothing.</span>
+
+<span class="sd">        :param with_undo:   If set to ``True``, the undo/redo stack is enabled.</span>
+<span class="sd">                            Note that this stack will always be enabled if the workspace is a versioned SDE geodatabase.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isEditing</span><span class="p">:</span>
+            <span class="c1"># If the Editor already is in an editing state, do nothing</span>
+            <span class="k">return</span>
+        <span class="c1"># If the database is versioned, always use the undo stack</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_undo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_versioned</span> <span class="ow">or</span> <span class="n">with_undo</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">startEditing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_undo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_versioned</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">startOperation</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Editor.stop"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.Editor.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops the edit operation.</span>
+<span class="sd">        If the Editor is not in an editing state, this method will do nothing.</span>
+
+<span class="sd">        :param save:    If set to ``True``, the edits will be saved.</span>
+<span class="sd">                        If set to ``False``, the edits will be rolled back (and not saved) when either</span>
+<span class="sd">                        (a) the edit session was started with an undo/redo stack, or</span>
+<span class="sd">                        (b) the workspace is a versioned SDE database.</span>
+<span class="sd">                        If the undo stack was disabled (default) and *save* is ``False``, the operation will be aborted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isEditing</span><span class="p">:</span>
+            <span class="c1"># If the Editor is not in an editing state, do nothing</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">stopOperation</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_undo</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_versioned</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">undoOperation</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">abortOperation</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">stopEditing</span><span class="p">(</span><span class="n">save</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_raise_ni</span><span class="p">(</span><span class="n">func_name</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This </span><span class="si">{}</span><span class="s2"> implementation does not support the </span><span class="si">{}</span><span class="s2"> method&quot;</span>
+                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">func_name</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">startEditing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method is not implemented. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ni</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="n">startEditing</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">stopEditing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method is not implemented. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ni</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="n">stopEditing</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">startOperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method is not implemented. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ni</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="n">startOperation</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">stopOperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method is not implemented. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ni</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="n">stopOperation</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">abortOperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method is not implemented. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ni</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="n">abortOperation</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">undoOperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method is not implemented. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ni</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="n">undoOperation</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">redoOperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This method is not implemented. &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ni</span><span class="p">(</span><span class="n">Editor</span><span class="o">.</span><span class="n">redoOperation</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SearchCursor"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.SearchCursor">[docs]</a><span class="k">class</span> <span class="nc">SearchCursor</span><span class="p">(</span><span class="n">_arcpy</span><span class="o">.</span><span class="n">da</span><span class="o">.</span><span class="n">SearchCursor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SearchCursor(in_table, {field_names}, {where_clause}, {spatial_reference}, {explode_to_points}, {sql_clause})</span>
+
+<span class="sd">    Wrapper class to properly expose ArcPy&#39;s Data Access SearchCursor and its methods.</span>
+<span class="sd">    Returns a read-only cursor to iterate over (a set of) records in a table.</span>
+
+<span class="sd">    If *where_clause* is used and it&#39;s a :class:`Where` instance, the field delimiters will</span>
+<span class="sd">    automatically be resolved (e.g. for Oracle, MS SQL, File Geodatabase etc.).</span>
+
+<span class="sd">    :param in_table:            The feature class, layer, table, or table view.</span>
+<span class="sd">    :param field_names:         Single field name or iterable of field names.</span>
+<span class="sd">                                When not set, all fields are returned (not recommended).</span>
+<span class="sd">    :param where_clause:        An optional expression that limits the records returned.</span>
+<span class="sd">    :keyword spatial_reference: An optional SpatialReference object or its string equivalent.</span>
+<span class="sd">    :keyword explode_to_points: Optional. If ``True``, features are deconstructed into individual vertices.</span>
+<span class="sd">    :keyword sql_clause:        An optional pair of SQL prefix and postfix clauses organized in a list or tuple.</span>
+<span class="sd">    :type spatial_reference:    int, str, SpatialReference</span>
+<span class="sd">    :type explode_to_points:    bool</span>
+<span class="sd">    :type sql_clause:           tuple, list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">field_names</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+                 <span class="n">where_clause</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_q</span><span class="o">.</span><span class="n">Where</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">_q</span><span class="o">.</span><span class="n">add_where</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">where_clause</span><span class="p">,</span> <span class="n">in_table</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_table</span><span class="p">,</span> <span class="n">field_names</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_row</span> <span class="o">=</span> <span class="n">_Row</span><span class="p">(</span><span class="n">_map_fields</span><span class="p">(</span><span class="n">field_names</span> <span class="k">if</span> <span class="n">_vld</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">field_names</span><span class="p">)</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SearchCursor.next"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.SearchCursor.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_Row</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">next</span><span class="p">())</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of fields (in order) used by the cursor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fields</span>
+
+<div class="viewcode-block" id="SearchCursor.reset"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.SearchCursor.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Resets the cursor position to the first row so it can be iterated over again. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div></div>
+
+
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="InsertCursor"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.InsertCursor">[docs]</a><span class="k">class</span> <span class="nc">InsertCursor</span><span class="p">(</span><span class="n">_arcpy</span><span class="o">.</span><span class="n">da</span><span class="o">.</span><span class="n">InsertCursor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    InsertCursor(in_table, field_names, {auto_edit})</span>
+
+<span class="sd">    Wrapper class to properly expose ArcPy&#39;s Data Access InsertCursor and its methods.</span>
+<span class="sd">    Returns a cursor to insert new records into a table.</span>
+
+<span class="sd">    :param in_table:        The feature class, layer, table, or table view.</span>
+<span class="sd">    :param field_names:     Single field name or a list (or tuple) of field names.</span>
+<span class="sd">    :keyword auto_edit:     If set to ``True`` (default), an edit session is started automatically, if required.</span>
+<span class="sd">    :type auto_edit:        bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">field_names</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_table</span><span class="p">,</span> <span class="n">field_names</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_field_map</span> <span class="o">=</span> <span class="n">_map_fields</span><span class="p">(</span><span class="n">field_names</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;edit session&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;auto_edit&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span> <span class="o">=</span> <span class="n">Editor</span><span class="p">(</span><span class="n">in_table</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_table</span><span class="p">,</span> <span class="n">field_names</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_field_map</span> <span class="o">=</span> <span class="n">_map_fields</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">raise</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of fields (in order) used by the cursor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fields</span>
+
+<div class="viewcode-block" id="InsertCursor.newRow"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.InsertCursor.newRow">[docs]</a>    <span class="k">def</span> <span class="nf">newRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_MutableRow</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a new MutableRow instance (optionally populated with data).</span>
+
+<span class="sd">        :param values:      Optional ``list`` or ``tuple`` of field values in the correct ``InsertCursor`` field order</span>
+<span class="sd">                            or a ``dict`` of key-value pairs, where the keys specify the field names to set.</span>
+<span class="sd">        :raises ValueError: If *values* is a ``list`` or ``tuple`` and the length does not match the number of</span>
+<span class="sd">                            cursor fields, or if *values* is a ``dict`` and one of the keys does not match with the</span>
+<span class="sd">                            cursor field names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="n">values</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_vld</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="ne">ValueError</span><span class="p">,</span>
+                      <span class="s2">&quot;newRow() &#39;values&#39; should be iterable or None&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Although it would be more efficient to initialize _MutableRow once and simply call it</span>
+        <span class="c1"># to set its values, this might not be what the user expects. Therefore, we (re)initialize it each time.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">_MutableRow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_field_map</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">_MutableRow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_field_map</span><span class="p">)(</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">row</span></div>
+
+<div class="viewcode-block" id="InsertCursor.insertRow"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.InsertCursor.insertRow">[docs]</a>    <span class="k">def</span> <span class="nf">insertRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts a new row.</span>
+
+<span class="sd">        :param row: The row values to insert.</span>
+<span class="sd">        :return:    The ObjectID of the inserted row (when successful).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">save</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_close</span><span class="p">(</span><span class="kc">False</span> <span class="k">if</span> <span class="n">exc_type</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_close</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="UpdateCursor"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.UpdateCursor">[docs]</a><span class="k">class</span> <span class="nc">UpdateCursor</span><span class="p">(</span><span class="n">_arcpy</span><span class="o">.</span><span class="n">da</span><span class="o">.</span><span class="n">UpdateCursor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    UpdateCursor(in_table, {field_names}, {where_clause}, {spatial_reference}, {explode_to_points}, {sql_clause})</span>
+
+<span class="sd">    Wrapper class to properly expose ArcPy&#39;s Data Access UpdateCursor and its methods.</span>
+<span class="sd">    Returns a cursor to iterate over and update (a set of) records in a table.</span>
+
+<span class="sd">    If *where_clause* is used and it&#39;s a :class:`Where` instance, the field delimiters will</span>
+<span class="sd">    automatically be resolved (e.g. for Oracle, MS SQL, File Geodatabase etc.).</span>
+
+<span class="sd">    :param in_table:            The feature class, layer, table, or table view.</span>
+<span class="sd">    :param field_names:         Single field name or a list (or tuple) of field names.</span>
+<span class="sd">    :param where_clause:        An optional expression that limits the records returned.</span>
+<span class="sd">    :keyword spatial_reference: An optional SpatialReference object or its string equivalent.</span>
+<span class="sd">    :keyword explode_to_points: Optional. If ``True``, features are deconstructed into individual vertices.</span>
+<span class="sd">    :keyword sql_clause:        An optional pair of SQL prefix and postfix clauses organized in a list or tuple.</span>
+<span class="sd">    :keyword auto_edit:         If set to ``True`` (default), an edit session is started automatically, if required.</span>
+<span class="sd">    :type spatial_reference:    int, str, SpatialReference</span>
+<span class="sd">    :type explode_to_points:    bool</span>
+<span class="sd">    :type sql_clause:           tuple, list</span>
+<span class="sd">    :type auto_edit:            bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">field_names</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+                 <span class="n">where_clause</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_q</span><span class="o">.</span><span class="n">Where</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">_q</span><span class="o">.</span><span class="n">add_where</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">where_clause</span><span class="p">,</span> <span class="n">in_table</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_table</span><span class="p">,</span> <span class="n">field_names</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;edit session&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;auto_edit&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span> <span class="o">=</span> <span class="n">Editor</span><span class="p">(</span><span class="n">in_table</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_table</span><span class="p">,</span> <span class="n">field_names</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_row</span> <span class="o">=</span> <span class="n">_MutableRow</span><span class="p">(</span><span class="n">_map_fields</span><span class="p">(</span><span class="n">field_names</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="UpdateCursor.next"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.UpdateCursor.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">next</span><span class="p">())</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of fields (in order) used by the cursor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fields</span>
+
+<div class="viewcode-block" id="UpdateCursor.reset"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.UpdateCursor.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Resets the cursor position to the first row so it can be iterated over again. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+    <span class="c1"># noinspection PyUnusedLocal</span>
+<div class="viewcode-block" id="UpdateCursor.deleteRow"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.UpdateCursor.deleteRow">[docs]</a>    <span class="k">def</span> <span class="nf">deleteRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dummy</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes the current row. The *dummy* argument only serves backwards compatibility and is not used.</span>
+
+<span class="sd">        :return:    The ObjectID of the deleted row (when successful).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deleteRow</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="UpdateCursor.updateRow"><a class="viewcode-back" href="../../../gpf.tools.cursors.html#gpf.tools.cursors.UpdateCursor.updateRow">[docs]</a>    <span class="k">def</span> <span class="nf">updateRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the current row.</span>
+
+<span class="sd">        :param row: The row values to update.</span>
+<span class="sd">        :return:    The ObjectID of the updated row (when successful).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">updateRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">save</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_editor</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_close</span><span class="p">(</span><span class="kc">False</span> <span class="k">if</span> <span class="n">exc_type</span> <span class="k">else</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_close</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

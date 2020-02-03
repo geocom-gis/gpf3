@@ -1,0 +1,663 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.tools.workspace &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gpf.html">gpf package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gpf.tools.workspace</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gpf.tools.workspace</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+
+<span class="c1"># Copyright (c) 2019 | Geocom Informatik AG, Burgdorf, Switzerland | MIT License</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module that simplifies working with Esri Geodatabase or workspace paths.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span> <span class="k">as</span> <span class="n">_Counter</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span> <span class="k">as</span> <span class="n">_warn</span>
+
+<span class="kn">import</span> <span class="nn">gpf.common.paths</span> <span class="k">as</span> <span class="nn">_paths</span>
+<span class="kn">import</span> <span class="nn">gpf.common.textutils</span> <span class="k">as</span> <span class="nn">_tu</span>
+<span class="kn">import</span> <span class="nn">gpf.common.validate</span> <span class="k">as</span> <span class="nn">_vld</span>
+<span class="kn">from</span> <span class="nn">gpf.tools</span> <span class="k">import</span> <span class="n">arcpy</span> <span class="k">as</span> <span class="n">_arcpy</span>
+
+<span class="n">ESRI_EXT_SDE</span> <span class="o">=</span> <span class="s1">&#39;.sde&#39;</span>
+<span class="n">ESRI_EXT_FGDB</span> <span class="o">=</span> <span class="s1">&#39;.gdb&#39;</span>
+<span class="n">ESRI_EXT_MDB</span> <span class="o">=</span> <span class="s1">&#39;.mdb&#39;</span>
+<span class="n">ESRI_EXT_ACCDB</span> <span class="o">=</span> <span class="s1">&#39;.accdb&#39;</span>
+
+<span class="n">ESRI_GDB_EXTENSIONS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ESRI_EXT_SDE</span><span class="p">,</span>
+    <span class="n">ESRI_EXT_FGDB</span><span class="p">,</span>
+    <span class="n">ESRI_EXT_MDB</span><span class="p">,</span>
+    <span class="n">ESRI_EXT_ACCDB</span>
+<span class="p">)</span>
+
+<span class="n">_ARG_SEP</span> <span class="o">=</span> <span class="s1">&#39;separator&#39;</span>
+<span class="n">_ARG_QF</span> <span class="o">=</span> <span class="s1">&#39;qualifier&#39;</span>
+
+
+<div class="viewcode-block" id="is_gdbpath"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.is_gdbpath">[docs]</a><span class="k">def</span> <span class="nf">is_gdbpath</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if the given path could be an Esri Geodatabase path by searching for 1 (and only 1!) of its known extensions.</span>
+<span class="sd">    Note however that this does not truly guarantee that the path actually refers to a geodatabase!</span>
+
+<span class="sd">    :param path:    The path to verify.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">_paths</span><span class="o">.</span><span class="n">get_abs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">ESRI_GDB_EXTENSIONS</span><span class="p">:</span>
+        <span class="n">hits</span> <span class="o">+=</span> <span class="n">path</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hits</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="split_gdbpath"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.split_gdbpath">[docs]</a><span class="k">def</span> <span class="nf">split_gdbpath</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">remove_qualifier</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Splits the Esri Geodatabase *path* into a ``tuple`` of *(workspace, feature_dataset, feature_class/table)*.</span>
+<span class="sd">    If any of the output tuple parts is not present, these will be set to an empty string.</span>
+<span class="sd">    Note that if the path refers to a table or feature class that is not stored in a feature dataset,</span>
+<span class="sd">    the *feature_dataset* part in the output tuple will be an empty string and the last part will contain the table</span>
+<span class="sd">    or feature class name.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; split_gdbpath(&#39;C:/test.gdb/table&#39;)</span>
+<span class="sd">        (&#39;C:\\test.gdb&#39;, &#39;&#39;, &#39;table&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; split_gdbpath(&#39;C:/test.sde/qualifier.featureclass&#39;, False)</span>
+<span class="sd">        (&#39;C:\\test.sde&#39;, &#39;&#39;, &#39;qualifier.featureclass&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; split_gdbpath(&#39;C:/test.sde/qualifier.fds/qualifier.fc&#39;)</span>
+<span class="sd">        (&#39;C:\\test.sde&#39;, &#39;fds&#39;, &#39;fc&#39;)</span>
+
+<span class="sd">    :param path:                The full path to the Geodatabase feature class or table.</span>
+<span class="sd">    :param remove_qualifier:    If ``True``, the split parts are &quot;unqualified&quot;. If any DB qualifiers exist in the path,</span>
+<span class="sd">                                they will be removed. This is the default behaviour.</span>
+<span class="sd">                                Set this parameter to ``False`` if qualifiers must be persisted.</span>
+<span class="sd">    :raises ValueError:         If the given path does not seem to be a Geodatabase path or</span>
+<span class="sd">                                there are more than 2 levels in the Geodatabase.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">is_gdbpath</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> does not seem to be a valid Esri Geodatabase path&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">_paths</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">path_parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">num_parts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path_parts</span><span class="p">)</span>
+
+    <span class="c1"># Find the part that contains the GDB extension</span>
+    <span class="n">endpos</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">endpos</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">path_parts</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ESRI_GDB_EXTENSIONS</span><span class="p">):</span>
+            <span class="k">break</span>
+    <span class="n">startpos</span> <span class="o">=</span> <span class="n">endpos</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># Set the workspace path and return it if the path isn&#39;t any longer than that</span>
+    <span class="n">ws_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_parts</span><span class="p">[:</span><span class="n">startpos</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">num_parts</span> <span class="o">==</span> <span class="n">startpos</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ws_path</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span>
+
+    <span class="c1"># If there are more than 2 levels (i.e. feature dataset and feature class), raise an error</span>
+    <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="n">num_parts</span> <span class="o">&gt;</span> <span class="n">startpos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Geodatabase path cannot be more than 2 levels deep&#39;</span><span class="p">)</span>
+
+    <span class="n">last_parts</span> <span class="o">=</span> <span class="p">[(</span><span class="n">unqualify</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">if</span> <span class="n">remove_qualifier</span> <span class="k">else</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">path_parts</span><span class="p">[</span><span class="n">startpos</span><span class="p">:]]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">last_parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1"># If the path is 2 elements deep, output all as-is</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">ws_path</span><span class="p">]</span> <span class="o">+</span> <span class="n">last_parts</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Detect if the input path was a feature dataset or not and output accordingly</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">meta</span> <span class="o">=</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">Describe</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="o">.</span><span class="n">dataType</span> <span class="o">==</span> <span class="s1">&#39;FeatureDataset&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="ne">NameError</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">ws_path</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">,</span> <span class="n">last_parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">ws_path</span><span class="p">,</span> <span class="n">last_parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span></div>
+
+
+<div class="viewcode-block" id="exists"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.exists">[docs]</a><span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if *path* exists. Esri paths (e.g. feature classes) are also supported.</span>
+
+<span class="sd">    This function can be slightly faster than Esri&#39;s :func:`Exists`, because it checks first if the *workspace* path</span>
+<span class="sd">    exists using Python&#39;s built-in ``os.path`` module. If this is not the case, it immediately returns ``False``.</span>
+<span class="sd">    Only if the workspace exists, it will use Esri&#39;s :func:`Exists` to check the complete path.</span>
+
+<span class="sd">    :param path:    The path to verify.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="unqualify"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.unqualify">[docs]</a><span class="k">def</span> <span class="nf">unqualify</span><span class="p">(</span><span class="n">element</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Removes the qualifier (and anything before that) for a data element part.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">DOT</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="WorkspaceManager"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.WorkspaceManager">[docs]</a><span class="k">class</span> <span class="nc">WorkspaceManager</span><span class="p">(</span><span class="n">_paths</span><span class="o">.</span><span class="n">BasePathManager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    WorkspaceManager(workspace, {qualifier=&#39;&#39;}, {root=None}, {separator=&#39;.&#39;})</span>
+
+<span class="sd">    Helper class to generate fully qualified paths for elements (tables, feature datasets etc.) in an Esri workspace.</span>
+<span class="sd">    An Esri Workspace can be anything ranging from an SDE connection file to a File Geodatabase folder or a simple</span>
+<span class="sd">    directory containing Shapefiles.</span>
+
+<span class="sd">    Please note that the specified *workspace* is never explicitly checked for existence.</span>
+<span class="sd">    If the user wants to validate the path, use the :func:`exists`, :func:`is_file` or :func:`is_dir` properties.</span>
+<span class="sd">    An exception to the rule is the :func:`find_path` function, which will validate the path before it is returned.</span>
+
+<span class="sd">    If you like to return the *WorkspaceManager* as its normalized initial path (e.g. for printing purposes),</span>
+<span class="sd">    simply wrap it into a ``str`` statement.</span>
+<span class="sd">    Note that the *WorkspaceManager* also be used as a context manager using the ``with`` statement.</span>
+
+<span class="sd">    :param workspace:   The workspace path (e.g. File Geodatabase, SDE connection file) or name.</span>
+<span class="sd">    :param qualifier:   An optional database qualifier. If not set and *workspace* is a remote database,</span>
+<span class="sd">                        the qualifier will be equal to the DB user specified in the SDE connection file.</span>
+<span class="sd">    :param base:        When this is set to a directory path, the *WorkspaceManager* assumes</span>
+<span class="sd">                        that *workspace* is relative to this *base* directory and will make *workspace* absolute.</span>
+<span class="sd">                        Otherwise, it will leave *workspace* unchanged (whether absolute or relative).</span>
+<span class="sd">    :keyword separator: Optional separator (default = ``&#39;.&#39;``) between the qualifier and the data element name.</span>
+<span class="sd">    :type separator:    str</span>
+<span class="sd">    :raises ValueError: If *qualifier* has not been set and the workspace is an existing remote database</span>
+<span class="sd">                        for which the properties cannot be retrieved, initialization will fail.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qualifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">workspace</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_remote</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ESRI_EXT_SDE</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_ARG_SEP</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">DOT</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_qualifier</span><span class="p">(</span><span class="n">qualifier</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fds_lookup</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_get_qualifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qualifier</span><span class="o">=</span><span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">):</span>
+        <span class="c1"># Makes sure the qualifier (when specified) ends with a separator and returns it.</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_remote</span> <span class="ow">or</span> <span class="n">qualifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If it&#39;s an SDE/remote workspace (regardless of qualifier),</span>
+            <span class="c1"># or when the qualifier is None, set it to an empty string.</span>
+            <span class="n">qualifier</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">qualifier</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_remote</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># For Oracle databases, the user name is the qualifier. We could derive that from the connection</span>
+                <span class="c1"># properties by doing a Describe() on the workspace. However, for other databases (e.g. MSSQL), this is</span>
+                <span class="c1"># not so straight-forward. Moreover, Describe() tends to be quite slow on a whole workspace.</span>
+                <span class="c1"># For this reason, we will iterate over a bunch of object names in the workspace (starting with</span>
+                <span class="c1"># Feature Datasets - and when not found, Feature Classes and Tables) to try and fetch the most common</span>
+                <span class="c1"># qualifier prefix.</span>
+                <span class="k">with</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">EnvManager</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">):</span>
+                    <span class="n">items</span> <span class="o">=</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">ListDatasets</span><span class="p">()</span> <span class="ow">or</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">ListFeatureClasses</span><span class="p">()</span> <span class="ow">or</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">ListTables</span><span class="p">()</span>
+                    <span class="n">qkeys</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">)</span>
+                    <span class="n">qualifier</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_Counter</span><span class="p">(</span><span class="n">qkeys</span><span class="p">)</span><span class="o">.</span><span class="n">most_common</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">IOError</span><span class="p">,</span> <span class="ne">RuntimeError</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> could not determine qualifier &#39;</span>
+                                 <span class="s1">&#39;from SDE connection file&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fix_qualifier</span><span class="p">(</span><span class="n">qualifier</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_map_fc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="o">*</span><span class="n">parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Maps a feature dataset to a feature class for lookup purposes. &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">ds</span><span class="p">,</span> <span class="n">fc</span> <span class="o">=</span> <span class="n">parts</span>
+        <span class="n">fc_key</span> <span class="o">=</span> <span class="n">unqualify</span><span class="p">(</span><span class="n">fc</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">fc_values</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">fc_key</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">fc_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qualify</span><span class="p">(</span><span class="n">ds</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_map_fds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Creates a complete lookup for all dataset-based feature classes in the root workspace. &quot;&quot;&quot;</span>
+        <span class="n">fds_lookup</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">EnvManager</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)):</span>
+                <span class="n">ds_list</span> <span class="o">=</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">ListDatasets</span><span class="p">(</span><span class="n">feature_type</span><span class="o">=</span><span class="s1">&#39;Feature&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">ds</span> <span class="ow">in</span> <span class="n">ds_list</span><span class="p">:</span>
+                    <span class="n">fc_list</span> <span class="o">=</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">ListFeatureClasses</span><span class="p">(</span><span class="n">feature_dataset</span><span class="o">=</span><span class="n">ds</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">fc</span> <span class="ow">in</span> <span class="n">fc_list</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_map_fc</span><span class="p">(</span><span class="n">fds_lookup</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">fc</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">RuntimeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">_warn</span><span class="p">(</span><span class="s1">&#39;Failed to create Feature Dataset lookup: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">fds_lookup</span>
+
+    <span class="k">def</span> <span class="nf">_make_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qualifier</span><span class="p">,</span> <span class="n">separator</span><span class="p">,</span> <span class="o">*</span><span class="n">parts</span><span class="p">):</span>
+        <span class="c1"># Builds a complete (qualified) path for the given inputs.</span>
+        <span class="k">return</span> <span class="n">_paths</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qualify</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">qualifier</span><span class="p">,</span> <span class="n">separator</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parts</span> <span class="k">if</span> <span class="n">p</span><span class="p">))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_fix_qualifier</span><span class="p">(</span><span class="n">qualifier</span><span class="o">=</span><span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="n">_tu</span><span class="o">.</span><span class="n">DOT</span><span class="p">):</span>
+        <span class="c1"># Appends the separator (.) to the qualifier if it is missing (and if there is a qualifier).</span>
+        <span class="k">if</span> <span class="n">qualifier</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">qualifier</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">separator</span><span class="p">):</span>
+            <span class="n">qualifier</span> <span class="o">+=</span> <span class="n">separator</span>
+        <span class="k">return</span> <span class="n">qualifier</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_is_gdb_root</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="c1"># Returns True if path ends with an Esri geodatabase extension.</span>
+        <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ESRI_GDB_EXTENSIONS</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WorkspaceManager.get_parent"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.WorkspaceManager.get_parent">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outside_gdb</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method that extracts the parent workspace path for a given Esri table/feature class path.</span>
+<span class="sd">        Depending on the path, this might return a feature dataset workspace or the root workspace path.</span>
+
+<span class="sd">        :param path:        Full path to an Esri table, feature class or feature dataset.</span>
+<span class="sd">        :param outside_gdb: If ``True``, this will allow the function to return the parent directory</span>
+<span class="sd">                            of a Geodatabase, if the workspace is a GDB path. This effectively means that the function</span>
+<span class="sd">                            is allowed to go &#39;outside&#39; of the Geodatabase.</span>
+<span class="sd">                            By default, this value is set to ``False``.</span>
+<span class="sd">                            For non-Geodatabase paths, this will have no effect: the parent directory is returned.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; WorkspaceManager.get_parent(r&#39;C:/temp/test.gdb&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\test.gdb&#39;</span>
+<span class="sd">            &gt;&gt;&gt; WorkspaceManager.get_parent(r&#39;C:/temp/test.gdb/feature_dataset&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\test.gdb&#39;</span>
+<span class="sd">            &gt;&gt;&gt; WorkspaceManager.get_parent(r&#39;C:/temp/test.gdb&#39;, outside_gdb=True)</span>
+<span class="sd">            &#39;C:\\temp&#39;</span>
+<span class="sd">            &gt;&gt;&gt; WorkspaceManager.get_parent(r&#39;C:/temp/test.shp&#39;)</span>
+<span class="sd">            &#39;C:\\temp&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">outside_gdb</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_gdbpath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">parent_dir</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_is_gdb_root</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">else</span> <span class="n">parent_dir</span></div>
+
+<div class="viewcode-block" id="WorkspaceManager.get_root"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.WorkspaceManager.get_root">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_root</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method that extracts the root workspace for a given Esri table/feature class path.</span>
+
+<span class="sd">        A root workspace is the Esri workspace of the &quot;highest order&quot;. For an SDE feature class, this is the SDE</span>
+<span class="sd">        connection file, for a File Geodatabase table, this is the File Geodatabase directory (.gdb) itself.</span>
+<span class="sd">        For a Shapefile path, this will return the parent directory.</span>
+
+<span class="sd">        :param path:    Full path to an Esri table, feature class or feature dataset.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; WorkspaceManager.get_root(r&#39;C:/temp/test.gdb/ele/ele_kabel&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\test.gdb&#39;</span>
+<span class="sd">            &gt;&gt;&gt; WorkspaceManager.get_root(r&#39;C:/temp/mydir/test.shp&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\mydir</span>
+<span class="sd">            &gt;&gt;&gt; WorkspaceManager.get_root(r&#39;C:/temp/test.gdb/ele&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\test.gdb&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_gdbpath</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="c1"># return `parent` if `path` is not a GDB path (e.g. for Shapefiles)</span>
+            <span class="k">return</span> <span class="n">parent</span>
+
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_is_gdb_root</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>
+            <span class="c1"># return `parent` if it is the DB root workspace</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+        <span class="c1"># return parent of `parent` if `parent` is not the DB root workspace</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the workspace path seems to be a remote SDE geodatabase connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_remote</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_gdb</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the workspace path seems to be an Esri Geodatabase (remote or local).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">is_gdbpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;WorkspaceManager&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the root workspace as a new ``WorkspaceManager`` instance.</span>
+<span class="sd">        If the initial path already was the root path, this will return the current instance (``self``).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="n">WorkspaceManager</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;WorkspaceManager&#39;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the parent workspace as a new ``WorkspaceManager`` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">WorkspaceManager</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the workspace path exists and/or is a valid Esri workspace.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_gdb</span> <span class="k">else</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">qualifier</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the qualifier for the current Esri workspace. For local workspaces, this is an empty string.</span>
+<span class="sd">        The trailing separator will not be included in the output string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">separator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the separator for the current Esri workspace. For local workspaces, this is an empty string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+
+<div class="viewcode-block" id="WorkspaceManager.qualify"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.WorkspaceManager.qualify">[docs]</a>    <span class="k">def</span> <span class="nf">qualify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qualifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">separator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Qualifies (prefixes) a data element name for SDE workspaces.</span>
+<span class="sd">        If the workspace is not an SDE workspace or the name is qualified already, the input name is returned as-is.</span>
+
+<span class="sd">        :param name:        Feature dataset, feature class or table name.</span>
+<span class="sd">        :param qualifier:   Optional qualifier if the one derived from the DB connection should be overridden.</span>
+<span class="sd">        :param separator:   Optional separator if the initial one should be overridden (defaults to ``&#39;.&#39;``).</span>
+<span class="sd">        :raises ValueError: If no table name was specified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;qualify() requires a table name&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="c1"># return immediately when name seems to contain a qualifier or workspace is local (i.e. not qualified)</span>
+            <span class="k">return</span> <span class="n">name</span>
+
+        <span class="c1"># make sure that the name does not start with a qualifier already</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">unqualify</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">qualifier</span><span class="p">:</span>
+            <span class="c1"># use the qualifier override instead of self._qualifier</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fix_qualifier</span><span class="p">(</span><span class="n">qualifier</span><span class="p">,</span> <span class="n">separator</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span> <span class="o">+</span> <span class="n">name</span>
+
+        <span class="c1"># return the name with the default self._qualifier</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span> <span class="o">+</span> <span class="n">name</span></div>
+
+<div class="viewcode-block" id="WorkspaceManager.find_path"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.WorkspaceManager.find_path">[docs]</a>    <span class="k">def</span> <span class="nf">find_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tries to resolve the full (qualified) path for the specified table or feature class and returns it,</span>
+<span class="sd">        by looking up the matching feature dataset (or workspace root when not found).</span>
+<span class="sd">        In contrast to the :func:`construct` function, the path is verified before it is returned.</span>
+
+<span class="sd">        :param table:       The (unqualified) table or feature class name to find.</span>
+<span class="sd">        :param refresh:     Updates the internal table lookup first. See note below.</span>
+<span class="sd">        :raises ValueError: If the table was not found or found multiple times (should not happen).</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">            &gt;&gt;&gt; wm = WorkspaceManager(r&#39;C:/temp/db_user.sde&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; wm.qualifier</span>
+<span class="sd">            &#39;user&#39;</span>
+<span class="sd">            &gt;&gt;&gt; wm.find_path(&#39;ele_cable&#39;)  # finds the feature class in feature dataset &quot;ELE&quot;</span>
+<span class="sd">            &#39;C:\\temp\\db_user.sde\\user.ele\\user.ele_cable&#39;</span>
+
+<span class="sd">        .. note::           The feature dataset lookup is created once on the first call to this function.</span>
+<span class="sd">                            This means that the first call is relatively slow and consecutive ones are fast.</span>
+<span class="sd">                            When the user creates new feature class paths using the :func:`construct` method,</span>
+<span class="sd">                            the lookup is updated automatically, so that this function can find the new feature class.</span>
+<span class="sd">                            However, when the workspace is updated *from the outside*, the lookup is not updated.</span>
+<span class="sd">                            If the user wishes to force-update the lookup, set the *refresh* argument to ``True``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">refresh</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fds_lookup</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fds_lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_fds</span><span class="p">()</span>
+
+        <span class="n">table_name</span> <span class="o">=</span> <span class="n">unqualify</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="n">fds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fds_lookup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">table_name</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">,))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fds</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># This case is rare, but it could happen (e.g. when qualifiers are different, but table name matches)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> could belong to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">to_repr</span><span class="p">(</span><span class="n">table_name</span><span class="p">),</span> <span class="n">_tu</span><span class="o">.</span><span class="n">format_iterable</span><span class="p">(</span><span class="n">fds</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">OR</span><span class="p">)))</span>
+
+        <span class="n">qualifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="n">qualifier</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">,</span> <span class="n">fds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">table_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_arcpy</span><span class="o">.</span><span class="n">Exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> was not found at </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">to_repr</span><span class="p">(</span><span class="n">table_name</span><span class="p">),</span> <span class="n">path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">path</span></div>
+
+<div class="viewcode-block" id="WorkspaceManager.construct"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.WorkspaceManager.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">parts</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        construct(*parts, {qualifier}, {separator})</span>
+
+<span class="sd">        Constructs a (qualified) path for the given named parts (data elements) in the order they appear.</span>
+
+<span class="sd">        :param parts:           Feature dataset, feature class and/or table name(s) to concatenate.</span>
+<span class="sd">                                Note that if the workspace is a FileSystem directory, the last part of `parts` should</span>
+<span class="sd">                                include a file extension (e.g. &#39;.shp&#39;).</span>
+<span class="sd">        :keyword qualifier:     Optional qualifier if the one derived from the DB connection should be overridden.</span>
+<span class="sd">        :keyword separator:     Optional separator if the initial one should be overridden (defaults to &#39;.&#39;).</span>
+<span class="sd">        :raises IndexError:     When more than 2 `parts` have been specified, this function will fail.</span>
+
+<span class="sd">        In the following example, the qualifier (&quot;user&quot;) is derived from the connection:</span>
+
+<span class="sd">            &gt;&gt;&gt; wm = WorkspaceManager(r&#39;C:/temp/db_user.sde&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; wm.qualifier</span>
+<span class="sd">            &#39;user&#39;</span>
+<span class="sd">            &gt;&gt;&gt; wm.construct(&#39;ele&#39;, &#39;ele_kabel&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\db_user.sde\\user.ele\\user.ele_kabel&#39;</span>
+
+<span class="sd">        Using the ``WorkspaceManager`` above, we can override the qualifier with a custom one:</span>
+
+<span class="sd">            &gt;&gt;&gt; wm.construct(&#39;ele&#39;, &#39;ele_kabel&#39;, qualifier=&#39;editor&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\db_user.sde\\editor.ele\\editor.ele_kabel&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">,</span>
+                      <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.construct() cannot be called with more than 2 &#39;parts&#39; arguments&quot;</span><span class="o">.</span>
+                      <span class="nb">format</span><span class="p">(</span><span class="n">WorkspaceManager</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+        <span class="n">qualifier</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_ARG_QF</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_qualifier</span><span class="p">)</span>
+        <span class="n">separator</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_ARG_SEP</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sep</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map_fc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fds_lookup</span><span class="p">,</span> <span class="o">*</span><span class="n">parts</span><span class="p">)</span>  <span class="c1"># update the lookup, if necessary</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_path</span><span class="p">(</span><span class="n">qualifier</span><span class="p">,</span> <span class="n">separator</span><span class="p">,</span> <span class="o">*</span><span class="n">parts</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">WorkspaceManager</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_workspace"><a class="viewcode-back" href="../../../gpf.tools.workspace.html#gpf.tools.workspace.get_workspace">[docs]</a><span class="k">def</span> <span class="nf">get_workspace</span><span class="p">(</span><span class="n">table_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WorkspaceManager</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts the workspace from *table_path* and returns a :class:`WorkspaceManager` instance for it.</span>
+<span class="sd">    By default (``root=False``), this will return the first workspace it can find in an upwards direction:</span>
+<span class="sd">    i.e. for a feature class inside a feature dataset, the feature dataset path will be returned.</span>
+
+<span class="sd">    :param table_path:  The full path to a table or feature class.</span>
+<span class="sd">    :param root:        If ``True`` (default = ``False``), the root workspace will be extracted.</span>
+<span class="sd">    :param kwargs:      Optional keyword arguments for the :class:`WorkspaceManager` initialization.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; get_workspace(r&#39;C:/temp/test.gdb/feature_dataset/feature_class&#39;)</span>
+<span class="sd">        WorkspaceManager(&#39;C:\\temp\\test.gdb\\feature_dataset&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; get_workspace(r&#39;C:/temp/test.gdb/feature_dataset/feature_class&#39;, root=True)</span>
+<span class="sd">        WorkspaceManager(&#39;C:\\temp\\test.gdb&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">table_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">WorkspaceManager</span><span class="o">.</span><span class="n">get_parent</span><span class="p">(</span><span class="n">table_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">WorkspaceManager</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

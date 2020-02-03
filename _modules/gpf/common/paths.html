@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.common.paths &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gpf.html">gpf package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gpf.common.paths</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gpf.common.paths</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright 2019 Geocom Informatik AG / VertiGIS</span>
+
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module that simplifies working with file or directory paths.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">_inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">gpf.common.textutils</span> <span class="k">as</span> <span class="nn">_tu</span>
+<span class="kn">import</span> <span class="nn">gpf.common.validate</span> <span class="k">as</span> <span class="nn">_vld</span>
+
+<span class="n">_ARG_SEP</span> <span class="o">=</span> <span class="s1">&#39;separator&#39;</span>
+<span class="n">_ARG_QF</span> <span class="o">=</span> <span class="s1">&#39;qualifier&#39;</span>
+
+
+<div class="viewcode-block" id="explode"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.explode">[docs]</a><span class="k">def</span> <span class="nf">explode</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Splits *path* into a ``tuple`` of *(directory, name, extension)*.</span>
+<span class="sd">    Depending on the input path, *extension* might be an empty string.</span>
+
+<span class="sd">    :param path:    The path that should be split.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; explode(r&#39;C:/temp/test.gdb&#39;)</span>
+<span class="sd">        (&#39;C:\\temp&#39;, &#39;test&#39;, &#39;.gdb&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; explode(r&#39;C:/temp/folder&#39;)</span>
+<span class="sd">        (&#39;C:\\temp&#39;, &#39;folder&#39;, &#39;&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+    <span class="n">name</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">head</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ext</span></div>
+
+
+<div class="viewcode-block" id="normalize"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.normalize">[docs]</a><span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">casefold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalizes a path and turns it into lowercase, unless *lowercase* is set to ``False``.</span>
+
+<span class="sd">    :param path:        The path to normalize.</span>
+<span class="sd">    :param casefold:    If ``True`` (default), the path will be made case-insensitive (lowercase).</span>
+<span class="sd">                        If ``False``, the case remains unchanged.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">norm_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">norm_path</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span> <span class="k">if</span> <span class="n">casefold</span> <span class="k">else</span> <span class="n">norm_path</span></div>
+
+
+<div class="viewcode-block" id="join"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.join">[docs]</a><span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Joins one or more paths together to create a complete path and normalizes it.</span>
+
+<span class="sd">    :param args:    One or more paths/parts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_abs"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.get_abs">[docs]</a><span class="k">def</span> <span class="nf">get_abs</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a normalized absolute path based on *path* relative to *base*. If *base* is not specified,</span>
+<span class="sd">    the base will be the directory to the file path of the calling function, i.e. when a script &#39;test.py&#39; calls</span>
+<span class="sd">    make_absolute(), the directory which contains &#39;test.py&#39; will be the base.</span>
+
+<span class="sd">    :param path:        The relative path to turn into an absolute one.</span>
+<span class="sd">    :param base:        The base path that serves as the &#39;root&#39; of the relative path.</span>
+<span class="sd">    :raises ValueError: If the *base* path is ``None`` and no valid base directory was found using the caller path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base</span><span class="p">:</span>
+        <span class="c1"># Get the base path by looking at the which function called this one.</span>
+        <span class="c1"># The caller frame should be the second frame (1) in the stack.</span>
+        <span class="c1"># This returns a tuple of which the first value (0) is the frame object.</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">_inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">_inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">frame</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Failed to determine base path from caller&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">join</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasePathManager"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.BasePathManager">[docs]</a><span class="k">class</span> <span class="nc">BasePathManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base helper class for path management.</span>
+
+<span class="sd">    For documentation, please refer to the :class:`PathManager` and</span>
+<span class="sd">    :class:`gpf.tools.workspace.WorkspaceManager` implementations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">_vld</span><span class="o">.</span><span class="n">is_text</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Attribute &#39;path&#39; should be a non-empty string&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">base</span><span class="p">:</span>
+            <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">),</span> <span class="ne">ValueError</span><span class="p">,</span>
+                          <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> expects a relative path when root has been set&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">get_abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the initial path exists (regardless of whether path is a file or directory).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_file</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the initial path is an existing file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the initial path is an existing directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BasePathManager.extension"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.BasePathManager.extension">[docs]</a>    <span class="k">def</span> <span class="nf">extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep_dot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the extension part of the initial path.</span>
+<span class="sd">        For directories or files without extension, an empty string is returned.</span>
+
+<span class="sd">        :param keep_dot:    When ``False``, the extension&#39;s trailing dot will be removed. Defaults to ``True``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ext</span> <span class="k">if</span> <span class="n">keep_dot</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ext</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">DOT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasePathManager.basename"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.BasePathManager.basename">[docs]</a>    <span class="k">def</span> <span class="nf">basename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep_ext</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a file name (if initial path is a file) or a directory name.</span>
+
+<span class="sd">        :param keep_ext:    For files, setting this to ``False`` will remove the file extension. Defaults to ``True``.</span>
+<span class="sd">                            Note that for directories, this might not have any effect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="k">if</span> <span class="n">keep_ext</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end</span></div>
+
+<div class="viewcode-block" id="BasePathManager.construct"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.BasePathManager.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">parts</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a new path based on the initial path from one or more parts (directories, file names).</span>
+<span class="sd">        If the initial part seems to be a file path (i.e. when an extension is present),</span>
+<span class="sd">        the constructed path will be based on the containing directory of this file.</span>
+
+<span class="sd">        :param parts:   One or more directory names and/or a file name.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; with PathManager(r&#39;C:/temp&#39;) as pm:</span>
+<span class="sd">            &gt;&gt;&gt;     pm.construct(&#39;folder&#39;, &#39;subfolder&#39;, &#39;myfile.txt&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\folder\\subfolder\\myfile.txt&#39;</span>
+<span class="sd">            &gt;&gt;&gt; with PathManager(r&#39;C:/temp/dummy.txt&#39;) as pm:</span>
+<span class="sd">            &gt;&gt;&gt;     pm.construct(&#39;folder&#39;, &#39;subfolder&#39;, &#39;myfile.txt&#39;)</span>
+<span class="sd">            &#39;C:\\temp\\folder\\subfolder\\myfile.txt&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">,)</span> <span class="o">+</span> <span class="n">parts</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail</span><span class="p">,)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ext</span> <span class="k">else</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">,)</span> <span class="o">+</span> <span class="n">parts</span>
+        <span class="k">return</span> <span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the representation of this instance. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{!r}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the normalized initial path. &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span></div>
+
+
+<div class="viewcode-block" id="PathManager"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.PathManager">[docs]</a><span class="k">class</span> <span class="nc">PathManager</span><span class="p">(</span><span class="n">BasePathManager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    PathManager(path, {base})</span>
+
+<span class="sd">    Class that helps to extract the different parts of a file or directory path, or that helps construct new ones based</span>
+<span class="sd">    upon an input path. Can also be used as a context manager using the ``with`` statement.</span>
+
+<span class="sd">    Note that *path* and *root* are never explicitly checked for existence.</span>
+<span class="sd">    If the user wants to validate these paths, use the :func:`exists`, :func:`is_file` or :func:`is_dir` properties.</span>
+
+<span class="sd">    :param path:    The file or directory path on which to operate.</span>
+<span class="sd">    :param base:    When set to a directory path, the ``PathManager`` assumes</span>
+<span class="sd">                    that *path* is relative to this *base* directory and will make *path* absolute.</span>
+<span class="sd">                    Otherwise, it will leave *path* unchanged (whether absolute or relative).</span>
+
+<span class="sd">    .. note::       For Python 3, the built-in ``pathlib`` module is recommended over the *PathManager*.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PathManager.from_extension"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.PathManager.from_extension">[docs]</a>    <span class="k">def</span> <span class="nf">from_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the initial path with an alternative file *extension*.</span>
+<span class="sd">        If the initial path did not have an extension (e.g. when it is a directory),</span>
+<span class="sd">        this function will return the initial unmodified path instead (and have no effect), unless *force* is ``True``.</span>
+
+<span class="sd">        :param extension:   New file extension (with or without trailing dot).</span>
+<span class="sd">        :param force:       When ``True``, the extension will always be appended,</span>
+<span class="sd">                            even if the initial path is a directory. The default is ``False``.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; with PathManager(r&#39;C:/temp/myfile.txt&#39;) as pm:</span>
+<span class="sd">            &gt;&gt;&gt;     pm.from_extension(&#39;log&#39;)</span>
+<span class="sd">            C:\\temp\\myfile.log</span>
+<span class="sd">            &gt;&gt;&gt; with PathManager(r&#39;C:/temp/mydir&#39;) as pm:</span>
+<span class="sd">            &gt;&gt;&gt;     pm.from_extension(&#39;log&#39;)</span>
+<span class="sd">            C:\\temp\\mydir</span>
+<span class="sd">            &gt;&gt;&gt;     pm.from_extension(&#39;gdb&#39;, force=True)</span>
+<span class="sd">            C:\\temp\\mydir.gdb</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ext</span> <span class="ow">and</span> <span class="n">force</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span> <span class="k">if</span> <span class="n">extension</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">DOT</span><span class="p">)</span> <span class="k">else</span> <span class="n">_tu</span><span class="o">.</span><span class="n">DOT</span>
+        <span class="k">return</span> <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="kc">False</span><span class="p">),</span> <span class="n">sep</span><span class="p">,</span> <span class="n">extension</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="PathManager.from_basename"><a class="viewcode-back" href="../../../gpf.common.paths.html#gpf.common.paths.PathManager.from_basename">[docs]</a>    <span class="k">def</span> <span class="nf">from_basename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the initial path with an alternative basename. This will work for both directories and files.</span>
+
+<span class="sd">        :param basename:    The new basename. If basename contains an extension and the initial path is a file path</span>
+<span class="sd">                            that also had an extension, both the name and extension will be changed.</span>
+<span class="sd">                            If the initial path is a directory path,</span>
+<span class="sd">                            the directory name will simply be replaced by the basename.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; with PathManager(r&#39;C:/temp/myfile.txt&#39;) as pm:</span>
+<span class="sd">            &gt;&gt;&gt;     pm.from_basename(&#39;newfile&#39;)</span>
+<span class="sd">            C:\\temp\\newfile.txt</span>
+<span class="sd">            &gt;&gt;&gt;     pm.from_basename(&#39;newfile.log&#39;)</span>
+<span class="sd">            C:\\temp\\newfile.log</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">base</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">basename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">ext</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">extension</span><span class="p">()))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

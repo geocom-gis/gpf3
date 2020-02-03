@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.common.containers module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.common.guids module" href="gpf.common.guids.html" />
+    <link rel="prev" title="gpf.common.const module" href="gpf.common.const.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.common.html">gpf.common package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.common.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.common.html#module-gpf.common">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.feedback.html">gpf.feedback package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.common.html">gpf.common package</a> &raquo;</li>
+        
+      <li>gpf.common.containers module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.common.containers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.common.containers">
+<span id="gpf-common-containers-module"></span><h1>gpf.common.containers module<a class="headerlink" href="#module-gpf.common.containers" title="Permalink to this headline">¶</a></h1>
+<p>This module holds a couple of data structure types (or “containers”)
+that can be used to store all kinds of data in a memory-efficient and object-oriented manner.</p>
+<dl class="class">
+<dt id="gpf.common.containers.FrozenBucket">
+<em class="property">class </em><code class="descclassname">gpf.common.containers.</code><code class="descname">FrozenBucket</code><span class="sig-paren">(</span><em>*values</em>, <em>**pairs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/common/containers.html#FrozenBucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.containers.FrozenBucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Immutable container class for storing user-defined attributes (properties).
+Because <code class="docutils literal notranslate"><span class="pre">FrozenBucket</span></code> is a <code class="docutils literal notranslate"><span class="pre">namedtuple</span></code>, it is very memory-efficient and can safely be used in loops.</p>
+<p>This class can’t be instantiated directly and must be obtained via the <a class="reference internal" href="#gpf.common.containers.get_bucket_class" title="gpf.common.containers.get_bucket_class"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_bucket_class()</span></code></a> factory function.
+Since the class is dynamically created, the user-defined properties are only exposed at runtime.</p>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span> <span class="o">=</span> <span class="n">get_bucket_class</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># using the factory function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">)</span>
+<span class="go">FrozenBucket(a=&#39;test&#39;, b=3.14)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bucket_factory</span> <span class="o">=</span> <span class="n">BucketFactory</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>               <span class="c1"># using the BucketFactory class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span> <span class="o">=</span> <span class="n">bucket_factory</span><span class="o">.</span><span class="n">get_bucket_class</span><span class="p">(</span><span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span> <span class="o">=</span> <span class="n">bucket</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span><span class="o">.</span><span class="n">a</span>
+<span class="go">test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span><span class="o">.</span><span class="n">b</span>
+<span class="go">3.14</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#gpf.common.containers.BucketFactory" title="gpf.common.containers.BucketFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">BucketFactory</span></code></a>, <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.common.containers.Bucket">
+<em class="property">class </em><code class="descclassname">gpf.common.containers.</code><code class="descname">Bucket</code><span class="sig-paren">(</span><em>*values</em>, <em>**pairs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/common/containers.html#Bucket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.containers.Bucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Mutable container class for storing user-defined attributes (properties).
+<code class="docutils literal notranslate"><span class="pre">Bucket</span></code> uses <code class="docutils literal notranslate"><span class="pre">__slots__</span></code>, which makes it relatively memory-efficient. It can safely be used in loops.
+However, if the data stored in it remains static, it’s better to use a <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a> instead.</p>
+<p>This class can’t be instantiated directly and must be obtained via the <a class="reference internal" href="#gpf.common.containers.get_bucket_class" title="gpf.common.containers.get_bucket_class"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_bucket_class()</span></code></a> factory function.
+Since the class is dynamically created, the user-defined properties are only exposed at runtime.</p>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span> <span class="o">=</span> <span class="n">get_bucket_class</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>     <span class="c1"># using the factory function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span> <span class="o">=</span> <span class="n">bucket</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span><span class="o">.</span><span class="n">a</span>
+<span class="go">test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">my_bucket</span><span class="o">.</span><span class="n">b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span><span class="o">.</span><span class="n">a</span>
+<span class="go">3.14</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bucket_factory</span> <span class="o">=</span> <span class="n">BucketFactory</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>   <span class="c1"># using the BucketFactory class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span> <span class="o">=</span> <span class="n">bucket_factory</span><span class="o">.</span><span class="n">get_bucket_class</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">)</span>
+<span class="go">Bucket(a=&#39;test&#39;, b=3.14)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#gpf.common.containers.BucketFactory" title="gpf.common.containers.BucketFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">BucketFactory</span></code></a>, <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a></p>
+</div>
+<dl class="method">
+<dt id="gpf.common.containers.Bucket.items">
+<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Generator[[Tuple[str, Any], Any], None]<a class="reference internal" href="_modules/gpf/common/containers.html#Bucket.items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.containers.Bucket.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a generator of the stored key-value pairs.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span> <span class="o">=</span> <span class="n">get_bucket_class</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span> <span class="o">=</span> <span class="n">bucket</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">my_bucket</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="go">(&#39;a&#39;, &#39;test&#39;)</span>
+<span class="go">(&#39;b&#39;, 3.14)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.containers.Bucket.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>*values</em>, <em>**pairs</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/gpf/common/containers.html#Bucket.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.containers.Bucket.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates all <cite>Bucket</cite> values using positional and/or keyword arguments.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bucket</span> <span class="o">=</span> <span class="n">get_bucket_class</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span> <span class="o">=</span> <span class="n">bucket</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s1">&#39;world&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_bucket</span><span class="p">)</span>
+<span class="go">Bucket(a=&#39;hello&#39;, b=&#39;world&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.common.containers.BucketFactory">
+<em class="property">class </em><code class="descclassname">gpf.common.containers.</code><code class="descname">BucketFactory</code><span class="sig-paren">(</span><em>*attributes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/common/containers.html#BucketFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.containers.BucketFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory class to create <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a> or <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a> classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>attributes</strong> – The property names to define in the <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a> or <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a>.
+Note that all names are transformed to lowercase and that non-alphanumeric characters are
+replaced by underscores to ensure valid Python attribute names.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a>, <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a></p>
+</div>
+<dl class="attribute">
+<dt id="gpf.common.containers.BucketFactory.fields">
+<code class="descname">fields</code><a class="headerlink" href="#gpf.common.containers.BucketFactory.fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a> or <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a> attribute names in their initial order.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.containers.BucketFactory.get_bucket_class">
+<code class="descname">get_bucket_class</code><span class="sig-paren">(</span><em>writable: bool = True</em><span class="sig-paren">)</span> &#x2192; type<a class="reference internal" href="_modules/gpf/common/containers.html#BucketFactory.get_bucket_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.containers.BucketFactory.get_bucket_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a bucket class type with the <em>BucketFactory</em> input fields as predefined slots.
+For better performance, do not immediately instantiate the returned class on the same line,
+but store it in a variable first and use this as an object initializer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>writable</strong> – When <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), a <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a> type is returned.
+Otherwise, a <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a> type is returned.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.common.containers.get_bucket_class">
+<code class="descclassname">gpf.common.containers.</code><code class="descname">get_bucket_class</code><span class="sig-paren">(</span><em>field_names: Iterable[str], writable: bool = True</em><span class="sig-paren">)</span> &#x2192; type<a class="reference internal" href="_modules/gpf/common/containers.html#get_bucket_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.containers.get_bucket_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory function to obtain a <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a> or a <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a> container class.</p>
+<p>The function instantiates a <a class="reference internal" href="#gpf.common.containers.BucketFactory" title="gpf.common.containers.BucketFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">BucketFactory</span></code></a> and calls its <cite>get_bucket_class</cite> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>field_names</strong> – An iterable of field names for which to create a bucket class.</li>
+<li><strong>writable</strong> – If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default = <code class="docutils literal notranslate"><span class="pre">True</span></code>), a <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a> type will be returned.
+By default, a <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a> type will be returned.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>In theory, you could immediately instantiate the returned bucket class.
+This is okay for a single bucket, but considered bad practice if you do this consecutively (e.g. in a loop).
+For example, it’s fine if you do this once:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_bucket</span> <span class="o">=</span> <span class="n">get_bucket_class</span><span class="p">([</span><span class="s1">&#39;field1&#39;</span><span class="p">,</span> <span class="s1">&#39;field2&#39;</span><span class="p">])(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_bucket</span><span class="p">)</span>
+<span class="go">Bucket(field1=1, field2=2)</span>
+</pre></div>
+</div>
+<p>However, if you need to reuse the bucket class to instantiate multiple buckets, this is better:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Field-With-Dash&#39;</span><span class="p">,</span> <span class="s1">&#39;UPPERCASE_FIELD&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bucket_cls</span> <span class="o">=</span> <span class="n">get_bucket_class</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">writable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">bucket_cls</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="go">FrozenBucket(field_with_dash=0, uppercase_field=1)</span>
+<span class="go">FrozenBucket(field_with_dash=1, uppercase_field=2)</span>
+<span class="go">FrozenBucket(field_with_dash=2, uppercase_field=3)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#gpf.common.containers.BucketFactory" title="gpf.common.containers.BucketFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">BucketFactory</span></code></a>, <a class="reference internal" href="#gpf.common.containers.Bucket" title="gpf.common.containers.Bucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bucket</span></code></a>, <a class="reference internal" href="#gpf.common.containers.FrozenBucket" title="gpf.common.containers.FrozenBucket"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrozenBucket</span></code></a></p>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.common.guids.html" class="btn btn-neutral float-right" title="gpf.common.guids module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.common.const.html" class="btn btn-neutral float-left" title="gpf.common.const module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

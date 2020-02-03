@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.cursors module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.lookups module" href="gpf.lookups.html" />
+    <link rel="prev" title="gpf.paths module" href="gpf.paths.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.paths.html">gpf.paths module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">gpf.cursors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.lookups.html">gpf.lookups module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.loggers.html">gpf.loggers module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+      <li>gpf.cursors module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.cursors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.cursors">
+<span id="gpf-cursors-module"></span><h1>gpf.cursors module<a class="headerlink" href="#module-gpf.cursors" title="Permalink to this headline">¶</a></h1>
+<p>This module contains fast <strong>and</strong> user-friendly alternatives to Esri’s standard cursors.
+The SearchCursor, InsertCursor and UpdateCursor listed here inherit from Esri’s <em>Data Access</em> cursors,
+but there are some differences:</p>
+<blockquote>
+<div><ul class="simple">
+<li>SearchCursors return <code class="xref py py-class docutils literal notranslate"><span class="pre">_Row</span></code> wrappers and have a <code class="xref py py-func docutils literal notranslate"><span class="pre">getValue()</span></code> function, similar to Esri’s legacy rows;</li>
+<li>Insert- and UpdateCursors return <code class="xref py py-class docutils literal notranslate"><span class="pre">_MutableRow</span></code> wrappers that also have a <code class="xref py py-func docutils literal notranslate"><span class="pre">setValue()</span></code> function,
+similar to their legacy predecessors;</li>
+<li>The ported <code class="xref py py-func docutils literal notranslate"><span class="pre">getValue()</span></code> function can return a <em>default</em> value when the field was not found
+(in the legacy function, it would raise an exception);</li>
+<li>The cursors <em>where_clause</em> argument also accepts a <a class="reference internal" href="gpf.tools.queries.html#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.queries.Where</span></code></a> instance.</li>
+</ul>
+</div></blockquote>
+<p>In theory, one should be able to simply replace the legacy Esri cursors (in an old script, for example)
+with the ones in this module without too much hassle, since all legacy methods have been ported to the cursors
+in this module.
+The only thing you might need to replace and verify for compatibility is the initialization of the cursor itself.</p>
+<p>Please refer to Esri’s documentation on the
+<a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-classes/cursor.htm">legacy cursors</a>
+for the ported functions and the <a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-data-access/what-is-the-data-access-module-.htm">Data Access classes</a>
+for cursor initialization and function overrides.</p>
+<dl class="class">
+<dt id="gpf.cursors.Editor">
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">Editor</code><span class="sig-paren">(</span><em>path: Union[str, gpf.paths.Workspace], with_undo: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#Editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.Editor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context manager wrapper for Esri’s Data Access Editor class that opens an edit session on a workspace.
+This class does not do more than Esri’s Editor class, but it tends to be more user-friendly.</p>
+<p>This Editor only has a <a class="reference internal" href="#gpf.cursors.Editor.start" title="gpf.cursors.Editor.start"><code class="xref py py-func docutils literal notranslate"><span class="pre">start()</span></code></a> and <a class="reference internal" href="#gpf.cursors.Editor.stop" title="gpf.cursors.Editor.stop"><code class="xref py py-func docutils literal notranslate"><span class="pre">stop()</span></code></a> method. The other available methods (<code class="xref py py-func docutils literal notranslate"><span class="pre">startOperation()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">undoOperation()</span></code> etc.) have been disabled to avoid confusion.</p>
+<p>The recommended way of using the Editor is as a context manager (using the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement).
+This has the advantage that, upon failure, the edit session is closed automatically (optionally with rollback).
+If no failures occurred, the edit session is closed normally and all edits are saved (committed).
+However, one can also instantiate the Editor and call <a class="reference internal" href="#gpf.cursors.Editor.start" title="gpf.cursors.Editor.start"><code class="xref py py-func docutils literal notranslate"><span class="pre">start()</span></code></a> and <a class="reference internal" href="#gpf.cursors.Editor.stop" title="gpf.cursors.Editor.stop"><code class="xref py py-func docutils literal notranslate"><span class="pre">stop()</span></code></a> respectively when done.</p>
+<p><strong>Params:</strong></p>
+<ul>
+<li><p class="first"><strong>path</strong> (str, unicode, class:<cite>gpf.paths.Workspace</cite>):</p>
+<p>A path on which to open the edit session. This can be a table or feature class path,
+a workspace path or a class:<cite>gpf.paths.Workspace</cite> instance.</p>
+</li>
+<li><p class="first"><strong>with_undo</strong> (bool):</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default = <code class="docutils literal notranslate"><span class="pre">False</span></code>), an undo stack will be kept.
+For versioned workspaces, this setting has no effect (always <code class="docutils literal notranslate"><span class="pre">True</span></code>).
+For all other workspaces, having this value set to <code class="docutils literal notranslate"><span class="pre">False</span></code> improves performance.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference internal" href="#gpf.cursors.InsertCursor" title="gpf.cursors.InsertCursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">InsertCursor</span></code></a> and <a class="reference internal" href="#gpf.cursors.UpdateCursor" title="gpf.cursors.UpdateCursor"><code class="xref py py-class docutils literal notranslate"><span class="pre">UpdateCursor</span></code></a> in this module use the Editor on demand,
+if these cursors are initialized with the <em>auto_edit</em> option set to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default).</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-data-access/editor.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-data-access/editor.htm</a></p>
+</div>
+<dl class="method">
+<dt id="gpf.cursors.Editor.start">
+<code class="descname">start</code><span class="sig-paren">(</span><em>with_undo: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/gpf/cursors.html#Editor.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.Editor.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the edit operation.
+If the Editor already is in an editing state, this method will do nothing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>with_undo</strong> – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the undo/redo stack is enabled.
+Note that this stack will always be enabled if the workspace is a versioned SDE geodatabase.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.cursors.Editor.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><em>save: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/gpf/cursors.html#Editor.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.Editor.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the edit operation.
+If the Editor is not in an editing state, this method will do nothing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>save</strong> – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the edits will be saved.
+If set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the edits will be rolled back (and not saved) when either
+(a) the edit session was started with an undo/redo stack, or
+(b) the workspace is a versioned SDE database.
+If the undo stack was disabled (default) and <em>save</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the operation will be aborted.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.cursors.Editor.isEditing">
+<code class="descname">isEditing</code><a class="headerlink" href="#gpf.cursors.Editor.isEditing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if this Editor instance has opened a session</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.cursors.Editor.workspacePath">
+<code class="descname">workspacePath</code><a class="headerlink" href="#gpf.cursors.Editor.workspacePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to edit session’s workspace</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.cursors.SearchCursor">
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">SearchCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>{field_names}</em>, <em>{where_clause}</em>, <em>{spatial_reference}</em>, <em>{explode_to_points}</em>, <em>{sql_clause}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#SearchCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.SearchCursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper class to properly expose ArcPy’s Data Access SearchCursor and its methods.
+Returns a read-only cursor to iterate over (a set of) records in a table.</p>
+<p>If <em>where_clause</em> is used and it’s a <code class="xref py py-class docutils literal notranslate"><span class="pre">Where</span></code> instance (recommended),
+the field delimiters will automatically be resolved (e.g. for Oracle, MS SQL, File Geodatabase etc.).</p>
+<p><strong>Params:</strong></p>
+<ul>
+<li><p class="first"><strong>datatable</strong>:</p>
+<p>The path to the feature class or table, or a Layer or table view.</p>
+</li>
+<li><p class="first"><strong>field_names</strong>:</p>
+<p>Single field name or a sequence of field names.
+When not set, all fields are returned. This is not recommended, as it tends to be slow and consumes more memory.</p>
+</li>
+<li><p class="first"><strong>where_clause</strong> (str, unicode, <a class="reference internal" href="gpf.tools.queries.html#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.queries.Where</span></code></a>):</p>
+<p>An optional expression that filters the returned records.</p>
+</li>
+</ul>
+<p><strong>Keyword params:</strong></p>
+<ul>
+<li><p class="first"><strong>spatial_reference</strong> (str, int, arcpy.SpatialReference):</p>
+<p>An optional SpatialReference object or its string representation or WKID equivalent.
+The returned features will be reprojected to this coordinate system on the fly.</p>
+</li>
+<li><p class="first"><strong>explode_to_points</strong> (bool):</p>
+<p>Optional. If <code class="docutils literal notranslate"><span class="pre">True</span></code>, features are deconstructed into individual vertices.
+This means that e.g. for a feature with 5 vertices, 5 features will be returned for each vertex.</p>
+</li>
+<li><p class="first"><strong>sql_clause</strong> (tuple, list):</p>
+<p>An optional sequence of 2 elements, containing a SQL prefix and postfix query respectively.
+These queries support clauses like GROUP BY, DISTINCT, ORDER BY and so on.
+The clauses do not support the use of <a class="reference internal" href="gpf.tools.queries.html#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.queries.Where</span></code></a> instances.</p>
+</li>
+</ul>
+<dl class="attribute">
+<dt id="gpf.cursors.SearchCursor.fields">
+<code class="descname">fields</code><a class="headerlink" href="#gpf.cursors.SearchCursor.fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of fields (in order) used by the cursor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.cursors.SearchCursor.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#SearchCursor.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.SearchCursor.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the cursor position to the first row so it can be iterated over again.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.cursors.InsertCursor">
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">InsertCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>field_names</em>, <em>{auto_edit}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#InsertCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.InsertCursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper class to properly expose ArcPy’s Data Access InsertCursor and its methods.
+Returns a cursor to insert new records into a table.</p>
+<p><strong>Params:</strong></p>
+<ul>
+<li><p class="first"><strong>datatable</strong>:</p>
+<p>The path to the feature class or table, or a Layer or table view.</p>
+</li>
+<li><p class="first"><strong>field_names</strong>:</p>
+<p>Single field name or a sequence of field names.
+When not set, all fields are returned. This is not recommended, as it tends to be slow and consumes more memory.</p>
+</li>
+</ul>
+<p><strong>Keyword params:</strong></p>
+<ul>
+<li><p class="first"><strong>auto_edit</strong> (bool):</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), an edit session is started automatically, if required.</p>
+</li>
+</ul>
+<dl class="attribute">
+<dt id="gpf.cursors.InsertCursor.fields">
+<code class="descname">fields</code><a class="headerlink" href="#gpf.cursors.InsertCursor.fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of fields (in order) used by the cursor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.cursors.InsertCursor.newRow">
+<code class="descname">newRow</code><span class="sig-paren">(</span><em>values: Iterable = None</em><span class="sig-paren">)</span> &#x2192; gpf.cursors._MutableRow<a class="reference internal" href="_modules/gpf/cursors.html#InsertCursor.newRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.InsertCursor.newRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new MutableRow instance (optionally populated with data).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> – Optional <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of field values in the correct <code class="docutils literal notranslate"><span class="pre">InsertCursor</span></code> field order
+or a <code class="docutils literal notranslate"><span class="pre">dict</span></code> of key-value pairs, where the keys specify the field names to set.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – If <em>values</em> is a <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">tuple</span></code> and the length does not match the number of
+cursor fields, or if <em>values</em> is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> and one of the keys does not match with the
+cursor field names.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.cursors.InsertCursor.insertRow">
+<code class="descname">insertRow</code><span class="sig-paren">(</span><em>row: Iterable</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gpf/cursors.html#InsertCursor.insertRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.InsertCursor.insertRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts a new row.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>row</strong> – The row values to insert.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The ObjectID of the inserted row (when successful).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.cursors.UpdateCursor">
+<em class="property">class </em><code class="descclassname">gpf.cursors.</code><code class="descname">UpdateCursor</code><span class="sig-paren">(</span><em>in_table</em>, <em>{field_names}</em>, <em>{where_clause}</em>, <em>{spatial_reference}</em>, <em>{explode_to_points}</em>, <em>{sql_clause}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper class to properly expose ArcPy’s Data Access UpdateCursor and its methods.
+Returns a cursor to iterate over and update (a set of) records in a table.</p>
+<p>If <em>where_clause</em> is used and it’s a <code class="xref py py-class docutils literal notranslate"><span class="pre">Where</span></code> instance, the field delimiters will
+automatically be resolved (e.g. for Oracle, MS SQL, File Geodatabase etc.).</p>
+<p><strong>Params:</strong></p>
+<ul>
+<li><p class="first"><strong>datatable</strong>:</p>
+<p>The path to the feature class or table, or a Layer or table view.</p>
+</li>
+<li><p class="first"><strong>field_names</strong>:</p>
+<p>Single field name or a sequence of field names.
+When not set, all fields are returned. This is not recommended, as it tends to be slow and consumes more memory.</p>
+</li>
+<li><p class="first"><strong>where_clause</strong> (str, unicode, <a class="reference internal" href="gpf.tools.queries.html#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.queries.Where</span></code></a>):</p>
+<p>An optional expression that filters the returned records.</p>
+</li>
+</ul>
+<p><strong>Keyword params:</strong></p>
+<ul>
+<li><p class="first"><strong>spatial_reference</strong> (str, int, arcpy.SpatialReference):</p>
+<p>An optional SpatialReference object or its string representation or WKID equivalent.
+The returned features will be reprojected to this coordinate system on the fly.</p>
+</li>
+<li><p class="first"><strong>explode_to_points</strong> (bool):</p>
+<p>Optional. If <code class="docutils literal notranslate"><span class="pre">True</span></code>, features are deconstructed into individual vertices.
+This means that e.g. for a feature with 5 vertices, 5 features will be returned for each vertex.</p>
+</li>
+<li><p class="first"><strong>sql_clause</strong> (tuple, list):</p>
+<p>An optional sequence of 2 elements, containing a SQL prefix and postfix query respectively.
+These queries support clauses like GROUP BY, DISTINCT, ORDER BY and so on.
+The clauses do not support the use of <a class="reference internal" href="gpf.tools.queries.html#gpf.tools.queries.Where" title="gpf.tools.queries.Where"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.queries.Where</span></code></a> instances.</p>
+</li>
+<li><p class="first"><strong>auto_edit</strong> (bool):</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), an edit session is started automatically, if required.</p>
+</li>
+</ul>
+<dl class="attribute">
+<dt id="gpf.cursors.UpdateCursor.fields">
+<code class="descname">fields</code><a class="headerlink" href="#gpf.cursors.UpdateCursor.fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of fields (in order) used by the cursor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.cursors.UpdateCursor.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the cursor position to the first row so it can be iterated over again.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.cursors.UpdateCursor.deleteRow">
+<code class="descname">deleteRow</code><span class="sig-paren">(</span><em>dummy=None</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor.deleteRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor.deleteRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the current row. The <em>dummy</em> argument only serves backwards compatibility and is not used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The ObjectID of the deleted row (when successful).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.cursors.UpdateCursor.updateRow">
+<code class="descname">updateRow</code><span class="sig-paren">(</span><em>row: Iterable</em><span class="sig-paren">)</span> &#x2192; int<a class="reference internal" href="_modules/gpf/cursors.html#UpdateCursor.updateRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.cursors.UpdateCursor.updateRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the current row.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>row</strong> – The row values to update.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The ObjectID of the updated row (when successful).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.lookups.html" class="btn btn-neutral float-right" title="gpf.lookups module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.paths.html" class="btn btn-neutral float-left" title="gpf.paths module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

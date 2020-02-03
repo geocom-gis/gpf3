@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.common.containers &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gpf.html">gpf package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gpf.common.containers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gpf.common.containers</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright 2019 Geocom Informatik AG / VertiGIS</span>
+
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module holds a couple of data structure types (or &quot;containers&quot;)</span>
+<span class="sd">that can be used to store all kinds of data in a memory-efficient and object-oriented manner.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">_tp</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+
+<span class="kn">import</span> <span class="nn">more_itertools</span> <span class="k">as</span> <span class="nn">_iter</span>
+
+<span class="kn">import</span> <span class="nn">gpf.common.textutils</span> <span class="k">as</span> <span class="nn">_tu</span>
+<span class="kn">import</span> <span class="nn">gpf.common.validate</span> <span class="k">as</span> <span class="nn">_vld</span>
+
+<span class="n">_DUMMY</span> <span class="o">=</span> <span class="s1">&#39;dummy&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">_is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` when both objects have an _asdict() method and their items are equal.</span>
+
+<span class="sd">    :param other:   Comparison object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># noinspection PyProtectedMember</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="FrozenBucket"><a class="viewcode-back" href="../../../gpf.common.containers.html#gpf.common.containers.FrozenBucket">[docs]</a><span class="k">class</span> <span class="nc">FrozenBucket</span><span class="p">(</span><span class="nb">tuple</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    FrozenBucket(*values, **pairs)</span>
+
+<span class="sd">    Immutable container class for storing user-defined attributes (properties).</span>
+<span class="sd">    Because ``FrozenBucket`` is a ``namedtuple``, it is very memory-efficient and can safely be used in loops.</span>
+
+<span class="sd">    This class can&#39;t be instantiated directly and must be obtained via the :func:`get_bucket_class` factory function.</span>
+<span class="sd">    Since the class is dynamically created, the user-defined properties are only exposed at runtime.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; bucket = get_bucket_class([&#39;a&#39;, &#39;b&#39;], writable=False)  # using the factory function</span>
+<span class="sd">        &gt;&gt;&gt; bucket(&#39;test&#39;, 3.14)</span>
+<span class="sd">        FrozenBucket(a=&#39;test&#39;, b=3.14)</span>
+
+<span class="sd">        &gt;&gt;&gt; bucket_factory = BucketFactory(&#39;a&#39;, &#39;b&#39;)               # using the BucketFactory class</span>
+<span class="sd">        &gt;&gt;&gt; bucket = bucket_factory.get_bucket_class(writable=False)</span>
+<span class="sd">        &gt;&gt;&gt; my_bucket = bucket(&#39;test&#39;, 3.14)</span>
+<span class="sd">        &gt;&gt;&gt; my_bucket.a</span>
+<span class="sd">        test</span>
+<span class="sd">        &gt;&gt;&gt; my_bucket.b</span>
+<span class="sd">        3.14</span>
+
+<span class="sd">    .. seealso::    :class:`BucketFactory`, :class:`Bucket`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">pairs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Class must be instantiated from a </span><span class="si">{!r}</span><span class="s1"> generated </span><span class="si">{!r}</span><span class="s1"> class&#39;</span><span class="o">.</span>
+                                  <span class="nb">format</span><span class="p">(</span><span class="n">BucketFactory</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">FrozenBucket</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Bucket"><a class="viewcode-back" href="../../../gpf.common.containers.html#gpf.common.containers.Bucket">[docs]</a><span class="k">class</span> <span class="nc">Bucket</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bucket(*values, **pairs)</span>
+
+<span class="sd">    Mutable container class for storing user-defined attributes (properties).</span>
+<span class="sd">    ``Bucket`` uses ``__slots__``, which makes it relatively memory-efficient. It can safely be used in loops.</span>
+<span class="sd">    However, if the data stored in it remains static, it&#39;s better to use a :class:`FrozenBucket` instead.</span>
+
+<span class="sd">    This class can&#39;t be instantiated directly and must be obtained via the :func:`get_bucket_class` factory function.</span>
+<span class="sd">    Since the class is dynamically created, the user-defined properties are only exposed at runtime.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; bucket = get_bucket_class([&#39;a&#39;, &#39;b&#39;])     # using the factory function</span>
+<span class="sd">        &gt;&gt;&gt; my_bucket = bucket(&#39;test&#39;, 3.14)</span>
+<span class="sd">        &gt;&gt;&gt; my_bucket.a</span>
+<span class="sd">        test</span>
+<span class="sd">        &gt;&gt;&gt; my_bucket.a = my_bucket.b</span>
+<span class="sd">        &gt;&gt;&gt; my_bucket.a</span>
+<span class="sd">        3.14</span>
+
+<span class="sd">        &gt;&gt;&gt; bucket_factory = BucketFactory(&#39;a&#39;, &#39;b&#39;)   # using the BucketFactory class</span>
+<span class="sd">        &gt;&gt;&gt; bucket = bucket_factory.get_bucket_class()</span>
+<span class="sd">        &gt;&gt;&gt; bucket(&#39;test&#39;, 3.14)</span>
+<span class="sd">        Bucket(a=&#39;test&#39;, b=3.14)</span>
+
+<span class="sd">    .. seealso::    :class:`BucketFactory`, :class:`FrozenBucket`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>  <span class="c1"># Serves as template: slots are set by the BucketFactory</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">pairs</span><span class="p">):</span>
+        <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">,</span> <span class="ne">NotImplementedError</span><span class="p">,</span>
+                     <span class="s1">&#39;Class must be instantiated from a </span><span class="si">{!r}</span><span class="s1"> generated </span><span class="si">{!r}</span><span class="s1"> class&#39;</span><span class="o">.</span>
+                     <span class="nb">format</span><span class="p">(</span><span class="n">BucketFactory</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">Bucket</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">pairs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a representation of the instance. &quot;&quot;&quot;</span>
+        <span class="n">f_items</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">=</span><span class="si">{value!r}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{Bucket.__name__}</span><span class="s1">({&quot;, &quot;.join(f_items)})&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns an iterator over the stored values. &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="fm">__eq__</span> <span class="o">=</span> <span class="n">_is_equal</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Alias for getting Bucket field names (slots).</span>
+
+<span class="sd">        Note: method name is &quot;protected&quot; to shadow the method name of the :class:`FrozenBucket` namedtuple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__slots__</span>
+
+    <span class="k">def</span> <span class="nf">_asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OrderedDict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the contents of the Bucket as an ordered dictionary.</span>
+
+<span class="sd">        Note: method name is &quot;protected&quot; to shadow the method name of the :class:`FrozenBucket` namedtuple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+
+<div class="viewcode-block" id="Bucket.items"><a class="viewcode-back" href="../../../gpf.common.containers.html#gpf.common.containers.Bucket.items">[docs]</a>    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Generator</span><span class="p">[</span><span class="n">_tp</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">],</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a generator of the stored key-value pairs.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">            &gt;&gt;&gt; bucket = get_bucket_class([&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">            &gt;&gt;&gt; my_bucket = bucket(&#39;test&#39;, 3.14)</span>
+<span class="sd">            &gt;&gt;&gt; for k, v in my_bucket.items():</span>
+<span class="sd">            &gt;&gt;&gt;     print(k, v)</span>
+<span class="sd">            (&#39;a&#39;, &#39;test&#39;)</span>
+<span class="sd">            (&#39;b&#39;, 3.14)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bucket.update"><a class="viewcode-back" href="../../../gpf.common.containers.html#gpf.common.containers.Bucket.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">pairs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates all `Bucket` values using positional and/or keyword arguments.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">            &gt;&gt;&gt; bucket = get_bucket_class([&#39;a&#39;, &#39;b&#39;])</span>
+<span class="sd">            &gt;&gt;&gt; my_bucket = bucket(&#39;test&#39;, 3.14)</span>
+<span class="sd">            &gt;&gt;&gt; my_bucket.update(&#39;hello&#39;, b=&#39;world&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; print(my_bucket)</span>
+<span class="sd">            Bucket(a=&#39;hello&#39;, b=&#39;world&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># _set values according to args (in __slots__ order)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fields</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span>
+        <span class="c1"># _set values according to keyword arguments</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">pairs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BucketFactory"><a class="viewcode-back" href="../../../gpf.common.containers.html#gpf.common.containers.BucketFactory">[docs]</a><span class="k">class</span> <span class="nc">BucketFactory</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    BucketFactory(*attributes)</span>
+
+<span class="sd">    Factory class to create :class:`FrozenBucket` or :class:`Bucket` classes.</span>
+
+<span class="sd">    :param attributes:  The property names to define in the :class:`FrozenBucket` or :class:`Bucket`.</span>
+<span class="sd">                        Note that all names are transformed to lowercase and that non-alphanumeric characters are</span>
+<span class="sd">                        replaced by underscores to ensure valid Python attribute names.</span>
+
+<span class="sd">    .. seealso::    :class:`Bucket`, :class:`FrozenBucket`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">attributes</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blacklist</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">Bucket</span><span class="p">)</span> <span class="o">+</span> <span class="nb">dir</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="n">_DUMMY</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="p">)))</span>
+
+        <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">attributes</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span>
+                     <span class="s1">&#39;</span><span class="si">{!r}</span><span class="s1"> must be instantiated with 1 or more attribute names&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BucketFactory</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_attr_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_attrs</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_fix_attr</span><span class="p">(</span><span class="n">attr_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Fixes the attribute name so that all special chars become underscores. First char must be alphanumeric. &quot;&quot;&quot;</span>
+        <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">attr_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isalpha</span><span class="p">(),</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Bucket field names must start with a letter&#39;</span><span class="p">)</span>
+        <span class="n">fixed_name</span> <span class="o">=</span> <span class="n">_tu</span><span class="o">.</span><span class="n">EMPTY_STR</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">char</span> <span class="k">if</span> <span class="n">char</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="k">else</span> <span class="n">_tu</span><span class="o">.</span><span class="n">UNDERSCORE</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">attr_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fixed_name</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">_tu</span><span class="o">.</span><span class="n">UNDERSCORE</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attributes</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot; Checks and fixes all attribute names. &quot;&quot;&quot;</span>
+        <span class="n">out_attrs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="n">_iter</span><span class="o">.</span><span class="n">collapse</span><span class="p">(</span><span class="n">attributes</span><span class="p">):</span>
+            <span class="n">attr_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fix_attr</span><span class="p">(</span><span class="n">attr_name</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="n">attr_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blacklist</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span>
+                          <span class="s1">&#39;Field name </span><span class="si">{!r}</span><span class="s1"> shadows built-in name&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attr_name</span><span class="p">))</span>
+            <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="n">attr_name</span> <span class="ow">in</span> <span class="n">out_attrs</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">,</span> <span class="s1">&#39;Field names must be unique&#39;</span><span class="p">)</span>
+            <span class="n">out_attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attr_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">out_attrs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the current :class:`FrozenBucket` or :class:`Bucket` attribute names in their initial order.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attr_names</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BucketFactory.get_bucket_class"><a class="viewcode-back" href="../../../gpf.common.containers.html#gpf.common.containers.BucketFactory.get_bucket_class">[docs]</a>    <span class="k">def</span> <span class="nf">get_bucket_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">writable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a bucket class type with the *BucketFactory* input fields as predefined slots.</span>
+<span class="sd">        For better performance, do not immediately instantiate the returned class on the same line,</span>
+<span class="sd">        but store it in a variable first and use this as an object initializer.</span>
+
+<span class="sd">        :param writable:    When ``True`` (default), a :class:`Bucket` type is returned.</span>
+<span class="sd">                            Otherwise, a :class:`FrozenBucket` type is returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">writable</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">Bucket</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="p">(</span><span class="n">Bucket</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;__slots__&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attr_names</span><span class="p">})</span>
+        <span class="n">ro_class</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="n">FrozenBucket</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attr_names</span><span class="p">)</span>
+        <span class="n">ro_class</span><span class="o">.</span><span class="fm">__eq__</span> <span class="o">=</span> <span class="n">_is_equal</span>
+        <span class="k">return</span> <span class="n">ro_class</span></div></div>
+
+
+<div class="viewcode-block" id="get_bucket_class"><a class="viewcode-back" href="../../../gpf.common.containers.html#gpf.common.containers.get_bucket_class">[docs]</a><span class="k">def</span> <span class="nf">get_bucket_class</span><span class="p">(</span><span class="n">field_names</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">writable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Factory function to obtain a :class:`FrozenBucket` or a :class:`Bucket` container class.</span>
+
+<span class="sd">    The function instantiates a :class:`BucketFactory` and calls its `get_bucket_class` method.</span>
+
+<span class="sd">    :param field_names: An iterable of field names for which to create a bucket class.</span>
+<span class="sd">    :param writable:    If ``False`` (default = ``True``), a :class:`FrozenBucket` type will be returned.</span>
+<span class="sd">                        By default, a :class:`Bucket` type will be returned.</span>
+
+<span class="sd">    In theory, you could immediately instantiate the returned bucket class.</span>
+<span class="sd">    This is okay for a single bucket, but considered bad practice if you do this consecutively (e.g. in a loop).</span>
+<span class="sd">    For example, it&#39;s fine if you do this once:</span>
+
+<span class="sd">        &gt;&gt;&gt; my_bucket = get_bucket_class([&#39;field1&#39;, &#39;field2&#39;])(1, 2)</span>
+<span class="sd">        &gt;&gt;&gt; print(my_bucket)</span>
+<span class="sd">        Bucket(field1=1, field2=2)</span>
+
+<span class="sd">    However, if you need to reuse the bucket class to instantiate multiple buckets, this is better:</span>
+
+<span class="sd">        &gt;&gt;&gt; fields = (&#39;Field-With-Dash&#39;, &#39;UPPERCASE_FIELD&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; bucket_cls = get_bucket_class(fields, writable=False)</span>
+<span class="sd">        &gt;&gt;&gt; for i in range(3):</span>
+<span class="sd">        &gt;&gt;&gt;     print(bucket_cls(i, i+1))</span>
+<span class="sd">        FrozenBucket(field_with_dash=0, uppercase_field=1)</span>
+<span class="sd">        FrozenBucket(field_with_dash=1, uppercase_field=2)</span>
+<span class="sd">        FrozenBucket(field_with_dash=2, uppercase_field=3)</span>
+
+<span class="sd">    .. seealso::    :class:`BucketFactory`, :class:`Bucket`, :class:`FrozenBucket`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Input validation</span>
+    <span class="n">_vld</span><span class="o">.</span><span class="n">raise_if</span><span class="p">(</span><span class="n">field_names</span> <span class="o">==</span> <span class="n">_tu</span><span class="o">.</span><span class="n">ASTERISK</span><span class="p">,</span> <span class="ne">NotImplementedError</span><span class="p">,</span>
+                  <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> does not support </span><span class="si">{!r}</span><span class="s2"> as &#39;field_names&#39; attribute&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">get_bucket_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">_tu</span><span class="o">.</span><span class="n">ASTERISK</span><span class="p">))</span>
+    <span class="n">_vld</span><span class="o">.</span><span class="n">pass_if</span><span class="p">(</span><span class="n">_vld</span><span class="o">.</span><span class="n">is_iterable</span><span class="p">(</span><span class="n">field_names</span><span class="p">),</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;&#39;field_names&#39; attribute must be an iterable&quot;</span><span class="p">)</span>
+
+    <span class="n">rec_fields</span> <span class="o">=</span> <span class="n">_iter</span><span class="o">.</span><span class="n">collapse</span><span class="p">(</span><span class="n">field_names</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">BucketFactory</span><span class="p">(</span><span class="n">rec_fields</span><span class="p">)</span><span class="o">.</span><span class="n">get_bucket_class</span><span class="p">(</span><span class="n">writable</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

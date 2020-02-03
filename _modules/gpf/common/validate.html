@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.common.validate &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gpf.html">gpf package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gpf.common.validate</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gpf.common.validate</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright 2019 Geocom Informatik AG / VertiGIS</span>
+
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="c1"># noinspection PyUnresolvedReferences</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The **validate** module can be used to verify if certain values are &quot;truthy&quot;.</span>
+<span class="sd">Most of the functions in this module return a **boolean** (True/False).</span>
+
+<span class="sd">Exceptions to this rule are the :func:`pass_if` and :func:`raise_if` functions, which can be used for data assertions</span>
+<span class="sd">and therefore serve as an alternative to the ``assert`` statement (which should not be used in production environments).</span>
+
+<span class="sd">    &gt;&gt;&gt; def test(text):</span>
+<span class="sd">    &gt;&gt;&gt;     pass_if(isinstance(text, str), TypeError, &#39;test() requires text input&#39;)</span>
+<span class="sd">    &gt;&gt;&gt;     print(text)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; test(&#39;Hello World&#39;)</span>
+<span class="sd">    &#39;Hello World&#39;</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; test(123)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      File &quot;&lt;input&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="sd">    TypeError: test() requires text input</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span> <span class="k">as</span> <span class="nn">_inspect</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="nn">_tp</span>
+<span class="kn">from</span> <span class="nn">numbers</span> <span class="k">import</span> <span class="n">Number</span> <span class="k">as</span> <span class="n">_Number</span>
+
+<span class="kn">import</span> <span class="nn">gpf.common.const</span> <span class="k">as</span> <span class="nn">_const</span>
+<span class="kn">import</span> <span class="nn">gpf.common.guids</span> <span class="k">as</span> <span class="nn">_guids</span>
+
+
+<div class="viewcode-block" id="is_text"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.is_text">[docs]</a><span class="k">def</span> <span class="nf">is_text</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">allow_empty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` if **value** is a ``str`` instance.</span>
+
+<span class="sd">    :param value:       The value to check.</span>
+<span class="sd">    :param allow_empty: If ``True`` (default), empty string values are allowed.</span>
+<span class="sd">                        If ``False``, empty strings will evaluate as &quot;falsy&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">allow_empty</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">_const</span><span class="o">.</span><span class="n">CHAR_EMPTY</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="is_number"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.is_number">[docs]</a><span class="k">def</span> <span class="nf">is_number</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">allow_bool</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` if *value* is a built-in numeric object (e.g. ``int``, ``float``, ``long``, ``Decimal``, etc.).</span>
+
+<span class="sd">    Note that :func:`is_number` will return ``False`` for booleans by default, which is non-standard behaviour,</span>
+<span class="sd">    because ``bool`` is a subclass of ``int``:</span>
+
+<span class="sd">        &gt;&gt;&gt; isinstance(True, int)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; is_number(True)</span>
+<span class="sd">        False</span>
+
+<span class="sd">    :param value:       The value to check.</span>
+<span class="sd">    :param allow_bool:  If the standard Python boolean evaluation behavior is desired, set this to ``True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">allow_bool</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">_Number</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_iterable"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.is_iterable">[docs]</a><span class="k">def</span> <span class="nf">is_iterable</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="c1"># noinspection PyUnresolvedReferences</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` if *value* is an iterable container (e.g. ``list`` or ``tuple`` but not a **generator**).</span>
+
+<span class="sd">    Note that :func:`is_iterable` will return ``False`` for string-like objects as well, even though they are iterable.</span>
+<span class="sd">    The same applies to **generators** and **sets**:</span>
+
+<span class="sd">        &gt;&gt;&gt; my_list = [1, 2, 3]</span>
+<span class="sd">        &gt;&gt;&gt; is_iterable(my_list)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; is_iterable(set(my_list))</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; is_iterable(v for v in my_list)</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; is_iterable(str(my_list))</span>
+<span class="sd">        False</span>
+
+<span class="sd">    :param value:   The value to check.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;__getitem__&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_guid"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.is_guid">[docs]</a><span class="k">def</span> <span class="nf">is_guid</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` when the given *value* is a GUID-like object and ``False`` otherwise.</span>
+<span class="sd">    The function effectively tries to parse the value as a :class:`gpf.tools.guids.Guid` object.</span>
+
+<span class="sd">    :param value:   A string or a GUID-like object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_guids</span><span class="o">.</span><span class="n">Guid</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">_guids</span><span class="o">.</span><span class="n">Guid</span><span class="o">.</span><span class="n">BadGuidError</span><span class="p">,</span> <span class="n">_guids</span><span class="o">.</span><span class="n">Guid</span><span class="o">.</span><span class="n">MissingGuidError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="has_value"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.has_value">[docs]</a><span class="k">def</span> <span class="nf">has_value</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">strip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` when *obj* is &quot;truthy&quot;.</span>
+
+<span class="sd">    Note that :func:`has_value` will return ``True`` for the ``False`` boolean and ``0`` integer values.</span>
+<span class="sd">    Python normally evaluates these values as &quot;falsy&quot;, but for databases for example, these values are perfectly valid.</span>
+<span class="sd">    This is why :func:`has_value` considers them to be &quot;truthy&quot;:</span>
+
+<span class="sd">        &gt;&gt;&gt; my_int = 0</span>
+<span class="sd">        &gt;&gt;&gt; my_bool = False</span>
+<span class="sd">        &gt;&gt;&gt; if not (my_int and my_bool):</span>
+<span class="sd">        &gt;&gt;&gt;     print(&#39;Both values are &quot;falsy&quot;.&#39;)</span>
+<span class="sd">        &#39;Both values are &quot;falsy&quot;.&#39;</span>
+<span class="sd">        &gt;&gt;&gt; has_value(my_int)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; has_value(my_bool)</span>
+<span class="sd">        True</span>
+
+<span class="sd">    Other usage examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; has_value(None)</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; has_value({})</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; has_value(&#39;test&#39;)</span>
+<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; has_value(&#39;   &#39;, strip=True)</span>
+<span class="sd">        False</span>
+
+<span class="sd">    :param obj:     The object for which to evaluate its value.</span>
+<span class="sd">    :param strip:   If ``True`` and *obj* is a ``str``, *obj* will be stripped before evaluation. Defaults to ``False``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">obj</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">is_text</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">strip</span> <span class="k">else</span> <span class="n">obj</span><span class="p">)</span> <span class="o">!=</span> <span class="n">_const</span><span class="o">.</span><span class="n">CHAR_EMPTY</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="signature_matches"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.signature_matches">[docs]</a><span class="k">def</span> <span class="nf">signature_matches</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Callable</span><span class="p">,</span> <span class="n">template_func</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if the given *func* (`function` or `instancemethod`) has a signature equal to *template_func*.</span>
+<span class="sd">    If the function is not callable or the signature does not match, ``False`` is returned.</span>
+
+<span class="sd">    :param func:            A callable function or (instance) method.</span>
+<span class="sd">    :param template_func:   A template function to which the callable function argument count should be compared.</span>
+<span class="sd">                            This should *not* be a an instance method.</span>
+<span class="sd">    :rtype:                 bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_get_params</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns the Parameter objects for a function (skipping &#39;self&#39;, if present). &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="n">_inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">_inspect</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span> <span class="ow">or</span> <span class="n">_inspect</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;self&#39;</span><span class="p">:</span>
+                <span class="c1"># For instance methods/functions, we&#39;ll remove the first parameter (&quot;self&quot; by convention)</span>
+                <span class="k">continue</span>
+            <span class="k">yield</span> <span class="n">p</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">template_func</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># Compare the parameter count, names and types</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_get_params</span><span class="p">(</span><span class="n">func</span><span class="p">))</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_get_params</span><span class="p">(</span><span class="n">template_func</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="pass_if"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.pass_if">[docs]</a><span class="k">def</span> <span class="nf">pass_if</span><span class="p">(</span><span class="n">expression</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="ne">Exception</span><span class="p">),</span> <span class="n">exc_val</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="n">_const</span><span class="o">.</span><span class="n">CHAR_EMPTY</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raises an error of type *err_type* when *expression* is **falsy** and silently passes otherwise.</span>
+<span class="sd">    Opposite of :func:`raise_if`.</span>
+
+<span class="sd">    :param expression:  An expression or value to evaluate.</span>
+<span class="sd">    :param exc_type:    The error to raise when *expression* evaluates to ``False``, e.g. ``AttributeError``.</span>
+<span class="sd">    :param exc_val:     An optional message or exception value to include with the error (recommended).</span>
+
+<span class="sd">    :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; my_value = 0</span>
+<span class="sd">        &gt;&gt;&gt; pass_if(my_value)</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">          File &quot;&lt;input&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="sd">        AssertionError</span>
+<span class="sd">        &gt;&gt;&gt; pass_if(my_value == 0)</span>
+<span class="sd">        &gt;&gt;&gt; pass_if(my_value == 1, ValueError, &#39;my_value should be 1&#39;)</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">          File &quot;&lt;input&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="sd">        ValueError: my_value should be 1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">expression</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">exc_type</span><span class="p">(</span><span class="n">exc_val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="raise_if"><a class="viewcode-back" href="../../../gpf.common.validate.html#gpf.common.validate.raise_if">[docs]</a><span class="k">def</span> <span class="nf">raise_if</span><span class="p">(</span><span class="n">expression</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="ne">Exception</span><span class="p">),</span> <span class="n">exc_val</span><span class="p">:</span> <span class="n">_tp</span><span class="o">.</span><span class="n">Any</span> <span class="o">=</span> <span class="n">_const</span><span class="o">.</span><span class="n">CHAR_EMPTY</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raises an error of type *err_type* when *expression* is **truthy** and silently passes otherwise.</span>
+<span class="sd">    Opposite of :func:`pass_if`.</span>
+
+<span class="sd">    :param expression:  An expression or value to evaluate.</span>
+<span class="sd">    :param exc_type:    The error to raise when *expression* evaluates to ``True``, e.g. ``AttributeError``.</span>
+<span class="sd">    :param exc_val:     An optional message or exception value to include with the error (recommended).</span>
+
+<span class="sd">    :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; my_value = 0</span>
+<span class="sd">        &gt;&gt;&gt; raise_if(my_value)</span>
+<span class="sd">        &gt;&gt;&gt; raise_if(my_value == 1)</span>
+<span class="sd">        &gt;&gt;&gt; raise_if(my_value == 0, ValueError, &#39;my_value should not be 0&#39;)</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">          File &quot;&lt;input&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="sd">        ValueError: my_value should not be 0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">expression</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">exc_type</span><span class="p">(</span><span class="n">exc_val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.common.paths module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.common.textutils module" href="gpf.common.textutils.html" />
+    <link rel="prev" title="gpf.common.guids module" href="gpf.common.guids.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.common.html">gpf.common package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.common.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.common.html#module-gpf.common">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.feedback.html">gpf.feedback package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.common.html">gpf.common package</a> &raquo;</li>
+        
+      <li>gpf.common.paths module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.common.paths.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.common.paths">
+<span id="gpf-common-paths-module"></span><h1>gpf.common.paths module<a class="headerlink" href="#module-gpf.common.paths" title="Permalink to this headline">¶</a></h1>
+<p>Module that simplifies working with file or directory paths.</p>
+<dl class="function">
+<dt id="gpf.common.paths.explode">
+<code class="descclassname">gpf.common.paths.</code><code class="descname">explode</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/gpf/common/paths.html#explode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.explode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits <em>path</em> into a <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of <em>(directory, name, extension)</em>.
+Depending on the input path, <em>extension</em> might be an empty string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> – The path that should be split.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">explode</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/test.gdb&#39;</span><span class="p">)</span>
+<span class="go">(&#39;C:\temp&#39;, &#39;test&#39;, &#39;.gdb&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">explode</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/folder&#39;</span><span class="p">)</span>
+<span class="go">(&#39;C:\temp&#39;, &#39;folder&#39;, &#39;&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.common.paths.normalize">
+<code class="descclassname">gpf.common.paths.</code><code class="descname">normalize</code><span class="sig-paren">(</span><em>path: str</em>, <em>casefold: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes a path and turns it into lowercase, unless <em>lowercase</em> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> – The path to normalize.</li>
+<li><strong>casefold</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), the path will be made case-insensitive (lowercase).
+If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the case remains unchanged.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.common.paths.join">
+<code class="descclassname">gpf.common.paths.</code><code class="descname">join</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Joins one or more paths together to create a complete path and normalizes it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> – One or more paths/parts.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.common.paths.get_abs">
+<code class="descclassname">gpf.common.paths.</code><code class="descname">get_abs</code><span class="sig-paren">(</span><em>path: str</em>, <em>base: str = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#get_abs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.get_abs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a normalized absolute path based on <em>path</em> relative to <em>base</em>. If <em>base</em> is not specified,
+the base will be the directory to the file path of the calling function, i.e. when a script ‘test.py’ calls
+make_absolute(), the directory which contains ‘test.py’ will be the base.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path</strong> – The relative path to turn into an absolute one.</li>
+<li><strong>base</strong> – The base path that serves as the ‘root’ of the relative path.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If the <em>base</em> path is <code class="docutils literal notranslate"><span class="pre">None</span></code> and no valid base directory was found using the caller path.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.common.paths.BasePathManager">
+<em class="property">class </em><code class="descclassname">gpf.common.paths.</code><code class="descname">BasePathManager</code><span class="sig-paren">(</span><em>path</em>, <em>base=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/common/paths.html#BasePathManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.BasePathManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base helper class for path management.</p>
+<p>For documentation, please refer to the <a class="reference internal" href="#gpf.common.paths.PathManager" title="gpf.common.paths.PathManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathManager</span></code></a> and
+<a class="reference internal" href="gpf.tools.workspace.html#gpf.tools.workspace.WorkspaceManager" title="gpf.tools.workspace.WorkspaceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.tools.workspace.WorkspaceManager</span></code></a> implementations.</p>
+<dl class="attribute">
+<dt id="gpf.common.paths.BasePathManager.exists">
+<code class="descname">exists</code><a class="headerlink" href="#gpf.common.paths.BasePathManager.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path exists (regardless of whether path is a file or directory).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.common.paths.BasePathManager.is_file">
+<code class="descname">is_file</code><a class="headerlink" href="#gpf.common.paths.BasePathManager.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path is an existing file.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.common.paths.BasePathManager.is_dir">
+<code class="descname">is_dir</code><a class="headerlink" href="#gpf.common.paths.BasePathManager.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path is an existing directory.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.paths.BasePathManager.extension">
+<code class="descname">extension</code><span class="sig-paren">(</span><em>keep_dot: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#BasePathManager.extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.BasePathManager.extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the extension part of the initial path.
+For directories or files without extension, an empty string is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keep_dot</strong> – When <code class="docutils literal notranslate"><span class="pre">False</span></code>, the extension’s trailing dot will be removed. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.paths.BasePathManager.basename">
+<code class="descname">basename</code><span class="sig-paren">(</span><em>keep_ext: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#BasePathManager.basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.BasePathManager.basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a file name (if initial path is a file) or a directory name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keep_ext</strong> – For files, setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code> will remove the file extension. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+Note that for directories, this might not have any effect.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.paths.BasePathManager.construct">
+<code class="descname">construct</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#BasePathManager.construct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.BasePathManager.construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new path based on the initial path from one or more parts (directories, file names).
+If the initial part seems to be a file path (i.e. when an extension is present),
+the constructed path will be based on the containing directory of this file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> – One or more directory names and/or a file name.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">PathManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pm</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="s1">&#39;folder&#39;</span><span class="p">,</span> <span class="s1">&#39;subfolder&#39;</span><span class="p">,</span> <span class="s1">&#39;myfile.txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\folder\subfolder\myfile.txt&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">PathManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/dummy.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pm</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="s1">&#39;folder&#39;</span><span class="p">,</span> <span class="s1">&#39;subfolder&#39;</span><span class="p">,</span> <span class="s1">&#39;myfile.txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\folder\subfolder\myfile.txt&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.common.paths.PathManager">
+<em class="property">class </em><code class="descclassname">gpf.common.paths.</code><code class="descname">PathManager</code><span class="sig-paren">(</span><em>path</em>, <em>{base}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/common/paths.html#PathManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.PathManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gpf.common.paths.BasePathManager" title="gpf.common.paths.BasePathManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.common.paths.BasePathManager</span></code></a></p>
+<p>Class that helps to extract the different parts of a file or directory path, or that helps construct new ones based
+upon an input path. Can also be used as a context manager using the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement.</p>
+<p>Note that <em>path</em> and <em>root</em> are never explicitly checked for existence.
+If the user wants to validate these paths, use the <a class="reference internal" href="#gpf.common.paths.PathManager.exists" title="gpf.common.paths.PathManager.exists"><code class="xref py py-func docutils literal notranslate"><span class="pre">exists()</span></code></a>, <a class="reference internal" href="#gpf.common.paths.PathManager.is_file" title="gpf.common.paths.PathManager.is_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_file()</span></code></a> or <a class="reference internal" href="#gpf.common.paths.PathManager.is_dir" title="gpf.common.paths.PathManager.is_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_dir()</span></code></a> properties.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> – The file or directory path on which to operate.</li>
+<li><strong>base</strong> – When set to a directory path, the <code class="docutils literal notranslate"><span class="pre">PathManager</span></code> assumes
+that <em>path</em> is relative to this <em>base</em> directory and will make <em>path</em> absolute.
+Otherwise, it will leave <em>path</em> unchanged (whether absolute or relative).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For Python 3, the built-in <code class="docutils literal notranslate"><span class="pre">pathlib</span></code> module is recommended over the <em>PathManager</em>.</p>
+</div>
+<dl class="method">
+<dt id="gpf.common.paths.PathManager.from_extension">
+<code class="descname">from_extension</code><span class="sig-paren">(</span><em>extension: str</em>, <em>force: bool = False</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#PathManager.from_extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.PathManager.from_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the initial path with an alternative file <em>extension</em>.
+If the initial path did not have an extension (e.g. when it is a directory),
+this function will return the initial unmodified path instead (and have no effect), unless <em>force</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>extension</strong> – New file extension (with or without trailing dot).</li>
+<li><strong>force</strong> – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, the extension will always be appended,
+even if the initial path is a directory. The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">PathManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/myfile.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pm</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">from_extension</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="go">C:\temp\myfile.log</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">PathManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/mydir&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pm</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">from_extension</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="go">C:\temp\mydir</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">from_extension</span><span class="p">(</span><span class="s1">&#39;gdb&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">C:\temp\mydir.gdb</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.paths.PathManager.basename">
+<code class="descname">basename</code><span class="sig-paren">(</span><em>keep_ext: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.common.paths.PathManager.basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a file name (if initial path is a file) or a directory name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keep_ext</strong> – For files, setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code> will remove the file extension. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+Note that for directories, this might not have any effect.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.paths.PathManager.construct">
+<code class="descname">construct</code><span class="sig-paren">(</span><em>*parts</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.common.paths.PathManager.construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new path based on the initial path from one or more parts (directories, file names).
+If the initial part seems to be a file path (i.e. when an extension is present),
+the constructed path will be based on the containing directory of this file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parts</strong> – One or more directory names and/or a file name.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">PathManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pm</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="s1">&#39;folder&#39;</span><span class="p">,</span> <span class="s1">&#39;subfolder&#39;</span><span class="p">,</span> <span class="s1">&#39;myfile.txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\folder\subfolder\myfile.txt&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">PathManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/dummy.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pm</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span><span class="s1">&#39;folder&#39;</span><span class="p">,</span> <span class="s1">&#39;subfolder&#39;</span><span class="p">,</span> <span class="s1">&#39;myfile.txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;C:\temp\folder\subfolder\myfile.txt&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.common.paths.PathManager.exists">
+<code class="descname">exists</code><a class="headerlink" href="#gpf.common.paths.PathManager.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path exists (regardless of whether path is a file or directory).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.paths.PathManager.extension">
+<code class="descname">extension</code><span class="sig-paren">(</span><em>keep_dot: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#gpf.common.paths.PathManager.extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the extension part of the initial path.
+For directories or files without extension, an empty string is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keep_dot</strong> – When <code class="docutils literal notranslate"><span class="pre">False</span></code>, the extension’s trailing dot will be removed. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="gpf.common.paths.PathManager.from_basename">
+<code class="descname">from_basename</code><span class="sig-paren">(</span><em>basename: str</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/gpf/common/paths.html#PathManager.from_basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.common.paths.PathManager.from_basename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the initial path with an alternative basename. This will work for both directories and files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>basename</strong> – The new basename. If basename contains an extension and the initial path is a file path
+that also had an extension, both the name and extension will be changed.
+If the initial path is a directory path,
+the directory name will simply be replaced by the basename.</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">PathManager</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:/temp/myfile.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pm</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">from_basename</span><span class="p">(</span><span class="s1">&#39;newfile&#39;</span><span class="p">)</span>
+<span class="go">C:\temp\newfile.txt</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pm</span><span class="o">.</span><span class="n">from_basename</span><span class="p">(</span><span class="s1">&#39;newfile.log&#39;</span><span class="p">)</span>
+<span class="go">C:\temp\newfile.log</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.common.paths.PathManager.is_dir">
+<code class="descname">is_dir</code><a class="headerlink" href="#gpf.common.paths.PathManager.is_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path is an existing directory.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gpf.common.paths.PathManager.is_file">
+<code class="descname">is_file</code><a class="headerlink" href="#gpf.common.paths.PathManager.is_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the initial path is an existing file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.common.textutils.html" class="btn btn-neutral float-right" title="gpf.common.textutils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.common.guids.html" class="btn btn-neutral float-left" title="gpf.common.guids module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

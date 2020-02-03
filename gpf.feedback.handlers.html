@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gpf.feedback.handlers module &mdash; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.feedback.loggers module" href="gpf.feedback.loggers.html" />
+    <link rel="prev" title="gpf.feedback.formatters module" href="gpf.feedback.formatters.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> gpf3
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gpf.html">gpf package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="gpf.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="gpf.common.html">gpf.common package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="gpf.feedback.html">gpf.feedback package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="gpf.feedback.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gpf.feedback.html#module-gpf.feedback">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gpf.tools.html">gpf.tools package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gpf.html#module-gpf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpf3</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="gpf.html">gpf package</a> &raquo;</li>
+        
+          <li><a href="gpf.feedback.html">gpf.feedback package</a> &raquo;</li>
+        
+      <li>gpf.feedback.handlers module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gpf.feedback.handlers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-gpf.feedback.handlers">
+<span id="gpf-feedback-handlers-module"></span><h1>gpf.feedback.handlers module<a class="headerlink" href="#module-gpf.feedback.handlers" title="Permalink to this headline">¶</a></h1>
+<p>This module contains Handlers for the ArcLogger and Logger classes.</p>
+<dl class="class">
+<dt id="gpf.feedback.handlers.FileLogHandler">
+<em class="property">class </em><code class="descclassname">gpf.feedback.handlers.</code><code class="descname">FileLogHandler</code><span class="sig-paren">(</span><em>filename</em>, <em>time_tag=True</em>, <em>encoding='cp1252'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/handlers.html#FileLogHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.handlers.FileLogHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.handlers.RotatingFileHandler</span></code></p>
+<p>Custom file handler that inherits from <code class="docutils literal notranslate"><span class="pre">RotatingFileHandler</span></code>.</p>
+<p>By default, the preferred system encoding is used (often set to CP1252 or UTF-8).</p>
+<p>When a <a class="reference internal" href="gpf.feedback.loggers.html#gpf.feedback.loggers.Logger" title="gpf.feedback.loggers.Logger"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.feedback.loggers.Logger</span></code></a> or <a class="reference internal" href="gpf.feedback.loggers.html#gpf.feedback.loggers.ArcLogger" title="gpf.feedback.loggers.ArcLogger"><code class="xref py py-class docutils literal notranslate"><span class="pre">gpf.feedback.loggers.ArcLogger</span></code></a> is set up with this
+file handler, new logger instances (e.g. in other modules or script) will use the same file handler if
+these loggers are initialized using the same <em>filename</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<em>str</em>) – Log file name or absolute or relative path to the log file.
+If <em>filename</em> does not have an extension, a <em>.log</em> extension will be added.
+If <em>filename</em> has an extension that does not equal <em>.txt</em> or <em>.log</em>, it will be set to <em>.log</em>.
+If <em>time_tag</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), a <em>_YYMMDD_HHMMSS</em> timestamp (current local time)
+will be added to the log file name automatically.
+If <em>filename</em> is just a name, the output directory will be set to the user temp directory.
+If <em>filename</em> is a relative path, it will be made absolute (relative to <code class="docutils literal notranslate"><span class="pre">os.curdir</span></code>).
+If <em>filename</em> is an absolute path, that path will be used as-is.
+If the log directory of <em>filename</em> does not exist, it will be created.</li>
+<li><strong>time_tag</strong> (<em>bool</em>) – If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), a _YYMMDD_HHMMSS timestamp will be appended to <em>filename</em>.
+When set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, <em>filename</em> will not receive a timestamp.</li>
+<li><strong>encoding</strong> (<em>str</em>) – The optional encoding to use for the output file. Defaults to the preferred system encoding.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The user must have write access to the specified output directory.</p>
+</div>
+<dl class="attribute">
+<dt id="gpf.feedback.handlers.FileLogHandler.identity">
+<code class="descname">identity</code><a class="headerlink" href="#gpf.feedback.handlers.FileLogHandler.identity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the “identity” of the <code class="docutils literal notranslate"><span class="pre">FileLogHandler</span></code>, which is the name or path that was used to instantiate it.</p>
+<p>Note that this often does not equal the path which the <code class="docutils literal notranslate"><span class="pre">FileLogHandler</span></code> is actually writing to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gpf.feedback.handlers.ArcLogHandler">
+<em class="property">class </em><code class="descclassname">gpf.feedback.handlers.</code><code class="descname">ArcLogHandler</code><span class="sig-paren">(</span><em>stream=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/handlers.html#ArcLogHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.handlers.ArcLogHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">logging.StreamHandler</span></code></p>
+<p>Custom log handler that writes to the standard stream (e.g. console) when the log level &gt;= _logging.DEBUG.
+The handler also sends messages to ArcGIS when the log level &gt;= _logging.INFO.</p>
+<dl class="method">
+<dt id="gpf.feedback.handlers.ArcLogHandler.emit">
+<code class="descname">emit</code><span class="sig-paren">(</span><em>record</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gpf/feedback/handlers.html#ArcLogHandler.emit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gpf.feedback.handlers.ArcLogHandler.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emit a record.
+Override of the original StreamHandler.emit() -&gt; see _logging.StreamHandler for documentation.
+Writes messages to ArcGIS for all log levels defined in __FUNC_MAP.
+Writes to stderr when the log level has been set to DEBUG.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gpf.feedback.loggers.html" class="btn btn-neutral float-right" title="gpf.feedback.loggers module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gpf.feedback.formatters.html" class="btn btn-neutral float-left" title="gpf.feedback.formatters module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
