@@ -82,7 +82,7 @@ class Describe(object):
 
     def __getattr__(self, name):
         """ Returns the property value of a Describe object item. """
-        return self._get(name)
+        return self.get(name)
 
     def __contains__(self, item):
         """ Checks if a Describe object has the specified property. """
@@ -93,14 +93,6 @@ class Describe(object):
         if self._obj:
             return True
         return False
-
-    def _get(self, name):
-        """ Behaves like the :func:`get` function below, but shows warning if an attribute is missing. """
-        if not hasattr(self._obj, name) and not name.startswith(_const.TEXT_DUNDER):
-            _warn('Describe object of type {} does not have a {} attribute'.
-                  format(_tu.to_repr(self.dataType), _tu.to_repr(name)), Warning)
-            return None
-        return getattr(self._obj, name)
 
     def get(self, name, default=None) -> _tp.Any:
         """
@@ -153,7 +145,6 @@ class Describe(object):
         If it returns ``None``, the object has not been successfully retrieved.
         """
         if not self:
-            _warn('{} object is empty'.format(_tu.to_repr(Describe.__name__)), Warning)
             return None
 
         return self._obj.dataType
@@ -164,7 +155,7 @@ class Describe(object):
         Returns the name of the dataset type (e.g. Table, FeatureClass etc.).
         If the described object is not a dataset, ``None`` is returned.
         """
-        return self._get(Describe._ATTR_DATASETTYPE)
+        return self.get(Describe._ATTR_DATASETTYPE)
 
     @property
     def shapeType(self) -> _tp.Union[None, str]:
@@ -173,7 +164,7 @@ class Describe(object):
         This will return 'Polygon', 'Polyline', 'Point', 'Multipoint' or 'MultiPatch'
         if the described object is a feature class, or ``None`` if it's not.
         """
-        return self._get(Describe._ATTR_SHAPETYPE)
+        return self.get(Describe._ATTR_SHAPETYPE)
 
     @property
     def fields(self) -> _tp.List[_arcpy.Field]:
@@ -181,7 +172,7 @@ class Describe(object):
         Returns a list of all ``Field`` objects (attributes) for this ``Describe`` object.
         If the described object is not a dataset, this will return an empty list.
         """
-        return self._get(Describe._ATTR_FIELDS) or []
+        return self.get(Describe._ATTR_FIELDS) or []
 
     @property
     def indexes(self) -> _tp.List[_arcpy.Index]:
@@ -189,7 +180,7 @@ class Describe(object):
         Returns a list of all ``Index`` objects (attribute indexes) for this ``Describe`` object.
         If the described object is not a dataset, this will return an empty list.
         """
-        return self._get(Describe._ATTR_INDEXES) or []
+        return self.get(Describe._ATTR_INDEXES) or []
 
     def get_fields(self, names_only: bool = True, uppercase: bool = False) -> _tp.List[_tp.Union[str, _arcpy.Field]]:
         """
@@ -221,7 +212,7 @@ class Describe(object):
         Returns an ``Extent`` object for this ``Describe`` element.
         If the described object is not a feature class, this will return an empty ``Extent``.
         """
-        return self._get(Describe._ATTR_EXTENT) or _arcpy.Extent()
+        return self.get(Describe._ATTR_EXTENT) or _arcpy.Extent()
 
     @property
     def spatialReference(self) -> _arcpy.SpatialReference:
@@ -229,7 +220,7 @@ class Describe(object):
         Returns a ``SpatialReference`` object for this ``Describe`` element.
         If the described object is not a feature class, this will return an empty ``SpatialReference``.
         """
-        return self._get(Describe._ATTR_SPATREF) or _arcpy.SpatialReference()
+        return self.get(Describe._ATTR_SPATREF) or _arcpy.SpatialReference()
 
     @property
     def isVersioned(self) -> bool:
@@ -237,7 +228,7 @@ class Describe(object):
         Returns ``True`` if the ``Describe`` element refers to a versioned dataset.
         If the described object is not a dataset or not versioned, this will return ``False``.
         """
-        return self._get(Describe._ATTR_VERSIONED) or False
+        return self.get(Describe._ATTR_VERSIONED) or False
 
     @property
     def is_pointclass(self) -> bool:
@@ -324,7 +315,7 @@ class Describe(object):
         Returns ``True`` if the described object is Z aware (i.e. is 3D).
         If the object is not a feature class or not Z aware, ``False`` is returned.
         """
-        return self._get(Describe._ATTR_ZAWARE) or False
+        return self.get(Describe._ATTR_ZAWARE) or False
 
     @property
     def hasM(self) -> bool:
@@ -332,7 +323,7 @@ class Describe(object):
         Returns ``True`` if the described object is M aware (i.e. has measures).
         If the object is not a feature class or not M aware, ``False`` is returned.
         """
-        return self._get(Describe._ATTR_MAWARE) or False
+        return self.get(Describe._ATTR_MAWARE) or False
 
     @property
     def globalIDFieldName(self) -> _tp.Union[str, None]:
@@ -340,7 +331,7 @@ class Describe(object):
         Global ID field name.
         Returns ``None`` if the field is missing or if the ``Describe`` object is not a dataset.
         """
-        return self._get(_const.DESC_FIELD_GLOBALID)
+        return self.get(_const.DESC_FIELD_GLOBALID)
 
     @property
     def OIDFieldName(self) -> _tp.Union[str, None]:
@@ -348,7 +339,7 @@ class Describe(object):
         Object ID field name.
         Returns ``None`` if the field is missing or if the ``Describe`` object is not a dataset.
         """
-        return self._get(_const.DESC_FIELD_OID)
+        return self.get(_const.DESC_FIELD_OID)
 
     @property
     def shapeFieldName(self) -> _tp.Union[str, None]:
@@ -356,7 +347,7 @@ class Describe(object):
         Perimeter or polyline length field name.
         Returns ``None`` if the field is missing or if the ``Describe`` object is not a dataset.
         """
-        return self._get(_const.DESC_FIELD_SHAPE)
+        return self.get(_const.DESC_FIELD_SHAPE)
 
     @property
     def lengthFieldName(self) -> _tp.Union[str, None]:
@@ -364,7 +355,7 @@ class Describe(object):
         Perimeter or polyline length field name.
         Returns ``None`` if the field is missing or if the ``Describe`` object is not a dataset.
         """
-        return self._get(_const.DESC_FIELD_LENGTH)
+        return self.get(_const.DESC_FIELD_LENGTH)
 
     @property
     def areaFieldName(self) -> _tp.Union[str, None]:
@@ -372,7 +363,7 @@ class Describe(object):
         Polygon area field name.
         Returns ``None`` if the field is missing or if the ``Describe`` object is not a dataset.
         """
-        return self._get(_const.DESC_FIELD_AREA)
+        return self.get(_const.DESC_FIELD_AREA)
 
     @property
     def rasterFieldName(self) -> _tp.Union[str, None]:
@@ -380,7 +371,7 @@ class Describe(object):
         Raster field name.
         Returns ``None`` if the field is missing or if the ``Describe`` object is not a dataset.
         """
-        return self._get(_const.DESC_FIELD_RASTER)
+        return self.get(_const.DESC_FIELD_RASTER)
 
     @property
     def subtypeFieldName(self) -> _tp.Union[str, None]:
@@ -388,4 +379,4 @@ class Describe(object):
         Subtype field name.
         Returns ``None`` if the field is missing or if the ``Describe`` object is not a dataset.
         """
-        return self._get(_const.DESC_FIELD_SUBTYPE)
+        return self.get(_const.DESC_FIELD_SUBTYPE)

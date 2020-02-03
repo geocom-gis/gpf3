@@ -19,6 +19,7 @@ This module provides a standardized alternative to the built-in Python Logger (`
 """
 
 import atexit as _ae
+import errno as _errno
 import logging as _logging
 import os as _os
 import sys
@@ -36,8 +37,6 @@ from gpf import arcpy as _arcpy
 
 _LOGLINE_LENGTH = 80
 _LOGNAME_LENGTH = 15
-_LOGLVL_CRITICAL = 'FATAL'
-_LOGLVL_WARNING = 'WARN'
 _LOG_FMT_LF = '%s\n'      # Default line-endings (i.e. Unix)
 _LOG_FMT_CRLF = '%s\r\n'  # Windows line-endings (carriage return)
 _LOG_STD_EXT = '.log'
@@ -46,8 +45,9 @@ _LOG_ALT_EXT = '.txt'
 # Supported log levels
 LOG_DEBUG = _logging.DEBUG
 LOG_INFO = _logging.INFO
-LOG_WARN = _logging.WARNING
+LOG_WARNING = _logging.WARNING
 LOG_ERROR = _logging.ERROR
+LOG_CRITICAL = _logging.CRITICAL
 
 
 class _FileLogHandler(_handlers.RotatingFileHandler):
@@ -62,8 +62,8 @@ class _FileLogHandler(_handlers.RotatingFileHandler):
 
     :param filename:    Log file name or absolute or relative path to the log file.
                         For more information, look at the :class:`gpf.loggers.Logger` documentation.
-    :param time_tag:    If set to ``True`` (default), a _YYMMDD_HHMMSS timestamp will be appended to *filename*.
-                        When set to ``False``, *filename* will not receive a timestamp.
+    :param time_tag:    If set to ``True``, a _YYMMDD_HHMMSS timestamp will be appended to *filename*.
+                        When set to ``False`` (default), *filename* will not receive a timestamp.
     :param encoding:    The optional encoding to use for the output file. Defaults to the preferred system encoding.
     :type filename:     str
     :type time_tag:     bool
@@ -72,35 +72,37 @@ class _FileLogHandler(_handlers.RotatingFileHandler):
     .. warning::        The user must have write access to the specified output directory.
     """
 
-    def __init__(self, filename, time_tag=True, encoding=_const.ENC_DEFAULT):
-        self._id, name = self._get_id_name(filename, time_tag)
-        self._make_dir(name)
-        super().__init__(name, encoding=encoding)
+    def __init__(self, filename, time_tag=False, encoding=_const.ENC_DEFAULT):
+        self._id, file_path = self._get_id_name(filename, time_tag)
+        super().__init__(file_path, encoding=encoding)
 
     @staticmethod
-    def _get_id_name(filename, time_tag=True) -> tuple:
+    def _get_id_name(filename, time_tag=False) -> tuple:
         """
         Returns a tuple with (file name/identity, file path) for the *filename* that was used to initialize
-        the ``_FileLogHandler``. By default, a timestamp will be added to *filename*.
+        the ``_FileLogHandler``. If *time_tag* is True, a timestamp will be added to *filename*.
         """
         name, ext = _os.path.splitext(filename)
         if ext.lower() not in (_LOG_STD_EXT, _LOG_ALT_EXT):
             ext = _LOG_STD_EXT
-        out_name = (name + _dt.now().strftime('_%Y%m%d_%H%M%S') + ext) if time_tag else (name + ext)
+        out_name = f'{name}{_dt.now().strftime("_%Y%m%d_%H%M%S")}{ext}' if time_tag else f'{name}{ext}'
         if not _os.path.isabs(out_name) and not _os.path.normpath(out_name).startswith(('..\\', '.\\')):
             # If the filename is not a relative path or just a name, prepend out_name with a temp directory path
             out_name = _os.path.join(_tf.gettempdir(), out_name)
         return filename, _os.path.realpath(out_name)
 
-    @staticmethod
-    def _make_dir(filename):
+    def _open(self):
         """
-        Creates the directory for the log file if it doesn't exist.
+        Override of the RotatingFileHandler._open() function.
+        Creates the directory for the log file if it doesn't exist without raising the faulty EEXIST error.
         Note that this could fail if the user does not have write/execute access.
         """
-        dirname = _os.path.dirname(filename)
-        if not _os.path.isdir(dirname):
-            _os.makedirs(dirname)
+        try:
+            _os.makedirs(_os.path.dirname(self.baseFilename))
+        except OSError as e:
+            if e.errno != _errno.EEXIST:
+                raise
+        return super()._open()
 
     @property
     def identity(self) -> str:
@@ -124,12 +126,10 @@ class _ArcLogHandler(_logging.StreamHandler):
     @property
     def _func_map(self):
         return {
-            _logging.WARN:     _arcpy.AddWarning,
-            _logging.WARNING:  _arcpy.AddWarning,
-            _logging.ERROR:    _arcpy.AddError,
-            _logging.FATAL:    _arcpy.AddError,
-            _logging.CRITICAL: _arcpy.AddError,
-            _logging.INFO:     _arcpy.AddMessage
+            LOG_WARNING:    _arcpy.AddWarning,
+            LOG_ERROR:      _arcpy.AddError,
+            LOG_CRITICAL:   _arcpy.AddError,
+            LOG_INFO:       _arcpy.AddMessage
         }
 
     def emit(self, record):
@@ -145,9 +145,8 @@ class _ArcLogHandler(_logging.StreamHandler):
             msg = self.format(record)
             level = record.levelno
             arc_func = self._func_map.get(level)
-            debug_mode = level == _logging.DEBUG
 
-            if debug_mode:
+            if level == LOG_DEBUG:
                 # Only write to stderr when the message has a DEBUG log level
                 super().emit(record)
 
@@ -175,7 +174,7 @@ class _FileLogFormatter(_logging.Formatter):
 
     def __init__(self, logname_length: int = _LOGNAME_LENGTH):
         self._name_max = logname_length
-        fmt_l = '[%(asctime)s | %(levelname)-5.5s | %(name)s] %(message)s'
+        fmt_l = '[%(asctime)s | %(levelname)-8.8s | %(name)s] %(message)s'
         fmt_d = '%d.%m.%Y | %H:%M:%S'
         super().__init__(fmt_l, fmt_d)
 
@@ -205,11 +204,9 @@ class _StreamFormatter(_logging.Formatter):
     def format(self, record):
         """ Format the specified record as text. Overrides the built-in logging.Formatter.format(). """
         self._fmt = self._fmt_def
-        if record.levelno >= _logging.WARN:
-            # only display log level if it's WARN or higher
+        if record.levelno >= LOG_WARNING:
+            # only display log level if it's WARNING or higher
             self._fmt = self._fmt_lvl
-            if record.levelname == _logging.getLevelName(_logging.WARN):
-                record.levelname = 'WARNING'
 
         return super().format(record)
 
@@ -279,10 +276,6 @@ class Logger(object):
             # Logger exists. Check if (another)
             self._set_filehandler(self._log)
             return self._log
-
-        # Add custom log level names (if not added already)
-        _logging.addLevelName(_logging.CRITICAL, _LOGLVL_CRITICAL)
-        _logging.addLevelName(_logging.WARNING, _LOGLVL_WARNING)
 
         # Get basic console logger and attach stream handler
         logger = _logging.getLogger(self._name)
@@ -364,58 +357,54 @@ class Logger(object):
             return fh.baseFilename
         return None
 
-    def info(self, message: str, *args, **kwargs):
+    def info(self, message: str, **kwargs):
         """
         Writes an info/standard message.
 
         :param message: The text to write.
-        :param args:    Optional values for `message` placeholders.
         :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).
         """
-        self._process_msg(LOG_INFO, message, *args, **kwargs)
+        self._process_msg(LOG_INFO, message, **kwargs)
 
-    def warn(self, message: str, *args, **kwargs):
+    def warning(self, message: str, **kwargs):
         """
         Writes a warning message and increments the warning counter. Multi-line messages count as 1 warning.
 
         :param message: The text to write.
-        :param args:    Optional values for `message` placeholders.
         :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).
         """
-        self._process_msg(LOG_WARN, message, *args, **kwargs)
+        self._process_msg(LOG_WARNING, message, **kwargs)
         self._num_warn += 1
 
-    def error(self, message: str, *args, **kwargs):
+    def error(self, message: str, **kwargs):
         """
         Writes an error message and increments the error counter. Multi-line messages count as 1 error.
 
         :param message: The text to write.
-        :param args:    Optional values for `message` placeholders.
         :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).
         """
-        self._process_msg(LOG_ERROR, message, *args, **kwargs)
+        self._process_msg(LOG_ERROR, message, **kwargs)
         self._num_err += 1
 
-    def fatal(self, message: str, *args, **kwargs):
+    def critical(self, message: str, **kwargs):
         """
-        Writes a fatal error message and increments the error counter. Multi-line messages count as 1 error.
+        Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.
 
         :param message: The text to write.
-        :param args:    Optional values for `message` placeholders.
         :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).
         """
-        self._process_msg(_logging.FATAL, message, *args, **kwargs)
+        self._process_msg(LOG_CRITICAL, message, **kwargs)
         self._num_err += 1
 
-    def exception(self, message: _tp.Union[str, Exception], *args, **kwargs):
+    def exception(self, message: _tp.Union[str, Exception], **kwargs):
         """
-        Writes a fatal error message and increments the error counter. Multi-line messages count as 1 error.
+        Writes a critical error message and increments the error counter. Multi-line messages count as 1 error.
 
         :param message: The text to write.
-        :param args:    Optional values for `message` placeholders.
+        :param kwargs:  Optional arguments (e.g. `exc_info=True` for exception stack trace logging).
         """
         if self._log:
-            self._log.exception(message, *args, **kwargs)
+            self._log.exception(message, **kwargs)
         else:
             # Write to stderr if no logger was initialized
             print(message, file=sys.stderr)
@@ -430,6 +419,9 @@ class Logger(object):
         :param max_length:      The maximum length of the line.
         :param symbol:          The character to generate the line.
         """
+        if not self._log:
+            self._log = self._get_logger()
+        max_length -= len(self._log.name)
         msg_length = len(message)
         if msg_length < max_length - 2:
             fill_char = _const.CHAR_SPACE   # default separator between line and message
@@ -448,7 +440,7 @@ class Logger(object):
             >>> l = Logger('test')
             >>> l.error('message')
             ERROR: message
-            >>> l.warn('message')
+            >>> l.warning('message')
             WARNING: message
             >>> l.status()
             Logged 1 error and 1 warning.
@@ -475,9 +467,9 @@ class Logger(object):
             _vld.pass_if(callable(func), TypeError, "'func' attribute must be a callable")
             start = _dt.now()
             func(*args, **kwargs)
-            self.info('%s() executed in %s', func.__name__, _tu.format_timedelta(start))
+            self.info(f'{func.__name__}() executed in {_tu.format_timedelta(start)}')
         else:
-            self.info('Time elapsed: %s', _tu.format_timedelta(self._tstart))
+            self.info(f'Time elapsed: {_tu.format_timedelta(self._tstart)}')
 
     def reset_stats(self, time: bool = True):
         """
@@ -491,7 +483,7 @@ class Logger(object):
         self._num_warn = 0
         self._num_err = 0
 
-    def quit(self, error_msg: _tp.Union[str, Exception, None] = None):
+    def quit(self, error_msg: _tp.Union[Exception, str] = None):
         """
         Releases the current logger and shuts down the (main) logger.
 
@@ -502,7 +494,10 @@ class Logger(object):
                             automatically being called once the user application has exited.
         """
         if error_msg:
-            self.exception(error_msg)
+            if isinstance(error_msg, Exception):
+                self.exception(error_msg)
+            else:
+                self.critical(error_msg)
         self._close_handlers()
         self._log = None
 
@@ -527,7 +522,7 @@ class ArcLogger(Logger):
 
         - If *log_file* does not have an extension, a *.log* extension will be added.
         - If *log_file* has an extension, but it's not *.txt* or *.log*, it will be reset to *.log*.
-        - If *time_tag* is ``True`` (default), a *_YYMMDD_HHMMSS* timestamp (current local time) \
+        - If *time_tag* is ``True`` (default = ``False``), a *_YYMMDD_HHMMSS* timestamp (current local time) \
           will be added to the log file name automatically.
         - If *log_file* is just a name, the output directory will be set to the user temp directory.
         - If *log_file* is a relative path, it will be made absolute (relative to ``os.curdir``).
@@ -552,7 +547,7 @@ class ArcLogger(Logger):
 
     -   **time_tag** (bool):
 
-        When set to ``True`` (default), a timestamp will be appended to the log file name.
+        When set to ``True`` (default = ``False``), a timestamp will be appended to the log file name.
     """
 
     def __init__(self, identity: str, log_file=None, level: int = LOG_INFO, **options):
