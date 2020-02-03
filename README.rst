@@ -1,7 +1,7 @@
 Welcome to the Geocom Python Framework (GPF)
 ============================================
 
-|build| |issues| |docs|
+|build| |issues| |repo|
 
 .. |build| image:: https://img.shields.io/appveyor/ci/geocom/gpf3?logo=appveyor
     :alt: AppVeyor
@@ -11,9 +11,8 @@ Welcome to the Geocom Python Framework (GPF)
     :alt: GitHub issues
     :target: https://github.com/geocom-gis/gpf3/issues
 
-.. |docs| image:: https://img.shields.io/readthedocs/gpf3?logo=read%20the%20docs
-    :alt: Documentation
-    :target: https://geocom-gis.github.io/gpf3/
+.. |repo| image:: https://img.shields.io/github/repo-size/geocom-gis/gpf3
+    :alt: GitHub repo size
 
 Purpose
 -------
