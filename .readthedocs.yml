@@ -8,7 +8,7 @@ version: 2
 # Build documentation in the sphinx/ directory with Sphinx
 sphinx:
   builder: html
-  configuration: sphinx/conf.py
+  configuration: docs/conf.py
 
 # Build sphinx in additional formats such as PDF and ePub
 formats:

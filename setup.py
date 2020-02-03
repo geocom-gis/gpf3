@@ -25,7 +25,7 @@ def read(fname):
 tests_require = ['pytest', 'pytest-cov', 'mock', 'pytest-mock']
 setup(
         name='gpf3',
-        packages=find_packages(exclude=('tests', 'sphinx', 'docs')),
+        packages=find_packages(exclude=('tests', 'docs')),
         use_scm_version=True,
         setup_requires=['setuptools_scm'],
         license='Apache License 2.0',
