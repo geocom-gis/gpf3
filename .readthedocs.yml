@@ -5,12 +5,12 @@
 # Required
 version: 2
 
-# Build documentation in the docs/ directory with Sphinx
+# Build documentation in the sphinx/ directory with Sphinx
 sphinx:
   builder: html
-  configuration: docs/conf.py
+  configuration: sphinx/conf.py
 
-# Build docs in additional formats such as PDF and ePub
+# Build sphinx in additional formats such as PDF and ePub
 formats:
   - pdf
 

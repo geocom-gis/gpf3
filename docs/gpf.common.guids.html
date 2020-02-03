@@ -1,0 +1,167 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gpf.common.guids module &#8212; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+    <link rel="stylesheet" href="static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.common.textutils module" href="gpf.common.textutils.html" />
+    <link rel="prev" title="gpf.common.const module" href="gpf.common.const.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.common.textutils.html" title="gpf.common.textutils module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gpf.common.const.html" title="gpf.common.const module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.common.html" accesskey="U">gpf.common package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gpf.common.guids">
+<span id="gpf-common-guids-module"></span><h1>gpf.common.guids module<a class="headerlink" href="#module-gpf.common.guids" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the <a class="reference internal" href="#gpf.common.guids.Guid" title="gpf.common.guids.Guid"><code class="xref py py-class docutils literal notranslate"><span class="pre">Guid</span></code></a> class, which inherits from Pythons built-in <code class="docutils literal notranslate"><span class="pre">UUID</span></code> class.
+It helps validating existing GUIDs (e.g. GlobalID’s) and can generate new ones. It also helps formatting the GUID
+for use in SQL queries.</p>
+<dl class="class">
+<dt id="gpf.common.guids.Guid">
+<em class="property">class </em><code class="descclassname">gpf.common.guids.</code><code class="descname">Guid</code><span class="sig-paren">(</span><em>value=None</em>, <em>allow_new: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.common.guids.Guid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">uuid.UUID</span></code></p>
+<p>Takes a UUID-like string or object as input and validates it. Can also be used to generate a new GUID.
+The <cite>Guid</cite> class inherits from the Python built-in UUID.</p>
+<p><strong>Params:</strong></p>
+<ul>
+<li><p class="first"><strong>value</strong> (object):</p>
+<p>The value to parse as a GUID. Must be set if <em>allow_new</em> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</li>
+<li><p class="first"><strong>allow_new</strong> (bool):</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> and <em>value</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, a new GUID will be generated.
+The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>, which means that an exception will be raised if <em>value</em> is not set.</p>
+</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gpf.tools.Guid.MissingGuidError</strong> – This exception is raised when <em>allow_new</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and <em>value</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+<li><strong>gpf.tools.Guid.BadGuidError</strong> – This exception is raised when <em>value</em> cannot be parsed to a GUID.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Guid</span><span class="p">(</span><span class="n">allow_new</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Guid(&#39;459b46ce-6370-48ae-b3cc-220026d49ec2&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">guid</span> <span class="o">=</span> <span class="n">Guid</span><span class="p">(</span><span class="s1">&#39;{459b46ce-6370-48ae-b3cc-220026d49ec2}&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">guid</span><span class="p">)</span>  <span class="c1"># this returns the GUID for Esri SQL expressions</span>
+<span class="go">&#39;{459B46CE-6370-48AE-B3CC-220026D49EC2}&#39;</span>
+</pre></div>
+</div>
+<dl class="exception">
+<dt id="gpf.common.guids.Guid.MissingGuidError">
+<em class="property">exception </em><code class="descname">MissingGuidError</code><a class="headerlink" href="#gpf.common.guids.Guid.MissingGuidError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
+<p>This exception is raised when <code class="docutils literal notranslate"><span class="pre">Guid</span></code> is initialized without a <em>value</em>, while <em>allow_new</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+which is the default. Either set a <em>value</em> or set <em>allow_new</em> to <code class="docutils literal notranslate"><span class="pre">True</span></code> to prevent this error.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gpf.common.guids.Guid.BadGuidError">
+<em class="property">exception </em><code class="descname">BadGuidError</code><a class="headerlink" href="#gpf.common.guids.Guid.BadGuidError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<p>This exception is raised when the GUID string cannot be successfully parsed to a valid UUID-like object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gpf.common.const.html"
+                        title="previous chapter">gpf.common.const module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gpf.common.textutils.html"
+                        title="next chapter">gpf.common.textutils module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gpf.common.guids.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.common.textutils.html" title="gpf.common.textutils module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gpf.common.const.html" title="gpf.common.const module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.common.html" >gpf.common package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>

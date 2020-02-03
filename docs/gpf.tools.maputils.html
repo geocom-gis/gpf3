@@ -1,0 +1,304 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gpf.tools.maputils module &#8212; gpf3 0.1.dev8+gd123c1c.d20191007 documentation</title>
+    <link rel="stylesheet" href="static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gpf.tools.metadata module" href="gpf.tools.metadata.html" />
+    <link rel="prev" title="gpf.tools.geometry module" href="gpf.tools.geometry.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.metadata.html" title="gpf.tools.metadata module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.geometry.html" title="gpf.tools.geometry module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.tools.html" accesskey="U">gpf.tools package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gpf.tools.maputils">
+<span id="gpf-tools-maputils-module"></span><h1>gpf.tools.maputils module<a class="headerlink" href="#module-gpf.tools.maputils" title="Permalink to this headline">¶</a></h1>
+<p>Module that simplifies working with layers in ArcMap.</p>
+<dl class="function">
+<dt id="gpf.tools.maputils.get_mxd">
+<code class="descclassname">gpf.tools.maputils.</code><code class="descname">get_mxd</code><span class="sig-paren">(</span><em>path: str = None</em><span class="sig-paren">)</span> &#x2192; _arcpy.mapping.MapDocument<a class="headerlink" href="#gpf.tools.maputils.get_mxd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a MapDocument instance for the given MXD path.
+If <em>path</em> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the current map document is retrieved. This will only work when this function is called
+by a script running within the context of ArcMap.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> – Path to the MXD or <code class="docutils literal notranslate"><span class="pre">None</span></code>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><strong>ValueError</strong> – If the MXD was not found or could not be read.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/mapdocument-class.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/mapdocument-class.htm</a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.maputils.find_dataframe">
+<code class="descclassname">gpf.tools.maputils.</code><code class="descname">find_dataframe</code><span class="sig-paren">(</span><em>mxd: _arcpy.mapping.MapDocument</em>, <em>name: str = None</em>, <em>case_sensitive: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#gpf.tools.maputils.find_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a data frame by its (case-insensitive) name in the given ArcMap document (MXD) and returns it.
+If no <em>name</em> is specified, the active data frame in the given Map Document is returned.
+If no data frame was found at all, <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned. This can only happen, when looking for a specific <em>name</em>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mxd</strong> – A <code class="xref py py-class docutils literal notranslate"><span class="pre">arcpy.mapping.MapDocument</span></code> instance.</li>
+<li><strong>name</strong> – The name of the data frame to search for.</li>
+<li><strong>case_sensitive</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the data frame name needs to match exactly.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), the data frame character case is ignored.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">arcpy._mapping.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/dataframe-class.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/dataframe-class.htm</a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.maputils.find_layer">
+<code class="descclassname">gpf.tools.maputils.</code><code class="descname">find_layer</code><span class="sig-paren">(</span><em>name: str</em>, <em>mxd: Union[str</em>, <em>_arcpy.mapping.MapDocument] = None</em>, <em>dataframe: str = None</em>, <em>case_sensitive: bool = False</em><span class="sig-paren">)</span> &#x2192; _arcpy.mapping.Layer<a class="headerlink" href="#gpf.tools.maputils.find_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a <strong>single</strong> layer by its (case-insensitive) name in the specified ArcMap document (or current one).
+If the layer was not found, <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> – Name of the layer to find.
+If the layer name exists multiple times in different group layers,
+you can prefix the layer with the group layer name followed by a forward slash (/).</li>
+<li><strong>mxd</strong> – The path to the ArcMap Document (MXD) or a MapDocument instance in which to find the layer.
+If no MXD is specified, the search will take place in the current MXD (if any).</li>
+<li><strong>dataframe</strong> – The name of the data frame in which to find the layer.
+If no data frame is specified and/or there is only 1 data frame,
+the search will take place in the active data frame.</li>
+<li><strong>case_sensitive</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the layer name needs to match exactly.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), the layer character case is ignored.
+Note that this setting also affects the <em>dataframe</em> argument, when specified.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If no layer name was specified, or if no map document was found.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.maputils.find_layers">
+<code class="descclassname">gpf.tools.maputils.</code><code class="descname">find_layers</code><span class="sig-paren">(</span><em>wildcard: str = None</em>, <em>mxd: Union[str</em>, <em>_arcpy.mapping.MapDocument] = None</em>, <em>dataframe: str = None</em><span class="sig-paren">)</span> &#x2192; List[_arcpy.mapping.Layer]<a class="headerlink" href="#gpf.tools.maputils.find_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds <strong>all</strong> layers that match a certain wild card expression in the specified ArcMap document (or current one).
+All matching layers are returned as a list of Layer instances. If no layers were found, an empty list is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>wildcard</strong> – Layer name search string (with wild card characters).
+Unlike the <a class="reference internal" href="#gpf.tools.maputils.find_layer" title="gpf.tools.maputils.find_layer"><code class="xref py py-func docutils literal notranslate"><span class="pre">find_layer()</span></code></a> method, it is <strong>not</strong> possible to use a group layer prefix here.
+Furthermore, the search string is case sensitive.
+If this value is not specified, all layers in the map document will be returned.</li>
+<li><strong>mxd</strong> – The path to the ArcMap Document (MXD) or a MapDocument instance in which to find the layer(s).
+If no MXD is specified, the search will take place in the current MXD (if any).</li>
+<li><strong>dataframe</strong> – The case-insensitive name of the data frame in which to find the layer(s).
+If no data frame is specified and/or there is only 1 data frame,
+the search will take place in the active data frame.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If no map document was found.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.maputils.get_referenced_layers">
+<code class="descclassname">gpf.tools.maputils.</code><code class="descname">get_referenced_layers</code><span class="sig-paren">(</span><em>dataset_path: str</em>, <em>mxd: Union[str</em>, <em>_arcpy.mapping.MapDocument] = None</em>, <em>dataframe: str = None</em>, <em>strict: bool = True</em><span class="sig-paren">)</span> &#x2192; List[_arcpy.mapping.Layer]<a class="headerlink" href="#gpf.tools.maputils.get_referenced_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all layers in which <em>dataset_path</em> is used as the data source.
+The search takes place in the specified <em>mxd</em> (or current one) in the given <em>dataframe</em> (or active one).
+All matching layers are returned as a list of Layer instances. If no layers were found, an empty list is returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset_path</strong> – The full path to the dataset (e.g. feature class, table) to find.
+The path is case-insensitive, but if the layer data source is expected to have
+database qualifiers, these should be included as well, unless <em>strict</em> is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+<li><strong>mxd</strong> – An optional path of the ArcMap document (MXD) to search through.
+If no MXD is specified, the search will take place in the current MXD.</li>
+<li><strong>dataframe</strong> – The case-insensitive name of the data frame in which to find the layer(s).
+If no data frame is specified and/or there is only 1 data frame,
+the search will take place in the active data frame.</li>
+<li><strong>strict</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default) the case-insensitive data source path of the layer needs
+to exactly match the <em>dataset_path</em>. For SDE connections, this could mean that the data
+source will never be found. If <em>strict</em> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, only the feature class name
+(and feature dataset name, if applicable) is matched.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – If no map document was found.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</a></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="gpf.tools.maputils.get_layer_selection">
+<code class="descclassname">gpf.tools.maputils.</code><code class="descname">get_layer_selection</code><span class="sig-paren">(</span><em>layer: Union[str, _arcpy.mapping.Layer], mxd: Union[str, _arcpy.mapping.MapDocument] = None, dataframe: str = None, case_sensitive: bool = False</em><span class="sig-paren">)</span> &#x2192; set<a class="headerlink" href="#gpf.tools.maputils.get_layer_selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <code class="docutils literal notranslate"><span class="pre">set</span></code> of selected Object ID’s for the given layer name or Layer instance.
+Note that this might return an empty set if no features or rows are selected for the given layer.
+This behaviour is different from the standard call to <code class="xref py py-func docutils literal notranslate"><span class="pre">getSelectionSet()</span></code> on an ArcMap <code class="docutils literal notranslate"><span class="pre">Layer</span></code> object:
+if no selection is present, arcpy returns <code class="docutils literal notranslate"><span class="pre">None</span></code> instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>layer</strong> – Layer instance or the name of the layer for which to get the selected Object ID’s.
+If the layer name exists multiple times in different group layers,
+you can prefix the layer with the group layer name followed by a forward slash (/).
+If a Layer instance is used as input, all other arguments are ignored and
+the selection set is returned immediately.</li>
+<li><strong>mxd</strong> – The path to the ArcMap Document (MXD) or a MapDocument instance in which to find the layer.
+If no MXD is specified, the search will take place in the current MXD (if any).</li>
+<li><strong>dataframe</strong> – The name of the data frame in which to find the layer.
+If no data frame is specified and/or there is only 1 data frame,
+the search will take place in the active data frame.</li>
+<li><strong>case_sensitive</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the layer name needs to match exactly.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), the layer character case is ignored.
+Note that this setting also affects the <em>dataframe</em> argument, when specified.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm">https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-mapping/layer-class.htm</a></p>
+</div>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gpf.tools.geometry.html"
+                        title="previous chapter">gpf.tools.geometry module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gpf.tools.metadata.html"
+                        title="next chapter">gpf.tools.metadata module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gpf.tools.maputils.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.metadata.html" title="gpf.tools.metadata module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gpf.tools.geometry.html" title="gpf.tools.geometry module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">gpf3 0.1.dev8+gd123c1c.d20191007 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="gpf.html" >gpf package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="gpf.tools.html" >gpf.tools package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocom Informatik AG / VertiGIS, Burgdorf, Switzerland.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.
+    </div>
+  </body>
+</html>
