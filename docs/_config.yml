@@ -1,3 +1,5 @@
 remote_theme: readthedocs/sphinx_rtd_theme
 include:
   - _static/
+
+theme: jekyll-theme-slate
