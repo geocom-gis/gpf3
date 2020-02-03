@@ -11,7 +11,4 @@
 /dist/
 /*.egg-info
 /.eggs/
-*.inv
-.buildinfo
-/build/bdist.*/
-/build/lib/
+/build/
