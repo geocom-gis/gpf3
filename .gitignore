@@ -7,9 +7,11 @@
 .idea/
 .pytest_cache/
 
-# Setuptools/metadata/Sphinx folders
+# Setuptools/Sphinx build folders
 /dist/
 /*.egg-info
 /.eggs/
 *.inv
 .buildinfo
+/build/bdist.*/
+/build/lib/
