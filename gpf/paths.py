@@ -503,6 +503,9 @@ class Workspace(Path):
         if len(parts) != 2:
             return
         ds, fc = parts
+        if not ds:
+            # Feature class (or table) is not inside a dataset: no need to map
+            return
         fc_key = unqualify(fc.lower())
         fc_values = lookup.setdefault(fc_key, [])
         fc_values.append(self.qualify(ds))

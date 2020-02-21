@@ -160,6 +160,8 @@ def test_workspace_gdb():
     assert ws.root == paths.Workspace('C:\\temp\\test.gdb')
     assert ws.qualifier == ''
     assert ws.separator == ''
+    assert ws.make_path('test_table') == 'C:\\temp\\test.gdb\\test_table'
+    assert ws.make_path('', 'root_fc') == 'C:\\temp\\test.gdb\\root_fc'
     assert ws.make_path('ele', 'ele_kabel') == 'C:\\temp\\test.gdb\\ele\\ele_kabel'
     ws = paths.Workspace('C:\\temp\\test.gdb')
     assert not ws.exists
